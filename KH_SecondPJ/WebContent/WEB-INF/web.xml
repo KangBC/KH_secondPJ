@@ -11,15 +11,6 @@
   </welcome-file-list>
   
   <servlet>
-	  <servlet-name>BbsController</servlet-name>
-	  <servlet-class>Controller.BbsController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	  <servlet-name>BbsController</servlet-name>
-	  <url-pattern>/BbsController</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
 	  <servlet-name>MemberController</servlet-name>
 	  <servlet-class>Controller.MemberController</servlet-class>
   </servlet>
@@ -44,6 +35,15 @@
   <servlet-mapping>
 	  <servlet-name>ReservController</servlet-name>
 	  <url-pattern>/ReservController</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	  <servlet-name>PdsController</servlet-name>
+	  <servlet-class>Controller.PdsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	  <servlet-name>PdsController</servlet-name>
+	  <url-pattern>/PdsController</url-pattern>
   </servlet-mapping>
   
 </web-app>

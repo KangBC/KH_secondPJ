@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.btn{
+		width: 100%; 
+		outline: 0; 
+		border: 0; 
+		padding: 15px; 
+		margin: 15px 0 15px; 
+		background:#f2f2f2; 
+		font-size: 14px; 
+		cursor: pointer;
+		box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.24);
+}
+
+.btn:active{
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.24);
+}
+
+#loginDiv, #registDiv{
+	background:#ffffff99; 
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); 
+	max-width: 360px; 
+	margin: 15% auto 0; 
+	padding: 45px; 
+	text-align: center;  
+}
+
+
+#loginDiv a{
+	color:black;
+	display: block;
+	text-align: right;
+	text-decoration: none;
+	font-size: 3px;
+}
+
+#loginDiv a:visited{
+	color:black;
+}
+
+
+.loginTB, .registTB{
+	width:100%; 
+	outline: 0; 
+	background: #f2f2f2; 
+	border: 0; 
+	padding: 15px; 
+	margin: 0 0 15px; 
+	box-sizing: border-box;
+}
+
