@@ -5,12 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../CSS/Member.css"/>
-<title>Insert title here</title>
+<title>로그인</title>
 </head>
 <body>
 
 <div id=loginDiv>
 <form>
+	<input type="hidden" name="command" value="">
 	<input class=loginTB type="text" placeholder="ID" >
 	<input class=loginTB type="password" placeholder="PASSWORD">
 	<input class=btn type="submit" value="Login">

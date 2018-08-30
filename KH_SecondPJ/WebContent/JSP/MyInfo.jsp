@@ -4,9 +4,43 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../CSS/Member.css"/>
+<title>내 정보</title>
 </head>
 <body>
+
+<div id=myInfoDiv>
+<form action="">
+	<input type="hidden" name="command" value="">
+<table>
+	<tr>
+		<td>
+			<label>ID:</label>
+		</td>
+		<td>
+			<input class=myInfoTB type="text" name="id" value="" readonly="readonly" style="cursor: default;">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label></label>
+		</td>
+		<td>
+			<input class=myInfoTB type="text" name="name" placeholder="NAME">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label></label>
+		</td>
+		<td>
+			<input class=myInfoTB type="text" name="email" placeholder="E-MAIL">
+		</td>
+	</tr>
+</table>
+<input class="btn" type="submit" value="수정">
+</form>
+</div>
 
 </body>
 </html>
