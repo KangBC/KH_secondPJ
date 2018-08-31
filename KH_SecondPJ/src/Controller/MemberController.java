@@ -7,6 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import Dao.MemberDao;
+import Dto.MemberDto;
 
 public class MemberController extends HttpServlet{
 
@@ -19,7 +23,29 @@ public class MemberController extends HttpServlet{
 	}
 	
 	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		resp.setContentType("text/html; charset=utf-8");
 		
+		MemberDao memberDao = MemberDao.getInstance();
+		
+		String command = req.getParameter("command");
+		
+		if(command.equals("login")) {
+			String id = req.getParameter("id");
+			String pw = req.getParameter("pw");
+			
+			MemberDto member = memberDao.Login(id, pw);
+			
+			HttpSession session = req.getSession(true);
+			session.setAttribute("member", member);
+			session.setMaxInactiveInterval(30*60);
+			
+			dispatch("JSP/About.jsp", req, resp);
+		}else if(command.equals("")) {
+			
+		}else if(command.equals("")) {
+			
+		}
 	}
 
 	public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{

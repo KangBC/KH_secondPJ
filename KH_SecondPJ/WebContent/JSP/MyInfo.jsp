@@ -15,7 +15,7 @@
 <table>
 	<tr>
 		<td>
-			<label>ID:</label>
+			<label>ID</label>
 		</td>
 		<td>
 			<input class=myInfoTB type="text" name="id" value="" readonly="readonly" style="cursor: default;">
@@ -23,18 +23,26 @@
 	</tr>
 	<tr>
 		<td>
-			<label></label>
+			<label>이름</label>
 		</td>
 		<td>
-			<input class=myInfoTB type="text" name="name" placeholder="NAME">
+			<input class=myInfoTB type="text" name="name" >
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<label></label>
+			<label>전화번호</label>
 		</td>
 		<td>
-			<input class=myInfoTB type="text" name="email" placeholder="E-MAIL">
+			<input class=myInfoTB type="text" name="email" >
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label>e-mail</label>
+		</td>
+		<td>
+			<input class=myInfoTB type="text" name="email" >
 		</td>
 	</tr>
 </table>

@@ -10,16 +10,14 @@
 <body>
 
 <div id=loginDiv>
-<form>
-	<input type="hidden" name="command" value="">
-	<input class=loginTB type="text" placeholder="ID" >
-	<input class=loginTB type="password" placeholder="PASSWORD">
+<form action="../MemberController">
+	<input type="hidden" name="command" value="login">
+	<input class=loginTB type="text" name="id" placeholder="ID" >
+	<input class=loginTB type="password" name="pw" placeholder="PASSWORD">
 	<input class=btn type="submit" value="Login">
 </form>
-<a href="">회원가입</a>
+<a href="Regi.jsp">회원가입</a>
 </div>
-
-
 
 </body>
 </html>
