@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-  <display-name>KH_Wedding</display-name>
+  <display-name>KH_SecondPJ</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -9,15 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <servlet>
-	  <servlet-name>BbsController</servlet-name>
-	  <servlet-class>Controller.BbsController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	  <servlet-name>BbsController</servlet-name>
-	  <url-pattern>/BbsController</url-pattern>
-  </servlet-mapping>
   
   <servlet>
 	  <servlet-name>MemberController</servlet-name>
@@ -44,6 +35,15 @@
   <servlet-mapping>
 	  <servlet-name>ReservController</servlet-name>
 	  <url-pattern>/ReservController</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	  <servlet-name>PdsController</servlet-name>
+	  <servlet-class>Controller.PdsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	  <servlet-name>PdsController</servlet-name>
+	  <url-pattern>/PdsController</url-pattern>
   </servlet-mapping>
   
 </web-app>

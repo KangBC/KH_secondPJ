@@ -24,7 +24,7 @@ public class PdsController extends HttpServlet {
 
 	public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		RequestDispatcher dispatch = req.getRequestDispatcher(urls);
-		
+		System.out.println("컴퓨터갖다버려");
 		dispatch.forward(req, resp);
 	}
 }
