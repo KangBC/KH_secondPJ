@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,44 +17,69 @@
 <!-- Latest compiled and minified JavaScript-->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
 </head>
 <body>
+<%-- 
+<%
+Object ologin = session.getAttribute("login");
+
+MemberDto mem = null;
+
+if(ologin == null){
+	%>
+	<script type="text/javascript">
+	alert("Îã§Ïãú Î°úÍ∑∏Ïù∏ Ìï¥ Ï£ºÏã≠ÏãúÏò§");
+	location.href = "index.jsp";
+	</script>
+	<%
+	return;
+}
+
+mem = (MemberDto)ologin;
+%>
+ --%>
+ 
+ 
+ 	<!-- ÏûÑÏãúÎ°úÍ∑∏Ïù∏  -->
+	<%
+		String mem = "id";
+	%>
+
+
 <div class="container">
-<table class="table table-bordered" style="width: 700px"; height="500px"; align="center">
-    <thead>
-    <col width="50px">
-        <caption> ±€æ≤±‚ </caption>
-    </thead>
-    <tbody>
-        <form action="write_ok.jsp" method="post" encType="multiplart/form-data">
+<form action="../QAController?command=add" method="post" >
+<table class="table table-bordered" style="width: 700px" height="500px" align="center">
+
+    <col width="50px"> 
+       
+    
+
+        
         
            <tr>
                 <th>ID: </th>
-                <td><input type="text" placeholder="¡¶∏Ò¿ª ¿‘∑¬«œººø‰. " name="subject" class="form-control"/></td>
+                <td><input type="text" placeholder="Ï†úÎ™©ÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî. " name="id" class="form-control" value="<%=mem%>"></td>
             </tr>
         
             <tr>
-                <th>¡¶∏Ò: </th>
-                <td><input type="text" placeholder="¡¶∏Ò¿ª ¿‘∑¬«œººø‰. " name="subject" class="form-control"/></td>
+                <th>Ï†úÎ™©: </th>
+                <td><input type="text" placeholder="Ï†úÎ™©ÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî. " name="title" class="form-control"/></td>
             </tr>
             <tr>
-                <th>≥ªøÎ: </th>
-                <td><textarea cols="100" placeholder="≥ªøÎ¿ª ¿‘∑¬«œººø‰. " name="content" class="form-control"></textarea></td>
+                <th>ÎÇ¥Ïö©: </th>
+                <td><textarea cols="700" placeholder="ÎÇ¥Ïö©ÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî. " name="content" class="form-control"></textarea></td>
             </tr>
          
             <tr>
                 <td colspan="2">
-                
-                    <input type="button" value="µÓ∑œ" onclick="sendData()" class="pull-right"/>
+                    <input type="submit" value="Îì±Î°ù" class="pull-right"/>
                     <input type="button" value="reset" class="pull-left"/>
-                    <input type="button" value="±€ ∏Ò∑œ¿∏∑Œ... " class="pull-right" onclick="javascript:location.href='list.jsp'"/>
-                   
+                    <input type="button" value="Í∏Ä Î™©Î°ù " class="pull-right" onclick="javascript:location.href='QAList.jsp'"/>
                 </td>
             </tr>
-        </form>
-    </tbody>
+
 </table>
+ </form>
 </div>
 </body>
 </html>

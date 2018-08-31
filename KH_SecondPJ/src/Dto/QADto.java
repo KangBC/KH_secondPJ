@@ -2,53 +2,11 @@ package Dto;
 
 import java.io.Serializable;
 
-//임시 커리문  로그인
-/*
-CREATE TABLE CUSTUSER(
-	ID VARCHAR2(50) PRIMARY KEY,
-	NAME VARCHAR2(50) NOT NULL,
-	ADDRESS VARCHAR2(50) NOT NULL
-);
-*/
-
-/* DB QURE
-DROP TABLE BBS
-CASCADE CONSTRAINTS;
-
-DROP SEQUENCE SEQ_BBS;
-
-CREATE TABLE BBS(
-	SEQ NUMBER(8) PRIMARY KEY,
-	ID VARCHAR2(50) NOT NULL,
-	
-	REF NUMBER(8) NOT NULL,
-	STEP NUMBER(8) NOT NULL,
-	DEPTH NUMBER(8) NOT NULL,
-	
-	TITLE VARCHAR2(200) NOT NULL,
-	CONTENT VARCHAR2(4000) NOT NULL,
-	WDATE DATE NOT NULL,
-	
-	PARENT NUMBER(8) NOT NULL,
-	
-	DEL NUMBER(1) NOT NULL,
-	READCOUNT NUMBER(8) NOT NULL
-);
-
-CREATE SEQUENCE SEQ_BBS
-START WITH 1 INCREMENT BY 1;
-
-ALTER TABLE BBS
-ADD CONSTRAINT FK_BBS_ID FOREIGN KEY(ID)
-REFERENCES MEMBER(ID);
-*/
 
 public class QADto implements Serializable {
 
 	private int seq; // 순서번호
 	private String id; // 임시 로그인
-	private String name; // 임시 이름
-	private String address; // 임시 주소
 
 	private int ref; // 그룹번호
 	private int step; // 열번호
@@ -67,31 +25,6 @@ public class QADto implements Serializable {
 	public QADto() {
 	}
 
-	public QADto(String id, String name, String address) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.address = address;
-	}
-
-	public QADto(int seq, String id, String name, String address, int ref, int step, int depth, String title,
-			String content, String wdate, int parent, int del, int readcount) {
-		super();
-		this.seq = seq;
-		this.id = id;
-		this.name = name;
-		this.address = address;
-		this.ref = ref;
-		this.step = step;
-		this.depth = depth;
-		this.title = title;
-		this.content = content;
-		this.wdate = wdate;
-		this.parent = parent;
-		this.del = del;
-		this.readcount = readcount;
-	}
-
 	public int getSeq() {
 		return seq;
 	}
@@ -106,22 +39,6 @@ public class QADto implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public int getRef() {
@@ -196,11 +113,29 @@ public class QADto implements Serializable {
 		this.readcount = readcount;
 	}
 
-	@Override
-	public String toString() {
-		return "QADto [seq=" + seq + ", id=" + id + ", name=" + name + ", address=" + address + ", ref=" + ref
-				+ ", step=" + step + ", depth=" + depth + ", title=" + title + ", content=" + content + ", wdate="
-				+ wdate + ", parent=" + parent + ", del=" + del + ", readcount=" + readcount + "]";
+	public QADto(int seq, String id, int ref, int step, int depth, String title, String content, String wdate,
+			int parent, int del, int readcount) {
+		super();
+		this.seq = seq;
+		this.id = id;
+		this.ref = ref;
+		this.step = step;
+		this.depth = depth;
+		this.title = title;
+		this.content = content;
+		this.wdate = wdate;
+		this.parent = parent;
+		this.del = del;
+		this.readcount = readcount;
 	}
+
+	public QADto(String id, String title, String content) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.content = content;
+	}
+
+	
 
 }
