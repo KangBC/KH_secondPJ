@@ -22,6 +22,29 @@ public class MemberDao {
 	
 	public boolean addMember(MemberDto dto) {
 		int count = 0;
+		String sql = "UPDATE MEMBER SET VALUE(?,?,?,?,?,0)";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, dto.getId());
+			psmt.setString(2, dto.getPw());
+			psmt.setString(3, dto.getName());
+			psmt.setString(4, dto.getPhone());
+			psmt.setString(5, dto.getEmail());
+			
+			count = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+
 		
 		return count > 0? true : false;
 	}
