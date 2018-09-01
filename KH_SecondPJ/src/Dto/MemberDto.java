@@ -35,6 +35,17 @@ public class MemberDto {
 		this.auth = auth;
 	}
 
+	
+	
+	public MemberDto(String id, String name, String partner, String phone, String email) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.partner = partner;
+		this.phone = phone;
+		this.email = email;
+	}
+
 	public MemberDto(String id, String pw, String name, String partner, String phone, String email) {
 		super();
 		this.id = id;

@@ -20,6 +20,32 @@ public class MemberDao {
 		return mDao;
 	}
 	
+	public MemberDto getMember(String id) {
+		MemberDto member = null;
+		String sql = " SELECT ID, NAME, PARTNER, PHONE, EMAIL FROM KH_MEMBER WHERE ID = '" + id + "' ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new MemberDto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+
+		return member;
+	}
+	
 	public boolean addMember(MemberDto dto) {
 		int count = 0;
 		String sql = " INSERT INTO KH_MEMBER VALUES(?, ?, ?, ?, ?, ?, 0) ";

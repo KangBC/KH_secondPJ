@@ -16,7 +16,7 @@
 	<input class=loginTB type="password" name="pw" placeholder="PASSWORD">
 	<input class=btn type="submit" value="Login">
 </form>
-<a href="Regi.jsp">회원가입</a>
+<a href="/KH_SecondPJ/JSP/Regi.jsp">회원가입</a>
 </div>
 
 </body>

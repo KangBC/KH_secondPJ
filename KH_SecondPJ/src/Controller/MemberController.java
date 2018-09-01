@@ -37,10 +37,10 @@ public class MemberController extends HttpServlet{
 			MemberDto member = memberDao.Login(id, pw);
 			
 			HttpSession session = req.getSession(true);
-			session.setAttribute("member", member);
+			session.setAttribute("kh_member", member);
 			session.setMaxInactiveInterval(30*60);
 			
-			dispatch("JSP/About.jsp", req, resp);
+			dispatch("JSP/MyInfo.jsp", req, resp);
 		}else if(command.equals("regist_submit")) {
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");

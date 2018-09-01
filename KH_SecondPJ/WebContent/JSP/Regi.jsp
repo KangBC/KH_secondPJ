@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="../CSS/Member.css"/>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Member.css"/>
 <title>회원가입</title>
 </head>
 <body>
