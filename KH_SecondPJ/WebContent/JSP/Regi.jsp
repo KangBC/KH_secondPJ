@@ -10,7 +10,7 @@
 <body>
 
 <div id=registDiv>
-<form action="../MemberController" method="post">
+<form action="/KH_SecondPJ/MemberController" method="post">
 	<input type="hidden" name="command" value="regist_submit">
 	<input class=registTB type="text" name="id" placeholder="ID">
 	<input class=registTB type="password" name="pw" placeholder="비밀번호">

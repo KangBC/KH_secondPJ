@@ -38,9 +38,7 @@ public class MemberDao {
 			psmt.setString(5, dto.getPhone());
 			psmt.setString(6, dto.getEmail());
 
-			System.out.println(";;;;;;;;;;");
 			count = psmt.executeUpdate();
-			System.out.println("aaaa");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

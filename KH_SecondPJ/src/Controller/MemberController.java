@@ -52,9 +52,9 @@ public class MemberController extends HttpServlet{
 			MemberDto member = new MemberDto(id,pw,name,partner,phone,email);
 
 			if(memberDao.addMember(member)) {
-				resp.sendRedirect("JSP/Login.jsp");
+				dispatch("JSP/Login.jsp", req, resp);
 			}else {
-				resp.sendRedirect("JSP/Regi.jsp");
+				dispatch("JSP/Regi.jsp", req, resp);
 			}
 			
 		}else if(command.equals("")) {

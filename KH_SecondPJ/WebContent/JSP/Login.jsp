@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="../CSS/Member.css"/>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Member.css"/>
 <title>로그인</title>
 </head>
 <body>
 
 <div id=loginDiv>
-<form action="../MemberController", method="post">
+<form action="/KH_SecondPJ/MemberController" method="post">
 	<input type="hidden" name="command" value="login">
 	<input class=loginTB type="text" name="id" placeholder="ID" >
 	<input class=loginTB type="password" name="pw" placeholder="PASSWORD">
