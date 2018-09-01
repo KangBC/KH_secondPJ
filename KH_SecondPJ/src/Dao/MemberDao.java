@@ -22,7 +22,7 @@ public class MemberDao {
 	
 	public boolean addMember(MemberDto dto) {
 		int count = 0;
-		String sql = "UPDATE MEMBER SET VALUE(?,?,?,?,?,0)";
+		String sql = " INSERT INTO KH_MEMBER VALUES(?, ?, ?, ?, ?, ?, 0) ";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -34,10 +34,13 @@ public class MemberDao {
 			psmt.setString(1, dto.getId());
 			psmt.setString(2, dto.getPw());
 			psmt.setString(3, dto.getName());
-			psmt.setString(4, dto.getPhone());
-			psmt.setString(5, dto.getEmail());
-			
+			psmt.setString(4, dto.getPartner());
+			psmt.setString(5, dto.getPhone());
+			psmt.setString(6, dto.getEmail());
+
+			System.out.println(";;;;;;;;;;");
 			count = psmt.executeUpdate();
+			System.out.println("aaaa");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,13 +48,12 @@ public class MemberDao {
 			DBClose.close(psmt, conn, null);
 		}
 
-		
 		return count > 0? true : false;
 	}
 	
 	public MemberDto Login(String id, String pw) {
 
-		String sql = " SELECT ID, NAME, AUTH FROM MEMBER WHERE ID = ? AND PWD = ? ";
+		String sql = " SELECT ID, NAME, AUTH FROM KH_MEMBER WHERE ID = ? AND PWD = ? ";
 		
 		MemberDto dto = null;
 

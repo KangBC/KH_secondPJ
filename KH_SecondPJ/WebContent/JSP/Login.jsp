@@ -10,7 +10,7 @@
 <body>
 
 <div id=loginDiv>
-<form action="../MemberController">
+<form action="../MemberController", method="post">
 	<input type="hidden" name="command" value="login">
 	<input class=loginTB type="text" name="id" placeholder="ID" >
 	<input class=loginTB type="password" name="pw" placeholder="PASSWORD">

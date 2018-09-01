@@ -45,13 +45,16 @@ public class MemberController extends HttpServlet{
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");
 			String name = req.getParameter("name");
+			String partner = req.getParameter("partner");
 			String phone = req.getParameter("phone");
 			String email = req.getParameter("email");
 			
-			MemberDto member = new MemberDto(id,pw,name,phone,email);
+			MemberDto member = new MemberDto(id,pw,name,partner,phone,email);
 
 			if(memberDao.addMember(member)) {
-				dispatch("Login.jsp", req, resp);
+				resp.sendRedirect("JSP/Login.jsp");
+			}else {
+				resp.sendRedirect("JSP/Regi.jsp");
 			}
 			
 		}else if(command.equals("")) {
