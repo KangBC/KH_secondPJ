@@ -20,11 +20,11 @@
 		return;
 	}
 	member = dao.getMember(member.getId());
-
+	
 %>
 <div id=myInfoDiv>
-<form action="">
-	<input type="hidden" name="command" value="">
+<form action="/KH_SecondPJ/MemberController" onsubmit="return validityCk()">
+	<input type="hidden" name="command" value="updateInfo" >
 <table>
 	<tr>
 		<td>
@@ -39,7 +39,7 @@
 			<label>이름</label>
 		</td>
 		<td>
-			<input class=myInfoTB type="text" name="name" value="<%=member.getName()%>">
+			<input class=myInfoTB type="text" name="name" value="<%=member.getName()%>" placeholder="이름" >
 		</td>
 	</tr>
 	<tr>
@@ -47,7 +47,7 @@
 			<label>배우자 이름</label>
 		</td>
 		<td>
-			<input class=myInfoTB type="text" name="partner" value="<%=member.getPartner()%>">
+			<input class=myInfoTB type="text" name="partner" value="<%=member.getPartner()%>" placeholder="배우자 이름">
 		</td>
 	</tr>
 	<tr>
@@ -55,7 +55,7 @@
 			<label>전화번호</label>
 		</td>
 		<td>
-			<input class=myInfoTB type="text" name="phone" value="<%=member.getPhone()%>">
+			<input class=myInfoTB type="text" name="phone" value="<%=member.getPhone()%>" placeholder="전화번호">
 		</td>
 	</tr>
 	<tr>
@@ -63,7 +63,7 @@
 			<label>e-mail</label>
 		</td>
 		<td>
-			<input class=myInfoTB type="text" name="email" value="<%=member.getEmail()%>">
+			<input class=myInfoTB type="text" name="email" value="<%=member.getEmail()%>" placeholder="E-MAIL">
 		</td>
 	</tr>
 </table>
@@ -71,5 +71,10 @@
 </form>
 </div>
 
+<script type="text/javascript">
+function validityCk() {
+	return true;
+};
+</script>
 </body>
 </html>

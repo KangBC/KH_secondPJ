@@ -75,6 +75,34 @@ public class MemberDao {
 		return count > 0? true : false;
 	}
 	
+	public boolean update(MemberDto dto) {
+		int count = 0;
+		String sql = " UPDATE KH_MEMBER SET NAME=?, PARTNER=?, PHONE=?, EMAIL=? WHERE ID=? ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, dto.getName());
+			psmt.setString(2, dto.getPartner());
+			psmt.setString(3, dto.getPhone());
+			psmt.setString(4, dto.getEmail());
+			psmt.setString(5, dto.getId());
+
+			count = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+
+		return count > 0? true : false;
+	}
+	
 	public MemberDto Login(String id, String pw) {
 
 		String sql = " SELECT ID, NAME, AUTH FROM KH_MEMBER WHERE ID = ? AND PWD = ? ";
@@ -104,4 +132,5 @@ public class MemberDao {
 		
 		return dto;
 	}
+	
 }
