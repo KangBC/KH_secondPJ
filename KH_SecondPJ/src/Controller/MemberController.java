@@ -36,26 +36,45 @@ public class MemberController extends HttpServlet{
 			
 			MemberDto member = memberDao.Login(id, pw);
 			
-			HttpSession session = req.getSession(true);
-			session.setAttribute("member", member);
-			session.setMaxInactiveInterval(30*60);
-			
-			dispatch("JSP/About.jsp", req, resp);
+			if(member != null) {
+				HttpSession session = req.getSession(true);
+				session.setAttribute("kh_member", member);
+				session.setMaxInactiveInterval(30*60);
+				
+				dispatch("JSP/MyInfo.jsp", req, resp);
+			}else {
+				dispatch("JSP/Login.jsp", req, resp);
+			}
 		}else if(command.equals("regist_submit")) {
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");
 			String name = req.getParameter("name");
+			String partner = req.getParameter("partner");
 			String phone = req.getParameter("phone");
 			String email = req.getParameter("email");
 			
-			MemberDto member = new MemberDto(id,pw,name,phone,email);
+			MemberDto member = new MemberDto(id,pw,name,partner,phone,email);
 
 			if(memberDao.addMember(member)) {
-				dispatch("Login.jsp", req, resp);
+				dispatch("JSP/Login.jsp", req, resp);
+			}else {
+				dispatch("JSP/Regi.jsp", req, resp);
 			}
 			
-		}else if(command.equals("")) {
+		}else if(command.equals("updateInfo")) {
+			String id = req.getParameter("id");
+			String name = req.getParameter("name");
+			String partner = req.getParameter("partner");
+			String phone = req.getParameter("phone");
+			String email = req.getParameter("email");
+
+			MemberDto member = new MemberDto(id,name,partner,phone,email);
 			
+			if(memberDao.update(member)) {
+				System.out.println("성공");
+			}else {
+				System.out.println("실패");
+			}
 		}
 	}
 

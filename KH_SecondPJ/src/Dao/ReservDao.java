@@ -176,5 +176,42 @@ private static ReservDao calDao = new ReservDao();
 		return list;
 
 	}
+	
+	public boolean checkpossible(String date) {
+		String sql = "SELECT * FROM CALENDAR WHERE RDATE=?";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		boolean result = false;
+		
+		
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getCalendarList success");
+				
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, date.trim());
+			System.out.println("2/6 getCalendarList success");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getCalendarList success");
+			
+			if(!rs.next()) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, rs);
+			System.out.println("5/6 getCalendarList success");
+		}
+		
+		return result;
+	}
 
 }

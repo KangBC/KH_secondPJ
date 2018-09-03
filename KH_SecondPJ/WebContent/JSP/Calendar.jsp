@@ -6,11 +6,11 @@
 <html>
 <head>
 
-<link rel='stylesheet' href='./fullcalendar/fullcalendar.min.css' />
-<script src="./fullcalendar/lib/jquery.min.js"></script>
-<script src='./fullcalendar/lib/moment.min.js'></script>
-<script src='./fullcalendar/fullcalendar.min.js'></script>
-<script src='./fullcalendar/locale/ko.js'></script>
+<link rel='stylesheet' href='../fullcalendar/fullcalendar.min.css' />
+<script src="../fullcalendar/lib/jquery.min.js"></script>
+<script src='../fullcalendar/lib/moment.min.js'></script>
+<script src='../fullcalendar/fullcalendar.min.js'></script>
+<script src='../fullcalendar/locale/ko.js'></script>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
@@ -18,7 +18,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 
-
+<%-- <%=request.getContextPath() %>/ReservController --%>
 <script>
 $(function() {
 	  $('#calendar').fullCalendar({
@@ -38,9 +38,6 @@ $(function() {
 }
 </style>
 
-
-
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -51,31 +48,69 @@ $(function() {
 <div id='calendar'></div>
 
 <div class="wrapper">
-<button id="btn" onclick="ReservController" type="button" class="btn btn-primary">상담예약</button>
+<button id="btn" onclick="location.href='<%=request.getContextPath() %>/ReservController?command=reservepage'" type="button" class="btn btn-primary">상담예약</button>
 </div>
 
-<%
-String json = (String)request.getAttribute("json");
-
-%>
-
 <script>
-var arr = JSON.parse('<%=json%>');
-//console.log(arr.title);
-for(var i = 0; i < arr.length;i++ ){
-	console.log(arr[i].start);
-}
+$("#calendar").fullCalendar({viewRender: function(view,element){
+	var moment = view.intervalStart;
+		//$('#calendar').fullCalendar('getDate');
+	var year = moment.year();
+	var month = moment.month()+1;
+	var arr;
+	var str = "<%=request.getContextPath() %>/ReservController?command=list&year="+year+"&month="+month;
 
-
-   $('#calendar').fullCalendar({
 	
-	eventSources: [{
-		events: arr,
-		  color: 'pink',
-		textColor: 'white'
-	}] 
-  
-});  
+	$.get(str, function(data, status){
+		console.log(data);
+		arr = JSON.parse(data);
+		
+		
+		for(var i = 0; i< arr.length;i++){
+			console.log(arr[i].start);
+		}
+		
+		$('#calendar').fullCalendar('removeEventSources');
+		$('#calendar').fullCalendar('addEventSource', arr);
+		
+	});
+	
+	
+	
+	
+}});
+/* 
+$(function(){
+	
+	var moment = $('#calendar').fullCalendar('getDate');
+	var year = moment.year();
+	var month = moment.month()+1;
+	var arr;
+	var str ="../ReservController?command=list&year="+year+"&month="+month;
+
+	
+	$.get(str, function(data, status){
+		console.log(data);
+		arr = JSON.parse(data);
+		
+		
+		for(var i = 0; i< arr.length;i++){
+			console.log(arr[i].start);
+		}
+		
+		$('#calendar').fullCalendar('addEventSource',arr);
+		
+	});
+
+	
+	
+	
+	
+	
+
+}); */
+
+
 
 </script>
 
