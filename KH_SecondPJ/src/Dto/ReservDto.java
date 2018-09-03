@@ -78,8 +78,8 @@ public class ReservDto {
 	@Override
 	public String toString() {
 		return "{\"seq\":" + seq + ", \"id\":\"" + id + "\", \"title\":\"" + title + "\", \"content\":\"" + content + "\", \"start\":\"" 
-				+ rdate.substring(0, 4)+"-"+rdate.substring(4, 6) + "-" +rdate.substring(6,8)
-				+ "\", \"wdate\":\"" + wdate + "\"}";
+				+ rdate.substring(0, 4)+"-"+rdate.substring(4, 6) + "-" +rdate.substring(6,8) + "T" + rdate.substring(8, 10)+ ":" + rdate.substring(10, 12)+":00"
+				+ "\", \"wdate\":\"" + wdate + "\",  \"allDay\" : false}";
 	}
 
 	public ReservDto() {
