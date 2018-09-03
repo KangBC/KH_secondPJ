@@ -32,22 +32,27 @@ function validityCk() {
 	var phone = $("#phone").val();
 	var email = $("#email").val();
 		
+	var idRule = /^[A-Za-z0-9]{6,12}$/;
+	console.log(idRule.test(id));
+	return false;
 	if(id.trim().length<1){
-		alert("아이디를 입력해 주세요")
+		alert("아이디를 입력해 주세요");
 		return false;
 	}else if(pw.trim().length<1){
-		alert("비밀번호를 입력해 주세요")
+		alert("비밀번호를 입력해 주세요");
 		return false;
 	}else if(pw!=pw_check){
-		alert("비밀번호와 비밀번호 확인이 동일하지 않습니다.")
+		alert("비밀번호와 비밀번호 확인이 동일하지 않습니다.");
 		return false;
 	}else if(phone.trim().length<1){
-		alert("전화번호를 입력해 주세요")
+		alert("전화번호를 입력해 주세요");
 		return false;
 	}else if(email.trim().length<1){
-		alert("email을 입력해 주세요")
+		alert("email을 입력해 주세요");
 		return false;
 	}
+	
+	if()
 };
 </script>
 </body>
