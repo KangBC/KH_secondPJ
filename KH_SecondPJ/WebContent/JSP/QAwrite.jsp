@@ -1,3 +1,4 @@
+<%@page import="Dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,9 +20,8 @@
 
 </head>
 <body>
-<%-- 
 <%
-Object ologin = session.getAttribute("login");
+Object ologin = session.getAttribute("member");
 
 MemberDto mem = null;
 
@@ -37,13 +37,6 @@ if(ologin == null){
 
 mem = (MemberDto)ologin;
 %>
- --%>
- 
- 
- 	<!-- 임시로그인  -->
-	<%
-		String mem = "id";
-	%>
 
 
 <div class="container">
@@ -51,14 +44,9 @@ mem = (MemberDto)ologin;
 <table class="table table-bordered" style="width: 700px" height="500px" align="center">
 
     <col width="50px"> 
-       
-    
-
-        
-        
            <tr>
                 <th>ID: </th>
-                <td><input type="text" placeholder="제목을 입력하세요. " name="id" class="form-control" value="<%=mem%>"></td>
+                <td><input type="text" placeholder="제목을 입력하세요. " name="id" class="form-control" value="<%=mem.getId()%>"></td>
             </tr>
         
             <tr>

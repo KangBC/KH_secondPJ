@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
 	<%!// 댓글!!
 	public String arrow(int depth) {
 
@@ -31,9 +32,9 @@
 		return depth == 0 ? "" : ts + rs;
 	}%>
 
-<%--  Member 연결해줄떄 사용
+
 <%
-Object ologin = session.getAttribute("login");
+Object ologin = session.getAttribute("member");
 
 MemberDto mem = null;
 
@@ -49,32 +50,25 @@ if(ologin == null){
 
 mem = (MemberDto)ologin;
 %>
- --%>
-
-	<!-- 임시로그인  -->
-	<%
-		String mem = "hyunwoo";
-	%>
-
 	<h3>
 		환영합니다
-		<%=mem%>님 반갑습니다
+		<%=mem.getId()%>님 반갑습니다
 	</h3>
 
 	<!-- session 해방 && index로 -->
-	<a href="Login.jsp">로그아웃</a>
+	<a href="./JSP/Login.jsp">로그아웃</a>
 	<hr>
 
-	<%
+	 <%  
 		QADao dao = QADao.getInstance();
 		List<QADto> QAlist = dao.getList();
 
-		/* if(findword == null || findword.equals("")){
-			bbslist = dao.getList();
+	 	 if(findword == null || findword.equals("")){
+			 QAlist = dao.getList();
 		} else {
-			bbslist = dao.getBbsFindList(findword);
-		} */
-	%>
+			QAlist = dao.getBbsFindList(findword);
+		} 
+	%> 
 
 	<div align="center">
 		<table border="1">
@@ -96,18 +90,26 @@ mem = (MemberDto)ologin;
 			</tr>
 			<%
 				}
+				
+				int Articlenumber = 0; //글번호
+				
 				for (int i = 0; i < QAlist.size(); i++) {
-					QADto bbs = QAlist.get(i);
+					QADto QAbbs = QAlist.get(i);
+					
+					//삭제
+					if(QAbbs.getDel() == 0){
+						Articlenumber++;
 			%>
 			<tr>
-				<td><%=i + 1%></td>
-				<td><%=arrow(bbs.getDepth())%>  
-				<a href="QAupdatel.jsp?seq=<%=bbs.getSeq()%>"> <%=bbs.getTitle()%>
+				<td><%=Articlenumber%></td>
+				<td><%=arrow(QAbbs.getDepth())%>  
+				<a href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
 				</a></td>
-				<td><%=bbs.getId()%></td>
+				<td><%=QAbbs.getId()%></td>
 			</tr>
 			<%
 				}
+			}
 			%>
 
 		</table>
@@ -117,16 +119,17 @@ mem = (MemberDto)ologin;
 	<div align="center">
 		<!-- 게시판 테이블 기능 -->
 		<a href="./JSP/QAwrite.jsp">글쓰기</a> <br>
-		<br> <input type="text" id="search">
+		
+		<br> 
+		<input type="text" id="search">
 		<button name="search" onclick="searchQA()">검색</button>
 	</div>
-
 
 
 	<script type="text/javascript">
 		function searchQA() {
 			var msg = document.getElementById("search").value;
-			location.href = "QAlist.jsp?findword=" + msg;
+			location.href = "./JSP/QAList.jsp?findword=" + msg;
 		}
 	</script>
 

@@ -70,25 +70,121 @@ public class QAController extends HttpServlet {
 			System.out.println("content = " + content);
 
 			// id, name , address 하나라도 작성하지 않으면 작동안됨.
+		/*	if (isNull(id) || isNull(title) || isNull(content)) {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('애미 확인좀 하고 넣으라고.');");
+				out.println("location = \'" + req.getContextPath() + "/JSP/QAwrite.jsp\'");
+				out.println("</script>");
+
+				// 다시 작성하라고 QAwrite view로 넘어감
+				// resp.sendRedirect(req.getContextPath()+"/JSP/QAwrite.jsp");
+
+				// <%=request.getContextPath()%>/MemberController
+			} else*/ 
+
+				// 쿼리 처리 데이터 받아옴.
+
+				QADto dto = new QADto(id, title, content);
+				boolean result = dao.QAinsert(dto);
+				if (!result) {
+					System.out.println("추가하지 못했습니다");
+					// QAwrite 다시 작성
+					resp.sendRedirect("../QAwrite.jsp");
+				}
+				// 추가 되면 List로 넘어감
+				resp.sendRedirect("QAController?command=list"); // 입력만하고 다음 view 이동할떄 사용
+				// dispatch("QAController?command=list", req, resp); //객체값을 가지고 다름 view 넘어갈떄
+	
+		// QADetail (개인정보)
+		} else if (command.equals("QADetail")) {
+			String id = req.getParameter("id");
+
+			QADto dto = new QADto();
+			boolean result = dao.QADetail(dto);
+			req.setAttribute("QADetail", dto);
+			// resp.sendRedirect("QAController?command=list");
+			dispatch("QADetail.jsp", req, resp);
+
+			
+		// Update(수정)
+		} else if (command.equals("QAupdate")) {
+
+			int seq = Integer.parseInt(req.getParameter("seq"));
+			// Parameter에서는 int 숫자를 받을떄 형변환을 해줘야한다.
+			String title = req.getParameter("title");
+			String content = req.getParameter("content");
+			
+			System.out.println(seq);
+			System.out.println(title);
+			System.out.println(content);
+		
+			boolean result = dao.QABbupdate(seq, title, content);
+
+			if (result == true) {
+				System.out.println("result was true");
+
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('수정되었습니다.');");
+				out.println("location = \"QAController?command=list\"");
+				out.println("</script>");
+
+			} else {
+				out.println("<script>alert('오류가 생겼습니다.');</script>");
+			}
+
+			
+		// QAdelete(삭제)
+		} else if (command.equals("QAdelete")) {
+
+			int seq = Integer.parseInt(req.getParameter("seq"));
+			boolean result = dao.QAdelete(seq);
+			
+			if (result == true) {
+				System.out.println("result was true");
+
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert('삭제되었습니다.');");
+				out.println("location = \"QAController?command=list\"");
+				out.println("</script>");
+
+			} else {
+				out.println("<script>alert('오류가 생겼습니다.');</script>");
+			}
+
+			
+		// answer (댓글)
+		} else if (command.equals("QAanswer")) {
+			int seq = Integer.parseInt(req.getParameter("seq"));
+			String id = req.getParameter("id");
+			String title = req.getParameter("title");
+			String content = req.getParameter("content");
+
+			// 오류 확인용
+			System.out.println("seq = " + seq);
+			System.out.println("id = " + id);
+			System.out.println("title = " + title);
+			System.out.println("content = " + content);
+
+			// id, name , address 하나라도 작성하지 않으면 작동안됨.
 			if (isNull(id) || isNull(title) || isNull(content)) {
 				System.out.println("모든 정보를 입력하지 않았음");
-				
-				//다시 작성하라고 QAwrite view로 넘어감
-				resp.sendRedirect("QAwrite.jsp");
+
+				// 다시 작성하라고 QAwrite view로 넘어감
+				resp.sendRedirect("../QAwrite.jsp");
 			}
-			
-			//쿼리 처리 데이터 받아옴.
-			
-			QADto dto = new QADto("id", title, content);
-			boolean result = dao.QAinsert(dto);
+
+			// 쿼리 처리 데이터 받아옴.
+
+			QADto dto = new QADto(id, title, content);
+			boolean result = dao.QAanswer(seq, dto);
 			if (!result) {
 				System.out.println("추가하지 못했습니다");
 				// QAwrite 다시 작성
-				resp.sendRedirect("QAwrite.jsp");
+				resp.sendRedirect("../QAwrite.jsp");
 			}
-			//추가 되면 List로 넘어감
+			// 추가 되면 List로 넘어감
 			resp.sendRedirect("QAController?command=list"); // 입력만하고 다음 view 이동할떄 사용
-			//dispatch("QAController?command=list", req, resp); //객체값을 가지고 다름 view 넘어갈떄
+			// dispatch("QAController?command=list", req, resp); //객체값을 가지고 다름 view 넘어갈떄
 
 		}
 

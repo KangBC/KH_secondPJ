@@ -18,7 +18,7 @@ public class QADto implements Serializable {
 
 	private int parent; // 부모글 번호
 
-	private int del; // 삭제 여부
+	private int del; // 삭제 여부    0:안삭제  1:삭제
 	private int readcount; // 조회수
 
 	//기본생성자
