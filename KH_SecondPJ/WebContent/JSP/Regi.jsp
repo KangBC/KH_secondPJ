@@ -33,8 +33,12 @@ function validityCk() {
 	var email = $("#email").val();
 		
 	var idRule = /^[A-Za-z0-9]{6,12}$/;
-	console.log(idRule.test(id));
-	return false;
+	//console.log(idRule.test(id));
+	var pwRule = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+	//console.log(pwRule.test(pw));
+	var phoneRule = /^\d{3}-\d{3,4}-\d{4}$/;
+	var emailRule = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
 	if(id.trim().length<1){
 		alert("아이디를 입력해 주세요");
 		return false;
@@ -50,9 +54,19 @@ function validityCk() {
 	}else if(email.trim().length<1){
 		alert("email을 입력해 주세요");
 		return false;
+	}else if(!idRule.test(id)){
+		alert("id false");
+		return false;
+	}else if(!pwRule.test(pw)){
+		alert("pw false");
+		return false;
+	}else if(!phoneRule.test(phone)){
+		alert("전화번호를 형식에 맞게 입력해 주세요");
+		return false;
+	}else if(!emailRule.test(email)){
+		alert("이메일을 형식에 맞게 입력해 주세요");
+		return false;
 	}
-	
-	if()
 };
 </script>
 </body>
