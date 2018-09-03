@@ -29,12 +29,12 @@
   </servlet-mapping>
   
   <servlet>
-	  <servlet-name>ReservController</servlet-name>
-	  <servlet-class>Controller.ReservController</servlet-class>
+	  <servlet-name>ReserveController</servlet-name>
+	  <servlet-class>Controller.ReserveController</servlet-class>
   </servlet>
   <servlet-mapping>
-	  <servlet-name>ReservController</servlet-name>
-	  <url-pattern>/ReservController</url-pattern>
+	  <servlet-name>ReserveController</servlet-name>
+	  <url-pattern>/ReserveController</url-pattern>
   </servlet-mapping>
   
   <servlet>

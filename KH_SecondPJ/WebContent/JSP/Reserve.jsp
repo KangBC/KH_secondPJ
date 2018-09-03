@@ -1,6 +1,10 @@
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+request.setCharacterEncoding("utf-8");
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,12 +16,12 @@
 LocalDateTime now = LocalDateTime.now();
 String today = now.toString().substring(0, 10);
 
-
+response.setContentType("text/html; charset=utf-8");
 %>
 
 <h1>Temp님 안녕하세요!</h1>
 
-<form action="ReservController?command=reserve" method="post">
+<form action="<%=request.getContextPath() %>/ReserveController?command=reserve" method="post">
 <table border="1">
 <col width="70"><col width="500">
 <tr><td colspan="2" align="center">Reservation Form</td></tr>
@@ -33,7 +37,7 @@ String today = now.toString().substring(0, 10);
 
 <tr>
 <td>일자</td>
-<td><input type="date" name="date" value='<%=today %>'></td>
+<td><input type="date" name="date" value='<%=today %>' id="date"></td>
 </tr>
 
 <tr>
@@ -58,10 +62,13 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 </tr>
 
 <tr>
-<td colspan="2"><input type="submit" value="예약하기"><button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >돌아가기</button></td>
+<td colspan="2"><input type="submit" value="예약하기">
+<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button></td>
 </tr>
 </table>
 </form>
+
+
 
 </body>
 </html>
