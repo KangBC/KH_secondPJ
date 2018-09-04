@@ -75,11 +75,20 @@ public class ReserveDto {
 		this.wdate = wdate;
 	}
 
-	@Override
-	public String toString() {
-		return "{\"seq\":" + seq + ", \"id\":\"" + id + "\", \"title\":\"" + title + "\", \"content\":\"" + content + "\", \"start\":\"" 
+	
+	public String toString(String logid) {
+		String temp = "{\"seq\":" + seq + ", \"id\":\"" + id + "\", \"title\":\"" + title + "\", \"content\":\"" + content + "\", \"start\":\"" 
 				+ rdate.substring(0, 4)+"-"+rdate.substring(4, 6) + "-" +rdate.substring(6,8) + "T" + rdate.substring(8, 10)+ ":" + rdate.substring(10, 12)+":00"
-				+ "\", \"wdate\":\"" + wdate + "\",  \"allDay\" : false, \"url\": \"../ReserveController?command=detail&seq="+seq+ "\"}";
+				+ "\", \"wdate\":\"" + wdate + "\",  \"allDay\" : false, \"url\": \"../ReserveController?command=detail&seq="+seq+ "\",";
+	
+		if(logid.equals(id)) {
+			temp += "\"color\": \"#e07bb1\"}";
+		}else {
+			temp += "\"color\": \"#7a9ee0\"}";
+		}
+		
+		return temp;
+	
 	}
 
 	public ReserveDto() {
