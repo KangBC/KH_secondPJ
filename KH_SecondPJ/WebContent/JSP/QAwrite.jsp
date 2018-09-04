@@ -21,7 +21,7 @@
 </head>
 <body>
 <%
-Object ologin = session.getAttribute("member");
+Object ologin = session.getAttribute("kh_member");
 
 MemberDto mem = null;
 
@@ -40,34 +40,36 @@ mem = (MemberDto)ologin;
 
 
 <div class="container">
-<form action="../QAController?command=add" method="post" >
+<form action="../QAController?command=regist_add" method="post" >
+<input type="hidden" name="add" value="regist_add">
 <table class="table table-bordered" style="width: 700px" height="500px" align="center">
+
 
     <col width="50px"> 
            <tr>
                 <th>ID: </th>
-                <td><input type="text" placeholder="제목을 입력하세요. " name="id" class="form-control" value="<%=mem.getId()%>"></td>
+                <td><input type="text" placeholder="제목을 입력하세요. " required name="id" class="form-control" value="<%=mem.getId()%>"></td>
             </tr>
         
             <tr>
                 <th>제목: </th>
-                <td><input type="text" placeholder="제목을 입력하세요. " name="title" class="form-control"/></td>
+                <td><input type="text" placeholder="제목을 입력하세요. " required id= "title" name="title" class="form-control"/></td>
             </tr>
             <tr>
                 <th>내용: </th>
-                <td><textarea cols="700" placeholder="내용을 입력하세요. " name="content" class="form-control"></textarea></td>
+                <td><textarea cols="700" placeholder="내용을 입력하세요. " required id="content" name="content" class="form-control"></textarea></td>
             </tr>
          
             <tr>
                 <td colspan="2">
                     <input type="submit" value="등록" class="pull-right"/>
-                    <input type="button" value="reset" class="pull-left"/>
                     <input type="button" value="글 목록 " class="pull-right" onclick="javascript:location.href='QAList.jsp'"/>
                 </td>
             </tr>
-
 </table>
  </form>
 </div>
+
+
 </body>
 </html>

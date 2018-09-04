@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>QAdetail</title>
+<title>QAupdatel</title>
 
 
 <!-- Latest compiled and minified CSS -->
@@ -38,7 +38,7 @@
 		<h1>수정</h1>
 	</div>
 	<%
-		Object ologin = session.getAttribute("member");
+		Object ologin = session.getAttribute("kh_member");
 		MemberDto mem = null;
 		mem = (MemberDto) ologin;
 
@@ -46,9 +46,6 @@
 		int seq = Integer.parseInt(sseq.trim());
 
 		QADao dao = QADao.getInstance();
-
-		// 조회수를 증가
-		//dao.QAreadcount(seq);
 		QADto dto = dao.getBbs(seq);
 	%>
 
@@ -96,37 +93,16 @@
 							name="content" class="form-control"> <%=dto.getContent()%> </textarea>
 					</td>
 				</tr>
-				
-				
-				<button onclick="Upsubmit()"> 수정 </button>
 
-<script type="text/javascript">
-//수정
-function Upsubmit() {
-	console.log("<%=mem.getId()%>");
-	console.log("<%=dto.getId()%>");
-	console.log("<%=dto.getTitle()%>");
-	console.log("<%=dto.getContent()%>");
+				<tr>
+					<td colspan="2"><input type="submit" value="수정하기"></td>
+				</tr>
 
-	if ("<%=mem.getId()%>"  === "<%=dto.getId()%>") {
-		var result = confirm("정말 수정하시겠습니까?");
-		if(result){
-			location = "../QAController?command=QAupdate&seq=<%=dto.getSeq()%>&title=<%=dto.getTitle()%>&content=<%=dto.getContent()%>";
-		}else{
-			return
-		}
-	}else{
-		alert('작성자만 수정할수있습니다.');
-	    return;
-	}
-}
-
-</script>
 
 			</table>
 		</form>
 	</div>
-	
+
 	<a href='QAList.jsp'>글 목록</a>
 
 </body>

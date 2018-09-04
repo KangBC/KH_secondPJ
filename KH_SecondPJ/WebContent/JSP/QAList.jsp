@@ -34,7 +34,7 @@
 
 
 <%
-Object ologin = session.getAttribute("member");
+Object ologin = session.getAttribute("kh_member");
 
 MemberDto mem = null;
 
