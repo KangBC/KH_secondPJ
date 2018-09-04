@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,7 +42,7 @@ public class MemberController extends HttpServlet{
 				session.setAttribute("kh_member", member);
 				session.setMaxInactiveInterval(30*60);
 				
-				dispatch("JSP/MyInfo.jsp", req, resp);
+				dispatch("JSP/About.jsp", req, resp);
 			}else {
 				dispatch("JSP/Login.jsp", req, resp);
 			}
@@ -56,11 +57,35 @@ public class MemberController extends HttpServlet{
 			MemberDto member = new MemberDto(id,pw,name,partner,phone,email);
 
 			if(memberDao.addMember(member)) {
-				dispatch("JSP/Login.jsp", req, resp);
+				PrintWriter writer = resp.getWriter();
+				writer.write("<script>alert(\"성공적으로 회원가입 되었습니다.\"); location.href=\"JSP/Login.jsp\"; </script>");
+				writer.flush();
+				writer.close();
 			}else {
-				dispatch("JSP/Regi.jsp", req, resp);
+				PrintWriter writer = resp.getWriter();
+				writer.write("<script>alert(\"회원가입에 실패했습니다.\"); location.href=\"JSP/Regi.jsp\"; </script>");
+				writer.flush();
+				
+				writer.close();
 			}
 			
+		}else if(command.equals("idCheck")){
+			String id = req.getParameter("id");
+
+			boolean b = memberDao.idCheck(id);
+			System.out.println(b);
+			
+			StringBuffer msg = new StringBuffer();
+			msg.append("{");
+			msg.append(" \"status\" : \"success\", "); 
+			msg.append(" \"duplicated\" : " + b); 
+			msg.append(" } ");
+
+			PrintWriter writer = resp.getWriter();
+			writer.write(msg.toString());
+			writer.flush();
+			writer.close();
+
 		}else if(command.equals("updateInfo")) {
 			String id = req.getParameter("id");
 			String name = req.getParameter("name");

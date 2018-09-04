@@ -75,6 +75,27 @@ public class MemberDao {
 		return count > 0? true : false;
 	}
 	
+	public boolean idCheck(String id) {
+		int count = 0;
+		String sql = " SELECT ID FROM KH_MEMBER WHERE ID = '" + id + "' ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+
+			count = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+		return count > 0? true : false;
+	}
+	
 	public boolean update(MemberDto dto) {
 		int count = 0;
 		String sql = " UPDATE KH_MEMBER SET NAME=?, PARTNER=?, PHONE=?, EMAIL=? WHERE ID=? ";

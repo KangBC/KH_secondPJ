@@ -9,6 +9,9 @@
 </head>
 <body>
 
+<a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a>
+<a href="<%=request.getContextPath()%>/QAController?command=list">QAList</a>
+<a href="<%=request.getContextPath()%>/PdsController?command=list">Pds</a>
 
 </body>
 </html>
