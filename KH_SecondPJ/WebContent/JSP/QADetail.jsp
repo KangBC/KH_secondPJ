@@ -41,7 +41,7 @@
 
 	</div>
 	<%
-		Object ologin = session.getAttribute("member");
+		Object ologin = session.getAttribute("kh_member");
 		MemberDto mem = null;
 		mem = (MemberDto) ologin;
 
@@ -101,8 +101,6 @@
 			</table>
 		</form>
 
-
-
 		<!-- 댓글기능  -->
 		<div align="center">
 			<form action="QAanswer.jsp" method="post">
@@ -111,12 +109,15 @@
 			</form>
 			<br>
 
-			<!-- 수정 기능  -->
+			<%-- 	<!-- 수정 기능  -->
 			<form action="QAupdatel.jsp" method="post">
-				<input type="hidden" name="seq" value="<%=dto.getSeq()%>"> <input
-					type="submit" value="수정">
-			</form>
-			<br> 
+				<input type="hidden" name="seq" value="<%=dto.getSeq()%>"> 
+				<input type="submit" value="수정">
+			</form>  --%>
+
+			<button onclick="Upsubmit()">수정</button>
+
+			<br>
 
 			<!-- 삭제 기능  -->
 			<%-- <form action="../QAController?command=QAdelete" method="post">
@@ -125,7 +126,7 @@
 			</form> --%>
 
 			<button onclick="delsubmit()">삭제</button>
-		
+
 		</div>
 
 		<a href="QAList.jsp">글 목록</a>
@@ -151,7 +152,22 @@ function delsubmit() {
 	    return;
 	}
 }
-
+	
+	//수정
+function Upsubmit() {
+		
+		if ("<%=mem.getId()%>"  === "<%=dto.getId()%>") {
+			var result = confirm("정말 수정하시겠습니까?");
+			if(result){
+				location = "QAupdatel.jsp?seq="+<%=dto.getSeq()%>;
+			}else{
+				return
+			}
+		}else{
+			alert('작성자만 수정할수있습니다.');
+		    return;
+		}
+	}
 </script>
 
 </body>

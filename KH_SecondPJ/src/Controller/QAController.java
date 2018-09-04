@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dao.QADao;
+import Dto.MemberDto;
 import Dto.QADto;
 
 public class QAController extends HttpServlet {
@@ -36,18 +37,17 @@ public class QAController extends HttpServlet {
 	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("utf-8");
-
 		resp.setContentType("text/html; charset=utf-8");
 
-		String command = req.getParameter("command");
-
-		QADao dao = new QADao();
+		QADao QAmemberDao = QADao.getInstance();
 		PrintWriter out = resp.getWriter();
+		
+		String command = req.getParameter("command");
 
 		// QAList(리스트)
 		if (command.equals("list")) {
 
-			List<QADto> QAList = dao.getList();
+			List<QADto> QAList = QAmemberDao.getList();
 
 			System.out.println(QAList.size());
 
@@ -58,7 +58,7 @@ public class QAController extends HttpServlet {
 			// dispatch("CustUserControl?command=list", req, resp);
 
 			// QA add (추가)
-		} else if (command.equals("add")) {
+		} else if (command.equals("regist_add")) {
 			// 로그인 후 Dto에 저장된 객체값들을 가져옴.
 			String id = req.getParameter("id");
 			String title = req.getParameter("title");
@@ -69,38 +69,20 @@ public class QAController extends HttpServlet {
 			System.out.println("title = " + title);
 			System.out.println("content = " + content);
 
-			// id, name , address 하나라도 작성하지 않으면 작동안됨.
-		/*	if (isNull(id) || isNull(title) || isNull(content)) {
-				out.println("<script type=\"text/javascript\">");
-				out.println("alert('애미 확인좀 하고 넣으라고.');");
-				out.println("location = \'" + req.getContextPath() + "/JSP/QAwrite.jsp\'");
-				out.println("</script>");
+				QADto QAadd = new QADto(id, title, content);
 
-				// 다시 작성하라고 QAwrite view로 넘어감
-				// resp.sendRedirect(req.getContextPath()+"/JSP/QAwrite.jsp");
-
-				// <%=request.getContextPath()%>/MemberController
-			} else*/ 
-
-				// 쿼리 처리 데이터 받아옴.
-
-				QADto dto = new QADto(id, title, content);
-				boolean result = dao.QAinsert(dto);
-				if (!result) {
-					System.out.println("추가하지 못했습니다");
-					// QAwrite 다시 작성
-					resp.sendRedirect("../QAwrite.jsp");
+				if(QAmemberDao.QAinsert(QAadd)) {
+					dispatch("JSP/QAList.jsp", req, resp);
+				}else {
+					dispatch("JSP/QAwrite.jsp", req, resp);
 				}
-				// 추가 되면 List로 넘어감
-				resp.sendRedirect("QAController?command=list"); // 입력만하고 다음 view 이동할떄 사용
-				// dispatch("QAController?command=list", req, resp); //객체값을 가지고 다름 view 넘어갈떄
-	
+				
 		// QADetail (개인정보)
 		} else if (command.equals("QADetail")) {
 			String id = req.getParameter("id");
 
 			QADto dto = new QADto();
-			boolean result = dao.QADetail(dto);
+			boolean result = QAmemberDao.QADetail(dto);
 			req.setAttribute("QADetail", dto);
 			// resp.sendRedirect("QAController?command=list");
 			dispatch("QADetail.jsp", req, resp);
@@ -118,7 +100,7 @@ public class QAController extends HttpServlet {
 			System.out.println(title);
 			System.out.println(content);
 		
-			boolean result = dao.QABbupdate(seq, title, content);
+			boolean result = QAmemberDao.QABbupdate(seq, title, content);
 
 			if (result == true) {
 				System.out.println("result was true");
@@ -137,7 +119,7 @@ public class QAController extends HttpServlet {
 		} else if (command.equals("QAdelete")) {
 
 			int seq = Integer.parseInt(req.getParameter("seq"));
-			boolean result = dao.QAdelete(seq);
+			boolean result = QAmemberDao.QAdelete(seq);
 			
 			if (result == true) {
 				System.out.println("result was true");
@@ -176,7 +158,7 @@ public class QAController extends HttpServlet {
 			// 쿼리 처리 데이터 받아옴.
 
 			QADto dto = new QADto(id, title, content);
-			boolean result = dao.QAanswer(seq, dto);
+			boolean result = QAmemberDao.QAanswer(seq, dto);
 			if (!result) {
 				System.out.println("추가하지 못했습니다");
 				// QAwrite 다시 작성
