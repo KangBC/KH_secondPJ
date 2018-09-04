@@ -1,32 +1,35 @@
 package Dao;
 
-import Dto.ReservDto;
+import Dto.ReserveDto;
 import java.util.*;
 import java.sql.*;
 import DB.*;
 
-public class ReservDao {
+public class ReserveDao {
 	
-private static ReservDao calDao = new ReservDao();
+private static ReserveDao calDao = new ReserveDao();
 	
-	private ReservDao() {
+	private ReserveDao() {
 		DB.DBConnection.initConnect();
 	}
 	
-	public static ReservDao getInstance() {
+	public static ReserveDao getInstance() {
 		return calDao;
 	}
 
 	public List<String> getCalendarList(String id, String yyyyMM) {
 		
-		String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
+		/*String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
 				+ " FROM("
 				+ "		SELECT ROW_NUMBER() OVER(PARTITION BY SUBSTR(RDATE, 1, 8) "
 				+ "								ORDER BY RDATE ASC) RN, "
 				+ "			SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
 				+ "		FROM CALENDAR "
 				+ "		WHERE ID=? AND SUBSTR(RDATE, 1, 6)=? ) "
-				+ "	WHERE RN BETWEEN 1 AND 5";
+				+ "	WHERE RN BETWEEN 1 AND 5";*/
+		
+		
+		String sql = "SELECT * FROM CALENDAR WHERE SUBSTR(RDATE,1,6)=?";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -39,15 +42,14 @@ private static ReservDao calDao = new ReservDao();
 			System.out.println("1/6 getCalendarList success");
 				
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id.trim());
-			psmt.setString(2, yyyyMM.trim());
+			psmt.setString(1, yyyyMM.trim());
 			System.out.println("2/6 getCalendarList success");
 			
 			rs = psmt.executeQuery();
 			System.out.println("3/6 getCalendarList success");
 			
 			while(rs.next()) {
-				ReservDto dto = new ReservDto();
+				ReserveDto dto = new ReserveDto();
 				dto.setSeq(rs.getInt(1));
 				dto.setId(rs.getString(2));
 				dto.setTitle(rs.getString(3));
@@ -77,7 +79,7 @@ private static ReservDao calDao = new ReservDao();
 	private String rdate;
 	private String wdate;*/
 
-	public boolean makeSchedule(ReservDto dto) {
+	public boolean makeSchedule(ReserveDto dto) {
 		String sql = "INSERT INTO CALENDAR VALUES(SEQ_CAL.NEXTVAL, ?, ?, ?, ?, SYSDATE)";
 		
 		Connection conn = null;
@@ -101,13 +103,13 @@ private static ReservDao calDao = new ReservDao();
 	}
 	
 
-	public ReservDto getSchedule(int seq) {
+	public ReserveDto getSchedule(int seq) {
 		String sql = "SELECT * FROM CALENDAR WHERE SEQ=?";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		ReservDto dto = null;
+		ReserveDto dto = null;
 		
 		try {
 			conn = DBConnection.makeConnection();
@@ -117,7 +119,7 @@ private static ReservDao calDao = new ReservDao();
 			rs = psmt.executeQuery();
 			
 			if (rs.next()) {
-				dto = new ReservDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+				dto = new ReserveDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
 			}
 				
 				
@@ -129,7 +131,7 @@ private static ReservDao calDao = new ReservDao();
 	}
 
 
-	public List<ReservDto> getDayList(String id, String date) {
+	public List<ReserveDto> getDayList(String id, String date) {
 		
 		String sql = "SELECT * FROM CALENDAR WHERE ID=? AND SUBSTR(RDATE, 1, 8)=?";
 		
@@ -137,7 +139,7 @@ private static ReservDao calDao = new ReservDao();
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
-		List<ReservDto> list = new ArrayList<ReservDto>();
+		List<ReserveDto> list = new ArrayList<ReserveDto>();
 		
 		try {
 			conn = DBConnection.makeConnection();
@@ -152,7 +154,7 @@ private static ReservDao calDao = new ReservDao();
 			System.out.println("3/6 getCalendarList success");
 			
 			while(rs.next()) {
-				ReservDto dto = new ReservDto();
+				ReserveDto dto = new ReserveDto();
 				dto.setSeq(rs.getInt(1));
 				dto.setId(rs.getString(2));
 				dto.setTitle(rs.getString(3));
@@ -212,6 +214,73 @@ private static ReservDao calDao = new ReservDao();
 		}
 		
 		return result;
+	}
+	
+	public boolean deleteschedule(int seq) {
+		String sql = "DELETE FROM CALENDAR WHERE SEQ=?";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int result = 0;
+		
+		
+		
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getCalendarList success");
+				
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+			System.out.println("2/6 getCalendarList success");
+			
+			result = psmt.executeUpdate();
+			System.out.println("3/6 getCalendarList success");
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, null);
+			System.out.println("5/6 getCalendarList success");
+		}
+		
+		return result>0?true:false;
+	}
+	
+	public boolean updateschedule(int seq, ReserveDto dto) {
+		String sql = "UPDATE CALENDAR SET TITLE=?, RDATE=?, CONTENT=? WHERE SEQ=?";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int result = 0;
+		
+		
+		
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getCalendarList success");
+				
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getRdate());
+			psmt.setString(3, dto.getContent());
+			psmt.setInt(4, seq);
+			System.out.println("2/6 getCalendarList success");
+			
+			result = psmt.executeUpdate();
+			System.out.println("3/6 getCalendarList success");
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, null);
+			System.out.println("5/6 getCalendarList success");
+		}
+		
+		return result>0?true:false;
 	}
 
 }

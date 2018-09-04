@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="Dto.*, Dao.*, java.util.*"%>
+<%
+request.setCharacterEncoding("utf-8");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -22,8 +25,51 @@
 <script>
 $(function() {
 	  $('#calendar').fullCalendar({
+		  navLinks: true,
+		  header: {
+		      left: 'prev,next today',
+		      center: 'title',
+		      right: 'month,agendaWeek,agendaDay'
+		    },
+		  navLinkDayClick: function(date, jsEvent) {
+			    console.log('day', date.format()); // date is a moment
+			    
+			    location = '<%=request.getContextPath() %>/JSP/CalendarDay.jsp?date='+ date.format();
+			  },
+		  viewRender: function(view,element){
+				var moment = view.intervalStart;
+					//$('#calendar').fullCalendar('getDate');
+				var year = moment.year();
+				var month = moment.month()+1;
+				var arr;
+				var str = "<%=request.getContextPath() %>/ReserveController?command=list&year="+year+"&month="+month;
 
-	  })
+				$.get(str, function(data, status){
+					console.log(data);
+					arr = JSON.parse(data);
+					
+					
+					for(var i = 0; i< arr.length;i++){
+						console.log(arr[i].start);
+					}
+					
+					$('#calendar').fullCalendar('removeEventSources');
+					$('#calendar').fullCalendar('addEventSource', arr);
+					
+				});
+			},
+			
+		  eventClick: function(eventObj) {
+		      if (eventObj.url) {
+		        location.href = eventObj.url;
+		      } else {
+		        alert('Clicked ' + eventObj.title);
+		      }
+		    
+		  }
+
+			
+	  });
 
 	});
 </script>
@@ -48,71 +94,10 @@ $(function() {
 <div id='calendar'></div>
 
 <div class="wrapper">
-<button id="btn" onclick="location.href='<%=request.getContextPath() %>/ReservController?command=reservepage'" type="button" class="btn btn-primary">상담예약</button>
+<button id="btn" onclick="location.href='<%=request.getContextPath() %>/ReserveController?command=reservepage'" type="button" class="btn btn-primary">상담예약</button>
 </div>
 
-<script>
-$("#calendar").fullCalendar({viewRender: function(view,element){
-	var moment = view.intervalStart;
-		//$('#calendar').fullCalendar('getDate');
-	var year = moment.year();
-	var month = moment.month()+1;
-	var arr;
-	var str = "<%=request.getContextPath() %>/ReservController?command=list&year="+year+"&month="+month;
 
-	
-	$.get(str, function(data, status){
-		console.log(data);
-		arr = JSON.parse(data);
-		
-		
-		for(var i = 0; i< arr.length;i++){
-			console.log(arr[i].start);
-		}
-		
-		$('#calendar').fullCalendar('removeEventSources');
-		$('#calendar').fullCalendar('addEventSource', arr);
-		
-	});
-	
-	
-	
-	
-}});
-/* 
-$(function(){
-	
-	var moment = $('#calendar').fullCalendar('getDate');
-	var year = moment.year();
-	var month = moment.month()+1;
-	var arr;
-	var str ="../ReservController?command=list&year="+year+"&month="+month;
-
-	
-	$.get(str, function(data, status){
-		console.log(data);
-		arr = JSON.parse(data);
-		
-		
-		for(var i = 0; i< arr.length;i++){
-			console.log(arr[i].start);
-		}
-		
-		$('#calendar').fullCalendar('addEventSource',arr);
-		
-	});
-
-	
-	
-	
-	
-	
-
-}); */
-
-
-
-</script>
 
 </body>
 </html>

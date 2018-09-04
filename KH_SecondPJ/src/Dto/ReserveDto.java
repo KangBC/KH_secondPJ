@@ -1,6 +1,6 @@
 package Dto;
 
-public class ReservDto {
+public class ReserveDto {
 	
 	private int seq;
 	private String id;
@@ -9,7 +9,7 @@ public class ReservDto {
 	private String rdate;
 	private String wdate;
 	
-	public ReservDto(int seq, String id, String title, String content, String rdate, String wdate) {
+	public ReserveDto(int seq, String id, String title, String content, String rdate, String wdate) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -19,7 +19,7 @@ public class ReservDto {
 		this.wdate = wdate;
 	}
 
-	public ReservDto(String id, String title, String content, String rdate) {
+	public ReserveDto(String id, String title, String content, String rdate) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -79,10 +79,10 @@ public class ReservDto {
 	public String toString() {
 		return "{\"seq\":" + seq + ", \"id\":\"" + id + "\", \"title\":\"" + title + "\", \"content\":\"" + content + "\", \"start\":\"" 
 				+ rdate.substring(0, 4)+"-"+rdate.substring(4, 6) + "-" +rdate.substring(6,8) + "T" + rdate.substring(8, 10)+ ":" + rdate.substring(10, 12)+":00"
-				+ "\", \"wdate\":\"" + wdate + "\",  \"allDay\" : false}";
+				+ "\", \"wdate\":\"" + wdate + "\",  \"allDay\" : false, \"url\": \"../ReserveController?command=detail&seq="+seq+ "\"}";
 	}
 
-	public ReservDto() {
+	public ReserveDto() {
 
 	}
 	
