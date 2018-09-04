@@ -10,9 +10,5 @@
 <body>
 <jsp:include page="Header.jsp"></jsp:include>
 
-<a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a><br>
-<a href="<%=request.getContextPath()%>/QAController?command=list">QAList</a><br>
-<a href="<%=request.getContextPath()%>/PdsController?command=list">Pds</a>
-
 </body>
 </html>

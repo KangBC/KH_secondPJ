@@ -20,7 +20,7 @@
 
     <div class="navbar-header">
 
-      <a class="navbar-brand" href="#">WebSeed</a> <!--네비게이션 제목 -->
+      <a class="navbar-brand" href="#">KH_WEDDING</a> <!--네비게이션 제목 -->
 
     </div>
 
@@ -28,18 +28,29 @@
 
       <ul class="nav navbar-nav">
 
-        <li class="active"><a href="#">Home</a></li> <!-- li속성에 active값을 주면 실행된 값이 보임 -->
+        <li class="active"><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> <!-- li속성에 active값을 주면 실행된 값이 보임 -->
 
-        <li><a href="#">Page 1</a></li>
+		<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">Contact Us</a></li>
 
-        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Gallary</a></li>
 
-        <li><a href="#">Page 3</a></li>
+        <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a></li>
+
+        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">Pds</a></li>
+
+        <li><a href="<%=request.getContextPath()%>/QAController?command=list">QA</a></li>
 
       </ul>
 
     </div>
 
+	<div class="" style="float: right">
+	<ul class="nav navbar-nav">
+		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
+		<li><a href="<%=request.getContextPath()%>/JSP/Login.jsp">로그아웃</a></li>	<!-- 세션 파괴 작업 필요 -->
+	</ul>
+	
+	</div>
   </div>
 
 </nav>
