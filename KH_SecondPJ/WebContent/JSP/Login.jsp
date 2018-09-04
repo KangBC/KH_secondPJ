@@ -4,22 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="../CSS/Member.css"/>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Member.css"/>
 <title>로그인</title>
 </head>
 <body>
 
 <div id=loginDiv>
-<form>
-	<input type="hidden" name="command" value="">
-	<input class=loginTB type="text" placeholder="ID" >
-	<input class=loginTB type="password" placeholder="PASSWORD">
+<form action="/KH_SecondPJ/MemberController" method="post">
+	<input type="hidden" name="command" value="login">
+	<input class=loginTB type="text" name="id" placeholder="ID" >
+	<input class=loginTB type="password" name="pw" placeholder="PASSWORD">
 	<input class=btn type="submit" value="Login">
 </form>
-<a href="">회원가입</a>
+<a href="/KH_SecondPJ/JSP/Regi.jsp">회원가입</a>
 </div>
-
-
 
 </body>
 </html>
