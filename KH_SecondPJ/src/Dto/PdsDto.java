@@ -9,6 +9,7 @@ public class PdsDto implements Serializable{
 	private String title;
 	private String content;
 	private String filename;
+	private int del;
 	private int readcount;
 	private int downcount;
 	private String regdate;
@@ -18,18 +19,23 @@ public class PdsDto implements Serializable{
 		
 	}
 
-	public PdsDto(int seq, String id, String title, String content, String filename, int readcount, int downcount,
-			String regdate) {
+
+	public PdsDto(int seq, String id, String title, String content, String filename, int del, int readcount,
+			int downcount, String regdate) {
 		super();
 		this.seq = seq;
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.filename = filename;
+		this.del = del;
 		this.readcount = readcount;
 		this.downcount = downcount;
 		this.regdate = regdate;
 	}
+	
+	
+
 
 	public PdsDto(String id, String title, String content, String filename) {
 		super();
@@ -90,6 +96,16 @@ public class PdsDto implements Serializable{
 	}
 
 
+	public int getDel() {
+		return del;
+	}
+
+
+	public void setDel(int del) {
+		this.del = del;
+	}
+
+
 	public int getReadcount() {
 		return readcount;
 	}
@@ -123,11 +139,11 @@ public class PdsDto implements Serializable{
 	@Override
 	public String toString() {
 		return "PdsDto [seq=" + seq + ", id=" + id + ", title=" + title + ", content=" + content + ", filename="
-				+ filename + ", readcount=" + readcount + ", downcount=" + downcount + ", regdate=" + regdate + "]";
+				+ filename + ", del=" + del + ", readcount=" + readcount + ", downcount=" + downcount + ", regdate="
+				+ regdate + "]";
 	}
 	
 	
-	
-	
-	
+
+		
 }
