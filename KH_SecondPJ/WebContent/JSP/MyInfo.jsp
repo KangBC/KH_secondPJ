@@ -16,9 +16,14 @@
 	MemberDao dao = MemberDao.getInstance();
 
 	HttpSession memberSession = request.getSession(false);
-	MemberDto member = (MemberDto)memberSession.getAttribute("kh_member");
+	
+	MemberDto member = null;
+	member = (MemberDto)memberSession.getAttribute("kh_member");
+	
 	if(member != null){
 		member = dao.getMember(member.getId());
+	}else{
+		
 	}
 %>
 <div id=myInfoDiv>

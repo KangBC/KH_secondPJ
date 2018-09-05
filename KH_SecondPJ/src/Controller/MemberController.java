@@ -46,6 +46,14 @@ public class MemberController extends HttpServlet{
 			}else {
 				dispatch("JSP/Login.jsp", req, resp);
 			}
+		}else if(command.equals("logout")) {
+
+			HttpSession session = req.getSession(false);
+
+			if(session!=null) {
+				session.invalidate();
+			}
+			
 		}else if(command.equals("regist_submit")) {
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");

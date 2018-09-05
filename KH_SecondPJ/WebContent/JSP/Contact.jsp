@@ -8,14 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body onload="initialize()">
-<jsp:include page="Header.jsp"></jsp:include>
+<jsp:include page="Header.jsp" flush="false"></jsp:include>
 
 <div style="width:1020px; margin: 50px auto 30px; text-align: center;">
 <h2>Location</h2>
 </div>
-<hr style="width: 1020px;">
+<hr style="width: 1020px; border-color: black;">
 <div id="map_canvas" style="width:1020px; height:433px; margin: 30px auto 30px;"></div> 
-<hr style="width: 1020px;">
+<hr style="width: 1020px; border-color: black;">
 
 <script> 
 function initialize() { 
@@ -56,7 +56,7 @@ function initialize() {
 		<td style="width: 720px; ">
 			<strong>주소</strong><br>
 			<p>서울특별시 강남구 강남구 테헤란로14길 6</p>
-			<hr>
+			<hr style="border-color: black;">
 		</td>
 	</tr>
 	<tr>
@@ -66,7 +66,7 @@ function initialize() {
 		</td>
 	</tr>
 </table>
-<hr style="width: 1020px;">
+<hr style=" width: 1020px; border-color: black;">
 </div>
 </body>
 </html>
