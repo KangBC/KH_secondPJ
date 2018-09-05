@@ -16,6 +16,7 @@
 <hr style="width: 1020px;">
 <div id="map_canvas" style="width:1020px; height:433px; margin: 30px auto 30px;"></div> 
 <hr style="width: 1020px;">
+
 <script> 
 function initialize() { 
 
@@ -48,18 +49,24 @@ function initialize() {
 </script> 
 <div style="width:1020px; height:433px; margin: 30px auto 30px;">
 
-<div>
 
-</div>
-<table border="1px solid black;" >
+<table>
 	<tr>
 		<td rowspan="2" style="vertical-align: top; width: 300px; "><h4 style="margin: 10px 0 0 10px ;">오시는 길</h4></td>
-		<td style="width: 720px; ">sdfjksldj;flkdsjklfj</td>
+		<td style="width: 720px; ">
+			<strong>주소</strong><br>
+			<p>서울특별시 강남구 강남구 테헤란로14길 6</p>
+			<hr>
+		</td>
 	</tr>
 	<tr>
-		<td style="width: 720px; ">lawkjeflksjdklfjskldjf</td>
+		<td style="width: 720px; ">
+			<strong>전화안내</strong><br>
+			<p>000-0000-0000</p>
+		</td>
 	</tr>
 </table>
+<hr style="width: 1020px;">
 </div>
 </body>
 </html>

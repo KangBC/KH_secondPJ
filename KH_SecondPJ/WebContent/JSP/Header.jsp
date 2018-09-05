@@ -1,3 +1,4 @@
+<%@page import="Dao.MemberDao"%>
 <%@page import="Dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,6 +15,17 @@
 
 </head>
 <body >
+
+ <%
+	MemberDao dao = MemberDao.getInstance();
+
+	HttpSession memberSession = request.getSession(false);
+	MemberDto member = (MemberDto)memberSession.getAttribute("kh_member");
+	if(member != null){
+		member = dao.getMember(member.getId());
+	}
+%> 
+
 <nav class="navbar navbar-inverse"> 
 
   <div class="container-fluid"><!-- 컨테이너 값이 전체화면을 쓴다는 속성, width값이 100% -->
@@ -46,8 +58,13 @@
 
 	<div class="" style="float: right">
 	<ul class="nav navbar-nav">
+ 	<%if(member != null)	{%>
 		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
-		<li><a href="<%=request.getContextPath()%>/JSP/Login.jsp">로그아웃</a></li>	<!-- 세션 파괴 작업 필요 -->
+		<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">로그아웃</a></li>	<!-- 세션 파괴 작업 필요 -->
+		<%}else{
+		%>
+			<li><a href="<%=request.getContextPath()%>/JSP/Login.jsp">로그인</a></li>
+		<%}%>
 	</ul>
 	
 	</div>
