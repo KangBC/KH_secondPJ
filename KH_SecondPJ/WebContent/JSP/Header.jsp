@@ -1,3 +1,4 @@
+<%@page import="Dao.MemberDao"%>
 <%@page import="Dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,18 +10,30 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </head>
-<body>
+<body >
+
+ <%
+	MemberDao dao = MemberDao.getInstance();
+
+	HttpSession memberSession = request.getSession(false);
+	MemberDto member = null;
+	if(memberSession!=null){
+		member = (MemberDto)memberSession.getAttribute("kh_member");
+	}
+%> 
+
 <nav class="navbar navbar-inverse"> 
 
   <div class="container-fluid"><!-- 컨테이너 값이 전체화면을 쓴다는 속성, width값이 100% -->
 
     <div class="navbar-header">
 
-      <a class="navbar-brand" href="#">WebSeed</a> <!--네비게이션 제목 -->
+      <a class="navbar-brand" href="#">KH_WEDDING</a> <!--네비게이션 제목 -->
 
     </div>
 
@@ -28,21 +41,52 @@
 
       <ul class="nav navbar-nav">
 
-        <li class="active"><a href="#">Home</a></li> <!-- li속성에 active값을 주면 실행된 값이 보임 -->
+        <li><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> <!-- li속성에 active값을 주면 실행된 값이 보임 -->
 
-        <li><a href="#">Page 1</a></li>
+		<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">Contact Us</a></li>
 
-        <li><a href="#">Page 2</a></li>
+        <li><a href="<%=request.getContextPath()%>/JSP/Gallery.jsp">Gallery</a></li>
 
-        <li><a href="#">Page 3</a></li>
+        <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a></li>
+
+        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">자료실</a></li>
+
+        <li><a href="<%=request.getContextPath()%>/QAController?command=list">QA</a></li>
 
       </ul>
 
     </div>
 
+	<div class="" style="float: right">
+	<ul class="nav navbar-nav">
+ 	<%if(member != null)	{%>
+		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
+		<li><a onclick="logout()" style="cursor: pointer;">로그아웃</a></li>
+		<%}else{
+		%>
+			<li><a href="<%=request.getContextPath()%>/JSP/Login.jsp">로그인</a></li>
+		<%}%>
+	</ul>
+	
+	</div>
   </div>
-
 </nav>
+<script type="text/javascript">
+function logout() {
+	$.ajax({
+		url : "/KH_SecondPJ/MemberController?command=logout",
+	    type:"get",
+	    success : function(){
+			alert("로그아웃되었습니다.");
+			location.href="<%=request.getContextPath()%>/JSP/About.jsp";
+	    },
+	    error: function(xhr , status){
+	    	alert(xhr + " : " + status)
+	    }
+	});
+	
+}
 
+</script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import java.util.List;
 import DB.DBClose;
 import DB.DBConnection;
 import Dto.PdsDto;
+import Dto.QADto;
 
 
 public class PdsDao {
@@ -26,7 +27,7 @@ public class PdsDao {
 	
 	public List<PdsDto> getPdsList(){
 		
-		String sql =" SELECT SEQ, ID, TITLE, CONTENT, FILENAME, "
+		String sql =" SELECT SEQ, ID, TITLE, CONTENT, FILENAME, DEL, "
 				+ " READCOUNT, DOWNCOUNT, REGDATE "
 				+ " FROM PDS "
 				+ " ORDER BY SEQ DESC ";
@@ -50,7 +51,8 @@ public class PdsDao {
 								rs.getString(5),
 								rs.getInt(6),
 								rs.getInt(7),
-								rs.getString(8));
+								rs.getInt(8),
+								rs.getString(9));
 				list.add(dto);	
 			}
 			
@@ -67,38 +69,35 @@ public class PdsDao {
 	
 	
 	public boolean writePds(PdsDto pds) {
-		
-		String sql =" INSERT INTO PDS( "
-				+ " SEQ, ID, TITLE, CONTENT, FILENAME, "
+		String sql = " INSERT INTO PDS( "
+				+ " SEQ, ID, TITLE, CONTENT, FILENAME, DEL, "
 				+ " READCOUNT, DOWNCOUNT, REGDATE) "
 				+ " VALUES(SEQ_PDS.NEXTVAL, "
-				+ " ?, ?, ?, ?, "
-				+ " 0, 0, SYSDATE) ";
+				+ " ?, ?, ?, ?, 0, 0, 0, SYSDATE) ";
+		
+		int count = 0;
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		
-		int count = 0;
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
 			
-			try {
-				conn = DBConnection.makeConnection();
-				psmt = conn.prepareStatement(sql);
-				
-				psmt.setString(1, pds.getId());
-				psmt.setString(2, pds.getTitle());
-				psmt.setString(3, pds.getContent());
-				psmt.setString(4, pds.getFilename());
-				
-				count = psmt.executeUpdate();
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				DBClose.close(psmt, conn, null);
-			}
+			psmt.setString(1, pds.getId());
+			psmt.setString(2, pds.getTitle());
+			psmt.setString(3, pds.getContent());
+			psmt.setString(4, pds.getFilename());
+			
+			count = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, null);
+		}		
 		return count>0?true:false;
-		
 	}
 	
 	public boolean downloadcount(int seq) {
@@ -114,14 +113,11 @@ public class PdsDao {
 		
 		try {
 			conn = DBConnection.makeConnection();
-			System.out.println("1/6 downloadcount success");
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, seq);
-			System.out.println("2/6 downloadcount success");
 			
 			count = psmt.executeUpdate();
-			System.out.println("3/6 downloadcount success");
 			
 		} catch (SQLException e) {
 			System.out.println("downloadcount fail");
@@ -133,9 +129,46 @@ public class PdsDao {
 		return count>0?true:false;
 	}
 	
+	public boolean detailPds(PdsDto dto) {
+
+		String sql =" INSERT INTO PDS( "
+				+ " SEQ, ID, TITLE, CONTENT, FILENAME, "
+				+ " READCOUNT, DOWNCOUNT, REGDATE) "
+				+ " VALUES(SEQ_PDS.NEXTVAL, "
+				+ " ?, ?, ?, ?, "
+				+ " 0, 0, SYSDATE) ";
+
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+
+		int count = 0;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, dto.getId());
+			psmt.setString(2, dto.getTitle());
+			psmt.setString(3, dto.getContent());
+
+			count = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+
+		return count > 0 ? true : false;
+	}
+	
+	
+	
+	
 	public PdsDto getPDS(int seq) {
 
-		String sql = " SELECT SEQ, ID, TITLE, CONTENT, FILENAME, READCOUNT, DOWNCOUNT, REGDATE " 
+		String sql = " SELECT SEQ, ID, TITLE, CONTENT, FILENAME, DEL, READCOUNT, DOWNCOUNT, REGDATE " 
 					+ " FROM PDS " 
 					+ " WHERE SEQ=? ";
 		
@@ -158,15 +191,16 @@ public class PdsDao {
 				String title = rs.getString(3);
 				String content = rs.getString(4);
 				String filename = rs.getString(5);
-				int readcount = rs.getInt(6);
-				int downcount = rs.getInt(7);
-				String regdate = rs.getString(8);
+				int del = rs.getInt(6);
+				int readcount = rs.getInt(7);
+				int downcount = rs.getInt(8);
+				String regdate = rs.getString(9);
 				
-				dto = new PdsDto(seq, id, title, content, filename, readcount, downcount, regdate);
+				dto = new PdsDto(seq, id, title, content, filename, del, readcount, downcount, regdate);
 			}
 				
 		} catch (SQLException e) {
-			System.out.println("getBbs failed");
+			
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
@@ -192,11 +226,119 @@ public class PdsDao {
 			psmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("readCount failed");
+
+			e.printStackTrace();
+			
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+	}
+	
+	
+	public boolean updatePds(int seq, String title, String content) {
+
+		String sql = " UPDATE PDS SET "
+					+ " TITLE=?, CONTENT=? "
+					+ " WHERE SEQ=? ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		int count = 0;
+
+		try {
+			conn = DBConnection.makeConnection();
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, title);
+			psmt.setString(2, content);
+			psmt.setInt(3, seq);
+
+			count = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, null);
+		}
+
+		return count > 0 ? true : false;
+	}
+	
+	public boolean deletePds(int seq) {
+		String sql = "DElETE FROM PDS "
+					+ " WHERE SEQ =?";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int count = 0;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+
+			count = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			DBClose.close(psmt, conn, null);
+		}
+
+		return count > 0 ? true : false;
+	}
+	public List<PdsDto> searchlist(int option, String str){
+		String sql = "";
+				
+		str = "%"+str+"%";
+				
+		if(option == 1) {
+			sql =" SELECT * "
+				+ " FROM PDS "
+				+ " WHERE ID LIKE ?";
+		}else {
+			sql =" SELECT * "
+					+ " FROM PDS "
+					+ " WHERE TITLE LIKE ?";
+		}
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<PdsDto> list = new ArrayList<>();
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, str);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				PdsDto dto = new PdsDto(rs.getInt(1),
+								rs.getString(2),
+								rs.getString(3),
+								rs.getString(4),
+								rs.getString(5),
+								rs.getInt(6),
+								rs.getInt(7),
+								rs.getInt(8),
+								rs.getString(9));
+				list.add(dto);	
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
+		return list;
 	}
 	
 	
