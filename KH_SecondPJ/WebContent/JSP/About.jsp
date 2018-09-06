@@ -23,11 +23,11 @@ font-size: 1em;
 <hr style="width: 1020px; border-color: black;">
 
 
-<img class="slides" src="../img/wedding_slide01.jpg">
-<img class="slides" src="../img/wedding_slide02.jpg">
-<img class="slides" src="../img/wedding_slide03.jpg">
-<img class="slides" src="../img/wedding_slide04.jpg">
-<img class="slides" src="../img/wedding_slide05.jpg">
+<img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide01.jpg">
+<img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide02.jpg">
+<img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide03.jpg">
+<img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide04.jpg">
+<img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide05.jpg">
 
 <hr style="width: 1020px; border-color: black;">
 
@@ -43,20 +43,20 @@ font-size: 1em;
 
 <hr style="width: 1020px; border-color: black;">
 
-<table style="width: 1020px; border="0" cellspacing="0" cellpadding="0">
+<table style="width: 1020px;  border-color: black;  cellspacing="0" cellpadding="0">
             <tbody>
             <tr>
-                <td><img style="width: 100%"  src="../img/wedding_slide01.jpg"></td>
-                <td width="497" valign="middle" style="padding: 0px 40px; line-height: 180%;" bgcolor="#f1f1f1">
+                <td><img style="width: 100%"  src="<%=request.getContextPath() %>/img/wedding_slide01.jpg"></td>
+                <td width="497" valign="middle" style="border-right: 1px solid #E1E1E1; border-top: 1px solid #E1E1E1; padding: 0px 40px; line-height: 180%;" bgcolor="white">
                  <h4>Wedding</h4>
                 	웨딩에 관련된 모든분야의 전문 스텝들이 고객님의 스타일에 맞는 <br>가장 감동적인 장면을 연출 해 드립니다.<br>
                 </td>
             </tr>
             <tr>
-                <td width="497" valign="middle" style="padding: 0px 40px; line-height: 180%;" bgcolor="#f1f1f1">
+                <td width="497" valign="middle" style="border-left: 1px solid #E1E1E1; border-bottom: 1px solid #E1E1E1;  padding: 0px 40px; line-height: 180%;" bgcolor="white">
 						<h4>Lobby</h4>
                 	내집으로 귀빈을 모시는 듯한 분위기를 여유롭고 편안하게 자아냅니다.<br>
-                <td><img style="width: 100%"  src="../img/wedding_slide06.jpg"></td>
+                <td><img style="width: 100%"  src="<%=request.getContextPath() %>/img/wedding_slide06.jpg"></td>
                 </td>
             </tr> 
            </tbody>
