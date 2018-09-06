@@ -24,9 +24,19 @@ public class QADao {
 	}
 
 	// Main리스트
-	public List<QADto> getList() {
+	public List<QADto> getList(int searchfor,String search) {
 
-		String sql = " SELECT * " + " FROM BBS " + " ORDER BY REF DESC, STEP ASC ";
+		String sql = "";
+		
+		if (searchfor == 0) {
+			 sql = " SELECT * " + " FROM BBS " + " ORDER BY REF DESC, STEP ASC ";
+		} else if (searchfor == 1) {
+			 sql = " SELECT * " + " FROM BBS " + " WHERE ID LIKE '%"+search+"%' ORDER BY REF DESC, STEP ASC ";
+		} else if (searchfor == 2) {
+			 sql = " SELECT * " + " FROM BBS " + " WHERE TITLE LIKE '%"+search+"%' ORDER BY REF DESC, STEP ASC ";
+		} else if (searchfor == 3) {
+			 sql = " SELECT * " + " FROM BBS " + " WHERE CONTENT LIKE '%"+search+"%' ORDER BY REF DESC, STEP ASC ";
+		}
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -47,7 +57,8 @@ public class QADao {
 			while (rs.next()) {
 
 				QADto dto = new QADto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5),
-						rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11));
+						rs.getString(6), rs.getString(7), rs.getString(8).substring(0, 16), rs.getInt(9), rs.getInt(10),
+						rs.getInt(11));
 
 				list.add(dto);
 			}
@@ -211,7 +222,7 @@ public class QADao {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		int count = 0;
-		System.out.println("-------------"+content);
+		System.out.println("-------------" + content);
 		try {
 			conn = DBConnection.makeConnection();
 

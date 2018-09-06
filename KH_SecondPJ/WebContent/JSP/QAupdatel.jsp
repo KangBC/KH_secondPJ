@@ -51,7 +51,6 @@
 
 	<div class="center">
 		<form action="../QAController" method="post">
-
 			<input type="hidden" name="seq" value="<%=seq%>"> <input
 				type="hidden" name="command" value="QAupdate">
 			<table class="table table-bordered" style="width: 700px"
@@ -103,7 +102,8 @@
 		</form>
 	</div>
 
-	<a href='QAList.jsp'>글 목록</a>
+<input type="button" value="글 목록 "
+class="pull-right" onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
 
 </body>
 </html>

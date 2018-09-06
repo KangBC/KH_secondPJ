@@ -112,7 +112,7 @@
 
 				<tr>
 					<td>제목:</td>
-					<td><input type="text" name="title" class="form-control"></td>
+					<td><input type="text" name="title" placeholderclass="title" "form-control"></td>
 				</tr>
 
 				<tr>

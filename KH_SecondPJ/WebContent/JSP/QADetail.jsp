@@ -41,10 +41,11 @@
 
 	</div>
 	<%
-		Object ologin = session.getAttribute("kh_member");
-		MemberDto mem = null;
-		mem = (MemberDto) ologin;
-
+	MemberDto mem = (MemberDto)session.getAttribute("kh_member");
+    boolean idcheck = true;
+ 	 if(mem == null){
+		idcheck = false;
+ 	}
 		String sseq = request.getParameter("seq");
 		int seq = Integer.parseInt(sseq.trim());
 
@@ -103,44 +104,32 @@
 
 		<!-- 댓글기능  -->
 		<div align="center">
-			<form action="QAanswer.jsp" method="post">
-				<input type="hidden" name="seq" value="<%=dto.getSeq()%>"> <input
-					type="submit" value="답글">
-			</form>
-			<br>
 
-			<%-- 	<!-- 수정 기능  -->
-			<form action="QAupdatel.jsp" method="post">
-				<input type="hidden" name="seq" value="<%=dto.getSeq()%>"> 
-				<input type="submit" value="수정">
-			</form>  --%>
+			<button onclick="QAanswer()">답글</button>
+
+			<br>
 
 			<button onclick="Upsubmit()">수정</button>
 
 			<br>
 
-			<!-- 삭제 기능  -->
-			<%-- <form action="../QAController?command=QAdelete" method="post">
-				<input type="hidden" name="seq" value="<%=dto.getSeq()%>">
-				<input type="submit" name="submit" value="삭제">
-			</form> --%>
-
 			<button onclick="delsubmit()">삭제</button>
 
 		</div>
 
-		<a href="QAList.jsp">글 목록</a>
+		<input type="button" value="글 목록 " class="pull-right"
+			onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
+
 
 	</div>
 
-	<script type="text/javascript">
+<script type="text/javascript">
+	var idcheck = <%=idcheck%>;
 //삭제
 function delsubmit() {
-	console.log("<%=mem.getId()%>");
-	console.log("<%=dto.getId()%>");
 	
 
-	if ("<%=mem.getId()%>"  === "<%=dto.getId()%>") {
+	if (idcheck) {
 		var result = confirm("정말 삭제하시겠습니까?");
 		if(result){
 			location = "../QAController?command=QAdelete&seq=<%=dto.getSeq()%>";
@@ -153,10 +142,9 @@ function delsubmit() {
 	}
 }
 	
-	//수정
+//수정
 function Upsubmit() {
-		
-		if ("<%=mem.getId()%>"  === "<%=dto.getId()%>") {
+		if (idcheck) {
 			var result = confirm("정말 수정하시겠습니까?");
 			if(result){
 				location = "QAupdatel.jsp?seq="+<%=dto.getSeq()%>;
@@ -168,6 +156,23 @@ function Upsubmit() {
 		    return;
 		}
 	}
+	
+	
+//답글
+function QAanswer() {
+	if (idcheck) {
+		var result = confirm("댓글란으로 이동합니다.?");
+		if(result){
+			location = "QAanswer.jsp?seq="+<%=dto.getSeq()%>;
+		}else{
+			return
+		}
+	}else{
+		alert('로그인해주세요');
+	    return;
+	}
+}
+	
 </script>
 
 </body>
