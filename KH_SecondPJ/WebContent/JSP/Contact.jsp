@@ -36,37 +36,55 @@ function initialize() {
 		title: "KH정보교육원" 
 	}); 
 
-	var infowindow = new google.maps.InfoWindow({ 
+	/* var infowindow = new google.maps.InfoWindow({ 
 				content: "<h3>KH정보교육원</h3>", 
-				maxWidth: 300 
+				maxWidth: 300  
 	}); 
 
 	google.maps.event.addListener(marker, 'click', function() { 
 		infowindow.open(map, marker); 
-	}); 
+	});  */
 } 
 
 </script> 
 <div style="width:1020px; height:433px; margin: 30px auto 30px;">
 
 
-<table>
+<table style="font-family: Noto Sans KR, sans-serif;">
 	<tr>
-		<td rowspan="2" style="vertical-align: top; width: 300px; "><h4 style="margin: 10px 0 0 10px ;">오시는 길</h4></td>
+		<td rowspan="2" style="vertical-align: top; width: 300px; "><h4 style="margin: 10px 0 0 10px ;"><strong>오시는 길</strong></h4></td>
 		<td style="width: 720px; ">
 			<strong>주소</strong><br>
-			<p>서울특별시 강남구 강남구 테헤란로14길 6</p>
-			<hr style="border-color: black;">
+			<p style="margin-top: 5px;">서울특별시 강남구 테헤란로 14길 6 남도빌딩 2F, 3F, 4F, 5F</p>
+			<hr style="border-color: #A2A2A2;">
 		</td>
 	</tr>
 	<tr>
 		<td style="width: 720px; ">
 			<strong>전화안내</strong><br>
-			<p>000-0000-0000</p>
+			<p style=" margin-top: 5px;">T: 1544-9970 / F: 02-562-2378</p>
 		</td>
 	</tr>
 </table>
-<hr style=" width: 1020px; border-color: black;">
+<hr style=" margin-top:30px; width: 1020px; border-color: black;">
+
+<table style="font-family: Noto Sans KR, sans-serif;">
+	<tr>
+		<td rowspan="2" style="vertical-align: top; width: 300px; "><h4 style="margin: 10px 0 0 10px ;"><strong>오시는 방법</strong></h4></td>
+		<td style="width: 720px; ">
+			<strong>버스</strong><br>
+			<p style="margin-top: 5px;">역삼역.포스코P&S타워 정류장</p>
+			<p style="margin-top: 5px;">( 146 / 740 / 341 / 360 / 1100 / 1700 / 2000 / 7007 / 8001 ) </p>
+			<hr style="border-color: #A2A2A2;">
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 720px; ">
+			<strong>지하철</strong><br>
+			<p style=" margin-top: 5px;">지하철 2호선 역삼역 3번출구 100m</p>
+		</td>
+	</tr>
+</table>
 </div>
 </body>
 </html>

@@ -19,9 +19,14 @@
 	MemberDao dao = MemberDao.getInstance();
 
 	HttpSession memberSession = request.getSession(false);
-	MemberDto member = (MemberDto)memberSession.getAttribute("kh_member");
+	MemberDto member = null;
+	if(memberSession!=null){
+		member = (MemberDto)memberSession.getAttribute("kh_member");
+	}
+	
+	boolean c_login = false;
 	if(member != null){
-		member = dao.getMember(member.getId());
+		c_login = true;
 	}
 %> 
 
@@ -106,8 +111,7 @@
 	}
 	
 	function ck_login(){
-		var member = <%=member%>
-		if(member !=null){
+		if(<%=c_login%>){
 			return true;
 		}else{
 			alert("로그인해주세요");
