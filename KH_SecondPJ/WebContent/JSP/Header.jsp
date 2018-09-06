@@ -21,9 +21,9 @@
 	MemberDao dao = MemberDao.getInstance();
 
 	HttpSession memberSession = request.getSession(false);
-	MemberDto member = (MemberDto)memberSession.getAttribute("kh_member");
-	if(member != null){
-		member = dao.getMember(member.getId());
+	MemberDto member = null;
+	if(memberSession!=null){
+		member = (MemberDto)memberSession.getAttribute("kh_member");
 	}
 %> 
 
@@ -41,15 +41,15 @@
 
       <ul class="nav navbar-nav">
 
-        <li class="active"><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> <!-- li속성에 active값을 주면 실행된 값이 보임 -->
+        <li><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> <!-- li속성에 active값을 주면 실행된 값이 보임 -->
 
 		<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">Contact Us</a></li>
 
-        <li><a href="#">Gallary</a></li>
+        <li><a href="<%=request.getContextPath()%>/JSP/Gallery.jsp">Gallery</a></li>
 
         <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a></li>
 
-        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">Pds</a></li>
+        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">자료실</a></li>
 
         <li><a href="<%=request.getContextPath()%>/QAController?command=list">QA</a></li>
 
@@ -61,7 +61,7 @@
 	<ul class="nav navbar-nav">
  	<%if(member != null)	{%>
 		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
-		<li><a onclick="logout()">로그아웃</a></li>
+		<li><a onclick="logout()" style="cursor: pointer;">로그아웃</a></li>
 		<%}else{
 		%>
 			<li><a href="<%=request.getContextPath()%>/JSP/Login.jsp">로그인</a></li>
@@ -78,7 +78,7 @@ function logout() {
 	    type:"get",
 	    success : function(){
 			alert("로그아웃되었습니다.");
-			location.href="<%=request.getRequestURI()%>";
+			location.href="<%=request.getContextPath()%>/JSP/About.jsp";
 	    },
 	    error: function(xhr , status){
 	    	alert(xhr + " : " + status)
@@ -86,6 +86,7 @@ function logout() {
 	});
 	
 }
+
 </script>
 </body>
 </html>

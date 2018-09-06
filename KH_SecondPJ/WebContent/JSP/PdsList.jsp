@@ -1,3 +1,5 @@
+<%@page import="Dto.MemberDto"%>
+<%@page import="Dao.MemberDao"%>
 <%@page import="Dao.PdsDao"%>
 <%@page import="Dto.PdsDto"%>
 <%@page import="java.util.List"%>
@@ -10,9 +12,23 @@
 </head>
 <body>
 <jsp:include page="Header.jsp"></jsp:include>
-	<%
+<%
 	List<PdsDto> pdslist = (List<PdsDto>) request.getAttribute("pdslist");
-	%>
+%>
+<%
+	MemberDao dao = MemberDao.getInstance();
+
+	HttpSession memberSession = request.getSession(false);
+	MemberDto member = null;
+	if(memberSession!=null){
+		member = (MemberDto)memberSession.getAttribute("kh_member");
+	}
+	
+	boolean c_login = false;
+	if(member != null){
+		c_login = true;
+	}
+%> 
 
 
 	<h3>자료실!</h3>
@@ -72,7 +88,7 @@
 			</table>
 
 
-			<a href="<%=request.getContextPath() %>/JSP/Pdswrite.jsp">자료 올리기</a> 
+			<a onclick="return ck_login()" href="<%=request.getContextPath() %>/JSP/Pdswrite.jsp">자료 올리기</a> 
 			<br> <br> 
  			<select id="option">
 			<option value="0">전체보기</option>
@@ -94,6 +110,14 @@
 		location = str;
 	}
 	
+	function ck_login(){
+		if(<%=c_login%>){
+			return true;
+		}else{
+			alert("로그인해주세요");
+			return false;
+		}
+	}
 	</script> 
 	</body>
 </html>
