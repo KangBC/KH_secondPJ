@@ -18,9 +18,9 @@ String timeori = dto.getRdate().substring(8, 10)+":"+dto.getRdate().substring(10
 
 
 MemberDto loginmember = (MemberDto)session.getAttribute("kh_member");
-boolean idcheck = true;
-if(loginmember == null){
-	idcheck = false;
+String idcheck = null;
+if(loginmember != null){
+	idcheck = loginmember.getId();
 }
 
 %>
@@ -77,8 +77,8 @@ function updatesch(){
 }
 <%-- console.log(<%=dto.getId()%>);
 console.log(<%=loginmember.getId() %>); --%>
-var idcheck = <%= idcheck%>;
-if(!idcheck){
+
+if('<%=dto.getId()%>' !== '<%=idcheck %>'){
 	var up = document.getElementById("update");
 	var del = document.getElementById("delete");
 	
