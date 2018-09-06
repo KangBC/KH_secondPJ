@@ -51,7 +51,7 @@
 
         <li><a href="<%=request.getContextPath()%>/PdsController?command=list">자료실</a></li>
 
-        <li><a href="<%=request.getContextPath()%>/QAController?command=list">QA</a></li>
+        <li><a href="<%=request.getContextPath()%>/QAController?command=list&searchfor=0">QA</a></li>
 
       </ul>
 
