@@ -25,7 +25,7 @@
 		<span id="shuffle"></span>
 	
 	<div class="col-md-3 col-sm-3 col-xs-6">
-	<a href="Login.jsp" class="btn btn-sm animated-button victoria-one">시작합니다</a>
+	<a href="About.jsp" class="btn btn-sm animated-button victoria-one">시작합니다</a>
 	</div>
 	</p>
 
