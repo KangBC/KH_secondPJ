@@ -57,7 +57,12 @@ private static ReserveDao calDao = new ReserveDao();
 				dto.setRdate(rs.getString(5));
 				dto.setWdate(rs.getString(6));
 				
-				list.add(dto.toString(loginid));				
+				if(loginid !=null) {
+					list.add(dto.toString(loginid));	
+				}else {
+					list.add(dto.toString(""));
+				}
+							
 			}		
 			System.out.println("4/6 getCalendarList success");
 			
@@ -282,5 +287,60 @@ private static ReserveDao calDao = new ReserveDao();
 		
 		return result>0?true:false;
 	}
+	public List<ReserveDto> mylist(String loginid) {
+		
+		/*String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
+				+ " FROM("
+				+ "		SELECT ROW_NUMBER() OVER(PARTITION BY SUBSTR(RDATE, 1, 8) "
+				+ "								ORDER BY RDATE ASC) RN, "
+				+ "			SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
+				+ "		FROM CALENDAR "
+				+ "		WHERE ID=? AND SUBSTR(RDATE, 1, 6)=? ) "
+				+ "	WHERE RN BETWEEN 1 AND 5";*/
+		
+		
+		String sql = "SELECT * FROM CALENDAR WHERE ID=? ORDER BY rdate desc";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<ReserveDto> list = new ArrayList<>();
+		
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getCalendarList success");
+				
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, loginid);
+			System.out.println("2/6 getCalendarList success");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getCalendarList success");
+			
+			while(rs.next()) {
+				ReserveDto dto = new ReserveDto();
+				dto.setSeq(rs.getInt(1));
+				dto.setId(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setRdate(rs.getString(5));
+				dto.setWdate(rs.getString(6));
+				
+				list.add(dto);				
+			}		
+			System.out.println("4/6 getCalendarList success");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, rs);
+			System.out.println("5/6 getCalendarList success");
+		}		
+		
+		return list;
+	}
+	
 
 }

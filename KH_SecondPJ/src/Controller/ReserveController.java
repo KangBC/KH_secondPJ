@@ -49,9 +49,15 @@ public class ReserveController extends HttpServlet{
 			String year = req.getParameter("year");
 			
 			System.out.println(year+month);
+			List<String> list;
+			
+			if(logindto != null) {
+				list = dao.getCalendarList(logindto.getId(), year+month);
+			}else {
+				list = dao.getCalendarList("", year+month);
+			}
 			
 			
-			List<String> list = dao.getCalendarList(logindto.getId(), year+month);
 			
 		String json ="[";
 			
@@ -151,6 +157,24 @@ public class ReserveController extends HttpServlet{
 			req.setAttribute("dto", dto);
 			
 			this.dispatch("/JSP/ReserveUpdate.jsp", req, resp);
+			
+			
+			
+			/*if(result) {
+				out.println("<script>alert(\"성공적으로 삭제되었습니다\"); location = '/KH_SecondPJ/JSP/Calendar.jsp';</script>") ;
+			}else {
+				out.println("<script>alert(\"삭제중에 문제가 생겼습니다.\"); location = '/KH_SecondPJ/JSP/Calendar.jsp</script>';") ;
+			}*/
+			
+		}else if(command.equals("mylist")) {
+			
+			
+			
+			List<ReserveDto> list = dao.mylist(logindto.getId());
+			
+			req.setAttribute("mylist", list);
+			
+			this.dispatch("/JSP/MyReserve.jsp", req, resp);
 			
 			
 			

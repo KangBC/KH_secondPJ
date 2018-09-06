@@ -5,6 +5,12 @@
 request.setCharacterEncoding("utf-8");
 
 MemberDto dto = (MemberDto)session.getAttribute("kh_member");
+
+boolean logincheck = false;
+
+if(dto != null){
+	logincheck = true;
+}
 %>
 
 <!DOCTYPE html>
@@ -96,11 +102,36 @@ $(function() {
 <div id='calendar'></div>
 
 <div class="wrapper">
-<button id="btn" class="btn btn-primary" type="button" onclick="location='<%=request.getContextPath() %>/JSP/About.jsp'" >돌아가기</button></td>
-<button id="btn" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/JSP/Reserve.jsp'" type="button" >상담예약</button>
+<button id="btn" class="btn btn-primary" type="button" onclick="location = '<%=request.getContextPath() %>/JSP/About.jsp'" >돌아가기</button>
+<button id="btn" class="btn btn-primary" onclick="reserve()" type="button" >상담예약</button>
+<button id="btn" class="btn btn-primary" onclick="mylist()" type="button" >내 예약 보기</button>
 </div>
 
+<script>
 
+
+function reserve(){
+
+	if(!<%= logincheck%>){
+		alert("로그인 해 주십시오");
+	}else{
+		location='<%=request.getContextPath() %>/JSP/Reserve.jsp';
+	}
+	
+	
+}
+
+function mylist(){
+
+	if(!<%= logincheck%>){
+		alert("로그인 해 주십시오");
+	}else{
+		location='<%=request.getContextPath() %>/ReserveController?command=mylist';
+	}
+}
+
+
+</script>
 
 </body>
 </html>
