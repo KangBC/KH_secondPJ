@@ -11,7 +11,6 @@
 </head>
 <body>
 <%
-MemberDto dto = null;
 
 MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 
