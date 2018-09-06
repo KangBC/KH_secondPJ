@@ -1,3 +1,4 @@
+<%@page import="Dto.MemberDto"%>
 <%@page import="Dto.ReserveDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,13 +10,14 @@
 </head>
 <body>
 <%
-request.setCharacterEncoding("UTF-8");
 response.setCharacterEncoding("utf-8");
 ReserveDto dto = (ReserveDto)request.getAttribute("dto");
 
 String dateori = dto.getRdate().substring(0, 4) + "-"+ dto.getRdate().substring(4, 6)+ "-"+  dto.getRdate().substring(6, 8);
 String timeori = dto.getRdate().substring(8, 10)+":"+dto.getRdate().substring(10, 12);
 
+
+MemberDto loginmember = (MemberDto)session.getAttribute("kh_member");
 %>
 <table border="1">
 <col width="100"><col width="250">
@@ -46,8 +48,8 @@ String timeori = dto.getRdate().substring(8, 10)+":"+dto.getRdate().substring(10
 
 </table>
 
-<button type="button" onclick="updatesch()">예약변경</button>
-<button type="button" onclick="deletesch()">예약취소</button>
+<button id="update" type="button" onclick="updatesch()">예약변경</button>
+<button id="delete" type="button" onclick="deletesch()">예약취소</button>
 <button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
 
 
@@ -67,6 +69,16 @@ function updatesch(){
 	}else{
 		return
 	}
+}
+<%-- console.log(<%=dto.getId()%>);
+console.log(<%=loginmember.getId() %>); --%>
+
+if('<%=dto.getId()%>' !== '<%=loginmember.getId() %>'){
+	var up = document.getElementById("update");
+	var del = document.getElementById("delete");
+	
+	up.setAttribute("disabled", "disabled");
+	del.setAttribute("disabled", "disabled");
 }
 
 </script>

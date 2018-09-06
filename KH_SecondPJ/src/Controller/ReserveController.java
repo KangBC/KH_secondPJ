@@ -8,9 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
 
 import java.util.*;
 import Dao.ReserveDao;
+import Dto.MemberDto;
 import Dto.ReserveDto;
 
 @SuppressWarnings("serial")
@@ -33,7 +37,10 @@ public class ReserveController extends HttpServlet{
 		
 		PrintWriter out = resp.getWriter();
 	
-		String tempid = "msuh";
+
+		HttpSession session = req.getSession();
+		
+		MemberDto logindto = (MemberDto)session.getAttribute("kh_member");
 		
 		
 		if(command.equals("list")) {
@@ -44,7 +51,7 @@ public class ReserveController extends HttpServlet{
 			System.out.println(year+month);
 			
 			
-			List<String> list = dao.getCalendarList(tempid, year+month);
+			List<String> list = dao.getCalendarList(logindto.getId(), year+month);
 			
 		String json ="[";
 			
@@ -101,7 +108,7 @@ public class ReserveController extends HttpServlet{
 				boolean result1 =dao.checkpossible(date);
 				
 				if(result1) {
-					ReserveDto tmp = new ReserveDto("msuh", title.trim(), content.trim(), date.trim());
+					ReserveDto tmp = new ReserveDto(logindto.getId(), title.trim(), content.trim(), date.trim());
 					
 					boolean result2 = dao.makeSchedule(tmp);
 					
@@ -186,7 +193,7 @@ public class ReserveController extends HttpServlet{
 				boolean result1 =dao.checkpossible(datenew);
 				
 				if(result1) {
-					ReserveDto tmp = new ReserveDto("msuh", titlenew.trim(), contentnew.trim(), datenew.trim());
+					ReserveDto tmp = new ReserveDto(logindto.getId(), titlenew.trim(), contentnew.trim(), datenew.trim());
 					
 					boolean result2 = dao.updateschedule(seq, new ReserveDto("msuh", titlenew, contentnew, datenew));
 					

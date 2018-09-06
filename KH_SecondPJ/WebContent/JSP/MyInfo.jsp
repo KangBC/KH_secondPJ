@@ -11,17 +11,20 @@
 <title>내 정보</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"></jsp:include>
 <%
 	MemberDao dao = MemberDao.getInstance();
 
 	HttpSession memberSession = request.getSession(false);
-	MemberDto member = (MemberDto)memberSession.getAttribute("kh_member");
-	if(member == null){
-		System.out.println("null");
-		return;
-	}
-	member = dao.getMember(member.getId());
 	
+	MemberDto member = null;
+	member = (MemberDto)memberSession.getAttribute("kh_member");
+	
+	if(member != null){
+		member = dao.getMember(member.getId());
+	}else{
+		
+	}
 %>
 <div id=myInfoDiv>
 <form action="/KH_SecondPJ/MemberController" onsubmit="return validityCk()"> 

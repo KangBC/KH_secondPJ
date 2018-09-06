@@ -1,3 +1,4 @@
+<%@page import="Dto.MemberDto"%>
 <%@page import="Dto.PdsDto"%>
 <%@page import="Dao.PdsDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,13 +13,17 @@
 
 
 <%
+MemberDto mdo =(MemberDto) session.getAttribute("kh_member");
+
 String wk =request.getParameter("seq");
 int pdsid=Integer.parseInt(wk);
 PdsDao dao = PdsDao.getInstance();
+
 dao.pdsReadCount(pdsid);
-PdsDto dto =dao.getPDS(pdsid);
+PdsDto dto =dao.getPDS(pdsid); 
 %>
 
+<form action="../PdsController?command=detailPds" method="post">
 <table border="2">
 
 <tr>
@@ -39,7 +44,7 @@ PdsDto dto =dao.getPDS(pdsid);
 <tr>
 	<td>다운로드</td>
 	<td><input type="button" name="btndown" value="파일" 
-	onclick="javascript:document.location.href='./filedown?filename=<%=dto.getFilename()%>&seq=<%=dto.getSeq()%>'"></td>
+	onclick="location='<%=request.getContextPath() %>/PdsController?command=download&filename=<%=dto.getFilename()%>&seq=<%=dto.getSeq()%>'"></td>
 </tr>
 
 
@@ -49,13 +54,29 @@ PdsDto dto =dao.getPDS(pdsid);
 	<td><textarea name="content" rows="20" cols="40" readonly="readonly"><%=dto.getContent() %></textarea></td>
 </tr>
 
-</table>
 
-<a href="Pdsupdate.jsp">수정하기</a>
+</table>
+</form>
+
+<form action="<%=request.getContextPath()%>/PdsController" method="post">
+<input type="hidden" name="command" value="delete">
+<input type="hidden" name="seq" value="<%=dto.getSeq()%>">
+<input id="delete" type="submit" value="삭제">
+</form>
+
+<button id="update" onclick="location = '<%=request.getContextPath()%>/JSP/Pdsupdate.jsp?seq=<%=dto.getSeq()%>'" >수정하기</button>
 <!-- <input type="submit" id="update" value="수정하기"
 onclick="javascript:document.location.href='Pdsupdate.jsp?'"> -->
 
+<script>
+var del = document.getElementById("delete");
+var up = document.getElementById("update");
 
+if("<%=mdo.getId() %>" !== "<%=dto.getId()%>"){
+	del.setAttribute("disabled", "disabled");
+	up.setAttribute("disabled", "disabled");
+}
+</script>
 
 
 </body>

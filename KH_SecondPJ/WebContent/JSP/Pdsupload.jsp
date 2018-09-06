@@ -9,9 +9,23 @@
 <%@page import="Dao.PdsDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
- <%!
-// file을 업로드 하기 위한 경로를 작성하는 함수
+<%
+String file = request.getParameter("fileload");
+System.out.println("file:" + file);
+%>    
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<%!
 public String processUploadFile(FileItem fileItem, String dir, JspWriter out) throws IOException {
 	
 	String fileName = fileItem.getName();
@@ -25,24 +39,25 @@ public String processUploadFile(FileItem fileItem, String dir, JspWriter out) th
 		}
 		fileName = fileName.substring(idx+1);	
 		
-		File uploadedFile = new File(dir, fileName);
+		
 		
 		try{
+			File uploadedFile = new File(dir, fileName);
 			fileItem.write(uploadedFile);		
 		}catch(Exception e){}
 	}
 	return fileName;
 }
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<% 
-String fupload = "E:\\tmp";
+
+
+<%
+//System.out.println(request.getRealPath("/"));
+//String fupload = request.getRealPath("/")+"upload\\";
+//"C:\\Users\\SJ\\Desktop\\project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\KH_SecondPJ\\upload\\";
+//request.getContextPath()+"/upload/";
+
+String fupload = "C:\\tmp";
 
 System.out.println("파일 업로드 : " + fupload);
 
@@ -110,14 +125,14 @@ if(isS){
 %>
 	<script type="text/javascript">
 	alert("파일 업로드 성공");
-	location.href = "PdsList.jsp";	
+	location.href = "../PdsController?command=list";	
 	</script>
 <%
 }else{
 %>
 	<script type="text/javascript">
 	alert("다시 업로드를 진행해 주십시오");
-	location.href = "PdsList.jsp";
+	location.href = "<%=request.getContextPath()%>/JSP/PdsList.jsp";
 	</script>
 <%
 }

@@ -3,6 +3,8 @@
 <%@ page import="Dto.*, Dao.*, java.util.*"%>
 <%
 request.setCharacterEncoding("utf-8");
+
+MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 %>
 
 <!DOCTYPE html>
@@ -94,7 +96,8 @@ $(function() {
 <div id='calendar'></div>
 
 <div class="wrapper">
-<button id="btn" onclick="location.href='<%=request.getContextPath() %>/ReserveController?command=reservepage'" type="button" class="btn btn-primary">상담예약</button>
+<button id="btn" class="btn btn-primary" type="button" onclick="location='<%=request.getContextPath() %>/JSP/About.jsp'" >돌아가기</button></td>
+<button id="btn" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/JSP/Reserve.jsp'" type="button" >상담예약</button>
 </div>
 
 

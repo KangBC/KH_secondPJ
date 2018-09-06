@@ -17,7 +17,7 @@ private static ReserveDao calDao = new ReserveDao();
 		return calDao;
 	}
 
-	public List<String> getCalendarList(String id, String yyyyMM) {
+	public List<String> getCalendarList(String loginid, String yyyyMM) {
 		
 		/*String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
 				+ " FROM("
@@ -57,7 +57,7 @@ private static ReserveDao calDao = new ReserveDao();
 				dto.setRdate(rs.getString(5));
 				dto.setWdate(rs.getString(6));
 				
-				list.add(dto.toString());				
+				list.add(dto.toString(loginid));				
 			}		
 			System.out.println("4/6 getCalendarList success");
 			

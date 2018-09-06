@@ -13,27 +13,31 @@
 <%
 String wk =request.getParameter("seq");
 int pdsid=Integer.parseInt(wk);
+
 PdsDao dao = PdsDao.getInstance();
-dao.pdsReadCount(pdsid);
+
 PdsDto dto =dao.getPDS(pdsid);
 %>
 <h3>자료 수정</h3>
 
+<form action="<%=request.getContextPath() %>/PdsController" method="post">
+<input type="hidden" name="seq" value="<%=pdsid %>">
+<input type="hidden" name="command" value="update">
 <table border="1">
 
 <tr>
 	<td>작성자</td>
-	<td><%=dto.getId() %></td>
+	<td><input type="text" name="id" value="<%=dto.getId() %>" readonly></td>
 </tr>
 
 <tr>
 	<td>제목</td>
-	<td><%=dto.getTitle() %></td>
+	<td><input type="text" name="title" value="<%=dto.getTitle() %>"></td>
 </tr>
 
 <tr>
 	<td>작성일</td>
-	<td><%=dto.getRegdate() %></td>
+	<td><input type="text" name="wdate" value="<%=dto.getRegdate() %>" readonly></td>
 </tr>
 
 
@@ -42,9 +46,13 @@ PdsDto dto =dao.getPDS(pdsid);
 	<td><textarea name="content" rows="20" cols="40"><%=dto.getContent() %></textarea></td>
 </tr>
 
+<tr>
+	<td colspan="2"><input type="submit" value="수정하기"></td>
+</tr>
+
 </table>
 
-<a href="PdsList.jsp">수정완료</a>
+</form>
 
 </body>
 </html>

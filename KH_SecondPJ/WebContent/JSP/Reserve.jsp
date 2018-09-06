@@ -1,9 +1,8 @@
+<%@page import="Dto.MemberDto"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-request.setCharacterEncoding("utf-8");
-%>    
+
     
 <!DOCTYPE html>
 <html>
@@ -17,9 +16,12 @@ LocalDateTime now = LocalDateTime.now();
 String today = now.toString().substring(0, 10);
 
 response.setContentType("text/html; charset=utf-8");
+request.setCharacterEncoding("utf-8");
+
+MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 %>
 
-<h1>Temp님 안녕하세요!</h1>
+<h1><%=dto.getId() %>님 안녕하세요!</h1>
 
 <form action="<%=request.getContextPath() %>/ReserveController?command=reserve" method="post">
 <table border="1">
@@ -27,12 +29,7 @@ response.setContentType("text/html; charset=utf-8");
 <tr><td colspan="2" align="center">Reservation Form</td></tr>
 <tr>
 <td>이름</td>
-<td><input type="text" readonly value="temp"></td>
-</tr>
-
-<tr>
-<td>제목</td>
-<td><input type="text" name="title" required placeholder="제목을 입력해주세요"></td>
+<td><input type="text" name="title" readonly value="<%=dto.getName() %>"></td>
 </tr>
 
 <tr>
