@@ -4,8 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Member.css"/>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Member.css?ver=3"/>
 <title>로그인</title>
+<style type="text/css">
+
+</style>
 </head>
 <body>
 
