@@ -3,7 +3,9 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Vector;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,36 +41,44 @@ public class QAController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html; charset=utf-8");
 
-		QADao QAmemberDao = QADao.getInstance();
+		QADao dao = QADao.getInstance();
 		
 		PrintWriter out = resp.getWriter();
 
 		String command = req.getParameter("command");
 		
-		// QAList(리스트)
+		/*// QAList(리스트)
 				if (command.equals("list")) {
 					int searchfor = Integer.parseInt(req.getParameter("searchfor"));
 					String search ="";
 
 					if(searchfor!=0) {
-						search = req.getParameter("findword");
+						search = req.getParameter("foundered");
 					}
 					
 					List<QADto> QAList = QAmemberDao.getList(searchfor,search);
 
 					req.setAttribute("QAList", QAList);
-
 					// 다음 view 이동
 					dispatch("/JSP/QAList.jsp", req, resp);
-
+*/
 		
 		
-		     /* //화면에 보여질 게시글의 개수를 지정
+		      //화면에 보여질 게시글의 개수를 지정
 		      if(command.equals("list")) { 
-		    	  
+		     
+		      int searchfor = Integer.parseInt(req.getParameter("searchfor"));
+		      String search = "";
+		      if(searchfor!=0) {
+					search = req.getParameter("findword");
+				}
+		      
+		      
+		      
 		      int pasgeSize = 10;
 		        //현재 보여지고 있는 페이지의 넘버값을 읽어드림
 		        String pageNum = req.getParameter("pageNum");
+		    
 		        //null 처리
 		        if (pageNum == null) {
 		            pageNum = "1";
@@ -83,26 +93,40 @@ public class QAController extends HttpServlet {
 		        int currentPage = Integer.parseInt(pageNum);
 		       
 		        //전체 게시글의 갯수를 가져와야 하기에 데이터베이스 객체 생성
-		        QADao qdao = new QADao();
-		        count = qdao.getAllCount();
-		       
+		        QADao Qdao = new QADao();
+		        count = Qdao.getAllCount(searchfor,search);
+		        
+		        System.out.println(count);
+		        
 		        //현재 보여질 페이지 시작 번호를 설정
-		        int startRow = (currentPage - 1) * pasgeSize + 1;
+		        int startRow = 1;
+		        if(currentPage!= 1) {
+		        // Db count 내용 10개씩 잘라서 받아오는 계산
+		        startRow = (currentPage - 1) * pasgeSize + 1;
+		        }
 		        int endRow = currentPage * pasgeSize;
 		       
 		        //최신글 10개를 기준으로 게시글을 리턴 받아주는 메소드 호출
-		        Vector<QADto> v = QAmemberDao.getAllBoard(startRow, endRow);
-		        number = count - (currentPage - 1) * pasgeSize;
+		        //int v = dao.getAllCount(searchfor,search);
+		       // number = count - (currentPage - 1) * pasgeSize;
 
-		        ////////QNAList.jsp 쪽으로 request객체에 담아서 넘겨줌
-		        req.setAttribute("v", v);
-		        req.setAttribute("number", number);
-		        req.setAttribute("pageSize", pasgeSize);
-		        req.setAttribute("count", count);
-		        req.setAttribute("currentPage", currentPage);
+		        ////////QAList.jsp 쪽으로 request객체에 담아서 넘겨줌
+		        //req.setAttribute("v", v);
+		        //req.setAttribute("number", number);
+		        //req.setAttribute("pageSize", pasgeSize);
+		        
+		        
+		        List<QADto> list = dao.getQAList(startRow, endRow);
+		        
+		        System.out.println(list.size());
+		        
+		        req.setAttribute("count", count+"");
+		        req.setAttribute("currentPage", currentPage+"");
+		        req.setAttribute("list", list);
+		        
 
-		        RequestDispatcher dis = req.getRequestDispatcher("QnAList.jsp");
-		        dis.forward(req, resp);*/
+		        RequestDispatcher dis = req.getRequestDispatcher("/JSP/QAList.jsp");
+		        dis.forward(req, resp);
 		      
 				// 추가
 		      } else if (command.equals("regist_add")) {
@@ -114,7 +138,7 @@ public class QAController extends HttpServlet {
 
 			QADto QAadd = new QADto(id, title, content);
 
-			if (QAmemberDao.QAinsert(QAadd)) {
+			if (dao.QAinsert(QAadd)) {
 				dispatch("QAController?command=list&searchfor=0", req, resp);
 			} else {
 				dispatch("JSP/QAwrite.jsp", req, resp);
@@ -125,7 +149,7 @@ public class QAController extends HttpServlet {
 		
 
 			QADto dto = new QADto();
-			boolean result = QAmemberDao.QADetail(dto);
+			boolean result = dao.QADetail(dto);
 			req.setAttribute("QADetail", dto);
 			dispatch("QADetail.jsp", req, resp);
 
@@ -137,7 +161,7 @@ public class QAController extends HttpServlet {
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
 
-			boolean result = QAmemberDao.QABbupdate(seq, title, content);
+			boolean result = dao.QABbupdate(seq, title, content);
 
 			if (result == true) {
 				System.out.println("result was true");
@@ -155,7 +179,7 @@ public class QAController extends HttpServlet {
 		} else if (command.equals("QAdelete")) {
 
 			int seq = Integer.parseInt(req.getParameter("seq"));
-			boolean result = QAmemberDao.QAdelete(seq);
+			boolean result = dao.QAdelete(seq);
 
 			if (result == true) {
 				System.out.println("result was true");
@@ -187,7 +211,7 @@ public class QAController extends HttpServlet {
 
 			// 쿼리 처리 데이터 받아옴.
 			QADto dto = new QADto(id, title, content);
-			boolean result = QAmemberDao.QAanswer(seq, dto);
+			boolean result = dao.QAanswer(seq, dto);
 			if (!result) {
 				System.out.println("추가하지 못했습니다");
 
