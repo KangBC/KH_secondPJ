@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Insert title here</title>
 <style type="text/css">
 .slides{
@@ -14,21 +15,37 @@ width: 100%;
 .font{
 font-size: 1em; 
 }
+
+
 </style>
 </head>
 <body>
 <jsp:include page="Header.jsp"></jsp:include>
+
+<!-- 상단 그림 -->
+<table style="width: 100%; min-width:1020px; border-color: black;  cellspacing="0" cellpadding="0">
+<tr>
+<td style=" no-repeat center top" height="370px"><img style="width: 100%" src="<%=request.getContextPath() %>/img/wedding_top016r.jpg"></td>
+</table>
+
+<!--
+ /////////////////////////////////////////////////////////////////////////////
+ -->
 <div style="width:1020px; margin: 50px auto 30px; text-align: center;">
 <h2>About</h2>
 <hr style="width: 1020px; border-color: black;">
 
 
+<!-- 자동 슬라이더 -->
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide01.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide02.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide03.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide04.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide05.jpg">
 
+
+<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="top:140%; left: 16%">&#10094;</button>
+<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="top:140%; right: 16%">&#10095;</button>
 <hr style="width: 1020px; border-color: black;">
 
 
@@ -49,29 +66,29 @@ font-size: 1em;
                 <td><img style="width: 100%"  src="<%=request.getContextPath() %>/img/wedding_slide01.jpg"></td>
                 <td width="497" valign="middle" style="border-right: 1px solid #E1E1E1; border-top: 1px solid #E1E1E1; padding: 0px 40px; line-height: 180%;" bgcolor="white">
                  <h4>Wedding</h4>
-                	웨딩에 관련된 모든분야의 전문 스텝들이 고객님의 스타일에 맞는 <br>가장 감동적인 장면을 연출 해 드립니다.<br>
+                   웨딩에 관련된 모든분야의 전문 스텝들이 고객님의 스타일에 맞는 <br>가장 감동적인 장면을 연출 해 드립니다.<br>
                 </td>
             </tr>
             <tr>
                 <td width="497" valign="middle" style="border-left: 1px solid #E1E1E1; border-bottom: 1px solid #E1E1E1;  padding: 0px 40px; line-height: 180%;" bgcolor="white">
-						<h4>Lobby</h4>
-                	내집으로 귀빈을 모시는 듯한 분위기를 여유롭고 편안하게 자아냅니다.<br>
+                  <h4>Lobby</h4>
+                   내집으로 귀빈을 모시는 듯한 분위기를 여유롭고 편안하게 자아냅니다.<br>
                 <td><img style="width: 100%"  src="<%=request.getContextPath() %>/img/wedding_slide06.jpg"></td>
                 </td>
             </tr> 
            </tbody>
 </table>
 
+<hr style="width: 1020px; border-color: black;">
 
 </div>
 
 
-
-
-
-
 <script type="text/javascript">
 var slideIndex = 0;
+showDivs(slideIndex);
+
+
 carousel();
 
 function carousel() {
@@ -83,7 +100,22 @@ function carousel() {
     slideIndex++;
     if (slideIndex > x.length) {slideIndex = 1} 
     x[slideIndex-1].style.display = "block"; 
-    setTimeout(carousel, 2000); // Change image every 2 seconds
+    setTimeout(carousel, 5000); // Change image every 5 seconds
+}
+
+function plusDivs(n) {
+    showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("slides");
+    if (n > x.length) {slideIndex = 1} 
+    if (n < 1) {slideIndex = x.length} ;
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none"; 
+    }
+    x[slideIndex-1].style.display = "block"; 
 }
 </script>
 
