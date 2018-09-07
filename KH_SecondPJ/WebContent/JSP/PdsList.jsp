@@ -155,8 +155,7 @@
 				%>
 			</table>
 			<div id=page style="text-align: center;">
-			<button onclick=""> << </button>
-			<c:if test="<%= dotbefore %>">..</c:if>
+			
 			
 			<%
 			String link = "";
@@ -164,9 +163,11 @@
 				link = request.getContextPath() + "/PdsController?command=search&str=" + searchstr +"&option=" + option + "&pagenumber=";
 			}else{
 				link = request.getContextPath() + "/PdsController?command=list&pagenumber=";
-	
 			}
-			
+			%>
+			<a href="<%=link%>1">첫페이지</a>
+			<c:if test="<%= dotbefore %>">..</c:if>
+			<%
 			for(int i = 0; i < 5; i++){
 				if(arr[i] != 0){
 					if(curr == arr[i]){
@@ -188,12 +189,8 @@
 			
 			
 			<c:if test="<%= dotafter %>">..</c:if>
-			<button onclick=""> >> </button>
-			
-			
-			
-			
-			paging</div>
+			<a href="<%=link%><%=pagenums%>">마지막페이지</a>
+			</div>
 
 
 			<a onclick="return ck_login()" href="<%=request.getContextPath() %>/JSP/Pdswrite.jsp">자료 올리기</a> 
