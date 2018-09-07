@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -68,12 +69,15 @@ public class QAController extends HttpServlet {
 		      if(command.equals("list")) { 
 		     
 		      int searchfor = Integer.parseInt(req.getParameter("searchfor"));
+		      System.out.println("searchfor: " +searchfor);
 		      String search = "";
+		      
 		      if(searchfor!=0) {
 					search = req.getParameter("findword");
+					search = search;
 				}
 		      
-		      
+		      System.out.println("search: " +search);
 		      
 		      int pasgeSize = 10;
 		        //현재 보여지고 있는 페이지의 넘버값을 읽어드림
@@ -115,18 +119,34 @@ public class QAController extends HttpServlet {
 		        //req.setAttribute("number", number);
 		        //req.setAttribute("pageSize", pasgeSize);
 		        
+		        /*<option value="0">전체보기</option>
+				<option value="1">작성자</option>
+				<option value="2">제목</option>
+				<option value="3">내용</option>*/
 		        
-		        List<QADto> list = dao.getQAList(startRow, endRow);
+		        List<QADto> list = new ArrayList<>();
 		        
-		        System.out.println(list.size());
+		        if(searchfor == 0) {
+		        	list = dao.getQAList(startRow, endRow, searchfor, null);
+		        }else if(searchfor == 1) {
+		        	list = dao.getQAList(startRow, endRow, searchfor, search);
+		        }else if(searchfor == 2) {
+		        	list = dao.getQAList(startRow, endRow, searchfor, search);
+		        }else if(searchfor == 3) {
+		        	list = dao.getQAList(startRow, endRow, searchfor, search);
+		        }
+		        		
 		        
 		        req.setAttribute("count", count+"");
 		        req.setAttribute("currentPage", currentPage+"");
 		        req.setAttribute("list", list);
-		        
 
+		        req.setAttribute("search", searchfor+"");
+		        req.setAttribute("str", search);
+		        
 		        RequestDispatcher dis = req.getRequestDispatcher("/JSP/QAList.jsp");
 		        dis.forward(req, resp);
+		        //////////////////////////////////////////////////////////////////
 		      
 				// 추가
 		      } else if (command.equals("regist_add")) {

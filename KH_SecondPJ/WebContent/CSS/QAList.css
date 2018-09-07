@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.img {
+	position: relative;
+	background-image: url(../img/img_2.jpg);
+	height: 30vh;
+	background-size: cover;
+}
+
+.img-cover {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 1;
+}
+
+.img .content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1rem;
+	color: white;
+	z-index: 2;
+	text-align: center;
+}
+
+.p {
+	padding: 30px;
+	font-size: 50px;
+	font-weight: bold;
+	text-align: center;
+	background-color: #ffffff;
+	background-color: rgba(210, 77, 87, 0.5);
+}
