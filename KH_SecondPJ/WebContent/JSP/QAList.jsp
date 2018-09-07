@@ -47,6 +47,7 @@
 
 
 	  <%  
+	  	
 	  	MemberDto mem = (MemberDto)session.getAttribute("kh_member");
 	     boolean idcheck = true;
 	  	 if(mem == null){
@@ -55,6 +56,9 @@
 	 
 		QADao dao = QADao.getInstance();
 		List<QADto> QAlist = (List<QADto>)request.getAttribute("QAList");
+		
+		int total = QAlist.size();
+		
 		
  	%> 
 

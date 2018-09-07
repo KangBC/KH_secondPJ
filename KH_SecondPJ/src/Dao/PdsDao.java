@@ -25,22 +25,62 @@ public class PdsDao {
 		return pdsdao;
 	}
 	
-	public List<PdsDto> getPdsList(){
+	public int getAllCount(int option, String searchstr) {
+        int count = 0;
+        
+        String sql = "SELECT COUNT(*) FROM PDS";
+        
+        if(searchstr != null) {
+        	searchstr = "%"+searchstr+"%";
+			
+        	if(option == 1) {
+        		sql += " WHERE ID LIKE ?";
+        	}else if (option == 2) {
+        		sql += " WHERE TITLE LIKE ?";
+        	}
+    		
+        }
+        Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+        try {
+            //쿼리 준비
+            conn = DBConnection.makeConnection();
+            psmt = conn.prepareStatement(sql);
+            if(option != 0) {
+            	psmt.setString(1, searchstr);
+            }
+
+            //쿼리 실행 후 결과 리턴
+            rs = psmt.executeQuery();
+            if (rs.next()) { //데이터가 있다면
+                count = rs.getInt(1);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+	
+	public List<PdsDto> getPdsList(int startnum, int endnum){
 		
-		String sql =" SELECT SEQ, ID, TITLE, CONTENT, FILENAME, DEL, "
-				+ " READCOUNT, DOWNCOUNT, REGDATE "
-				+ " FROM PDS "
-				+ " ORDER BY SEQ DESC ";
+		String sql ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM pds ORDER by seq desc) A ) "
+                + " WHERE RNUM >= ? AND RNUM <= ?";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
+		System.out.println(startnum);
 		
 		List<PdsDto> list = new ArrayList<>();
 		
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, startnum);
+			psmt.setInt(2, endnum);
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
@@ -49,7 +89,7 @@ public class PdsDao {
 								rs.getString(3),
 								rs.getString(4),
 								rs.getString(5),
-								rs.getInt(6),
+								rs.getInt(10),
 								rs.getInt(7),
 								rs.getInt(8),
 								rs.getString(9));
@@ -57,7 +97,6 @@ public class PdsDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
@@ -291,19 +330,17 @@ public class PdsDao {
 
 		return count > 0 ? true : false;
 	}
-	public List<PdsDto> searchlist(int option, String str){
+	public List<PdsDto> searchlist(int option, String str, int startnum, int endnum){
 		String sql = "";
 				
 		str = "%"+str+"%";
 				
 		if(option == 1) {
-			sql =" SELECT * "
-				+ " FROM PDS "
-				+ " WHERE ID LIKE ?";
+			sql =" SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM pds  WHERE ID LIKE ? ORDER by seq desc) A )"
+				+ " WHERE RNUM >= ? AND RNUM <= ?";
 		}else {
-			sql =" SELECT * "
-					+ " FROM PDS "
-					+ " WHERE TITLE LIKE ?";
+			sql =" SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM pds WHERE TITLE LIKE ? ORDER by seq desc) A )"
+					+ " WHERE RNUM >= ? AND RNUM <= ?";
 		}
 		
 		Connection conn = null;
@@ -317,6 +354,9 @@ public class PdsDao {
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, str);
+			psmt.setInt(2, startnum);
+			psmt.setInt(3, endnum);
+			
 			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
@@ -325,7 +365,7 @@ public class PdsDao {
 								rs.getString(3),
 								rs.getString(4),
 								rs.getString(5),
-								rs.getInt(6),
+								rs.getInt(10),
 								rs.getInt(7),
 								rs.getInt(8),
 								rs.getString(9));
