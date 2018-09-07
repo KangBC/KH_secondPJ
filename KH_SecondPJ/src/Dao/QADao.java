@@ -62,10 +62,23 @@ public class QADao {
 		}
 		
 		 // 모든 (화면에 보여질 데이터를 10기씩 추출해서 리턴하는 메소드)
-		public List<QADto> getQAList(int startnum, int endnum){
-		      
-		      String sql ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 ORDER by REF DESC,STEP ASC ) A ) "
+		public List<QADto> getQAList(int startnum, int endnum, int option, String str){
+			str = "%"+str+"%";
+			
+			String sql = "";
+			if(option == 0) {
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 ORDER by REF DESC,STEP ASC ) A ) "
 		                + " WHERE RNUM >= ? AND RNUM <= ?";
+			}else if(option == 1) {
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND ID LIKE ? ORDER by REF DESC,STEP ASC ) A ) "
+		                + " WHERE RNUM >= ? AND RNUM <= ? ";
+			}else if(option == 2) {
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND TITLE LIKE ? ORDER by REF DESC,STEP ASC ) A ) "
+		                + " WHERE RNUM >= ? AND RNUM <= ? ";
+			}else if(option == 3) {
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND CONTENT LIKE ? ORDER by REF DESC,STEP ASC ) A ) "
+		                + " WHERE RNUM >= ? AND RNUM <= ?";
+			}
 		      
 		      Connection conn = null;
 		      PreparedStatement psmt = null;
@@ -77,8 +90,19 @@ public class QADao {
 		      try {
 		         conn = DBConnection.makeConnection();
 		         psmt = conn.prepareStatement(sql);
-		         psmt.setInt(1, startnum);
-		         psmt.setInt(2, endnum);
+		         
+		         
+		         if(option == 0) {
+		        	 psmt.setInt(1, startnum);
+			         psmt.setInt(2, endnum);
+		        	 
+		         }else {
+		        	 psmt.setString(1, str);
+		        	 psmt.setInt(2, startnum);
+			         psmt.setInt(3, endnum);
+		         }
+		         
+		         
 		         rs = psmt.executeQuery();
 		         
 		         while(rs.next()) {

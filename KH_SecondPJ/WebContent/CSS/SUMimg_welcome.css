@@ -10,7 +10,7 @@ body {
 	overflow: hidden;
 	
 	/*뒷배경 */
-	background-image: url("../image/img_2.jpg");
+	background-image: url("../img/img_2.jpg");
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-position: center;
