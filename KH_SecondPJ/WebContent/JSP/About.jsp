@@ -87,5 +87,6 @@ function carousel() {
 }
 </script>
 
+<jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>
