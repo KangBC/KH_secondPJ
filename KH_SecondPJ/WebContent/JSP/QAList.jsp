@@ -10,18 +10,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<jsp:include page="Header.jsp"></jsp:include>	
+<jsp:include page="Header.jsp"></jsp:include>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
- -->
- 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>QAList</title>
@@ -42,11 +36,12 @@
 		}
 
 		return depth == 0 ? "" : ts + rs;
-	}%>
+	}
+	%>
 
 
 
-	  <%  
+	<%  
 	  	MemberDto mem = (MemberDto)session.getAttribute("kh_member");
 	     boolean idcheck = true;
 	  	 if(mem == null){
@@ -54,13 +49,68 @@
 	  	}
 	 
 		QADao dao = QADao.getInstance();
-		List<QADto> QAlist = (List<QADto>)request.getAttribute("QAList");
-		
- 	%> 
+ 		List<QADto> QAlist = (List<QADto>)request.getAttribute("list");	
+ 		
+ 		String totalstr = (String)request.getAttribute("count"); //
+ 		int total = 0;
+ 		String currstr = (String)request.getAttribute("currentPage");
+ 		int curr = 0;
+ 		
+ 		if(totalstr != null){
+ 			total = Integer.parseInt(totalstr);
+ 		}
+ 		if(currstr != null){
+ 			curr = Integer.parseInt(currstr);
+ 		}
+ 		int pagenums = 0;
+ 		//page 번호
+ 		if(total%10 == 0){
+ 			pagenums = total/10;
+ 		}else{
+ 			pagenums = total/10 +1;
+ 		}
+ 		
+ 		
+ 		int[] pagenumbers = new int[9];
+ 		
+ 		boolean dotbefore = true;
+ 		boolean dotafter = true;
+ 		
+ 		if(pagenums <= 9){
+ 			dotbefore = false;
+ 			dotafter = false;
+ 			for(int i =0; i < pagenums; i++){
+ 				pagenumbers[i] = i+1;
+ 			}
+ 		}else if(curr - 1 <= 4 ){
+ 			// 1234 56789
+ 		      for(int i = 0; i < 9; i++){
+ 		         pagenumbers[i] = i+1;
+ 		      }
+ 		      dotbefore = false;
+ 		 }else if(pagenums - curr <= 4){
+ 			// ..   34 56789 10 11 12
+ 		      int j = 8;
+ 		      
+ 		      for(int i = 0; i < 9; i++){
+ 		         pagenumbers[i] = pagenums - j;
+ 		         j--;
+ 		      }
+ 		      dotafter= false;
+ 		 }else{
+ 		      int j = -4;
+ 		      for(int i = 0; i < 5; i++){
+ 		    	 
+ 		         pagenumbers[i] = curr + j;
+ 		         j++;
+ 		      }
+ 		 }
+ 					
+ 	%>
 
 	<div align="center">
 		<table class="table table-hover">
-			
+
 			<col width="50">
 			<col width="100">
 			<col width="200">
@@ -68,23 +118,27 @@
 			<col width="100">
 			<col width="50">
 
-			  <thead>
-    <tr>
-      <th scope="col">번호</th>
-      <th scope="col">제목</th>
-      <th scope="col">내용</th>
-      <th scope="col">작성자</th>
-      <th scope="col">날자</th>
-      <th scope="col">조회수</th>
-    </tr>
-  </thead>
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">내용</th>
+					<th scope="col">작성자</th>
+					<th scope="col">날자</th>
+					<th scope="col">조회수</th>
+				</tr>
+			</thead>
+
 
 			<%
 				if (QAlist == null || QAlist.size() == 0) {
 			%>
+			
 			<tr>
 				<td colspan="3">작성된 글이 없습니다</td>
 			</tr>
+			
+			
 			<%
 				}else{
 				
@@ -99,54 +153,82 @@
 			%>
 			<tr>
 				<td><%=Articlenumber%></td>
-				<td><%=arrow(QAbbs.getDepth())%>  
-				<a href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
+				<td><%=arrow(QAbbs.getDepth())%> <a
+					href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
 				</a></td>
 				<td><%=QAbbs.getContent()%></td>
 				<td><%=QAbbs.getId()%></td>
 				<td><%=QAbbs.getWdate() %></td>
 				<td><%=QAbbs.getReadcount()%></td>
-				
+
 			</tr>
+			
 			<%
+					}
 				}
 			}
-			}
 			%>
-			
-		</table> 
+
+		</table>
 	</div>
-<br>
-<br>
+	<div style="text-align: center;"> 
+	<%
+	String link = "";
+	
+	if(findword == null){
+		link = request.getContextPath()+"/QAController?command=list&searchfor=0&pageNum=";
+	}
+	
+	for(int i = 0; i < 9; i++){
+		if(pagenumbers[i] != 0){
+			if(pagenumbers[i] == curr){
+				%>
+				<font font-size="2em" color="red"><%=pagenumbers[i] %></font>
+				<%
+			}else{
+				%>
+				<a href="<%=link %><%=pagenumbers[i]%>"> <%=pagenumbers[i] %></a>
+				<%
+			}
+		}
+	}
+	%>
+	
+	
+	
+	</div>
+	
+	<br>
+	<br>
 	<div align="center">
 		<!-- 게시판 테이블 기능 -->
-			<button onclick="QAwrite()">글쓰기</button>
-		
-		<br><br> 
-		
+		<button onclick="QAwrite()">글쓰기</button>
+
+		<br>
+		<br>
+
 		<div class="inner">
-		<!-- 검색 -->
-		<div class="search_form">
+			<!-- 검색 -->
+			<div class="search_form">
 				<fieldset>
 					<legend>게시판 검색폼</legend>
 					<div class="inner">
 						<select class="slct w100" id="searchbox" name="searchbox">
-						
+
 							<option value="0">전체보기</option>
 							<option value="1">작성자</option>
 							<option value="2">제목</option>
 							<option value="3">내용</option>
-						</select>
-						<input type="text" class="txt w100" id="search" name="search" maxlength="20" >
-						<span class="btn btnC_04 btnP_04">
+						</select> <input type="text" class="txt w100" id="search" name="search"
+							maxlength="20"> <span class="btn btnC_04 btnP_04">
 							<button id="searchQA" name="searchQA" onclick="searchQA()">검색</button>
 						</span>
 					</div>
 				</fieldset>
+			</div>
 		</div>
 	</div>
-</div> 
-	
+
 	<script type="text/javascript">
 		function searchQA() {
 			var sel = document.getElementById("searchbox");
@@ -172,6 +254,7 @@
 			}
 		}
 	</script>
+
 
 </body>
 

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import DB.DBClose;
 import DB.DBConnection;
@@ -22,56 +23,161 @@ public class QADao {
 	public static QADao getInstance() {
 		return bbsQAdao;
 	}
+	
+	// list page
+		public int getAllCount(int searchfor,String search) {
+			String sql ="";
+			
+			int count = 0;
 
-	// Main리스트
-	public List<QADto> getList(int searchfor,String search) {
-
-		String sql = "";
-		
-		if (searchfor == 0) {
-			 sql = " SELECT * " + " FROM BBS " + " ORDER BY REF DESC, STEP ASC ";
-		} else if (searchfor == 1) {
-			 sql = " SELECT * " + " FROM BBS " + " WHERE ID LIKE '%"+search+"%' ORDER BY REF DESC, STEP ASC ";
-		} else if (searchfor == 2) {
-			 sql = " SELECT * " + " FROM BBS " + " WHERE TITLE LIKE '%"+search+"%' ORDER BY REF DESC, STEP ASC ";
-		} else if (searchfor == 3) {
-			 sql = " SELECT * " + " FROM BBS " + " WHERE CONTENT LIKE '%"+search+"%' ORDER BY REF DESC, STEP ASC ";
-		}
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		List<QADto> list = new ArrayList<QADto>();
-
-		try {
-
-			conn = DBConnection.makeConnection();
-			psmt = conn.prepareStatement(sql);
-
-			System.out.println("1/6 getBbsList success");
-
-			rs = psmt.executeQuery();
-			System.out.println("2/6 getBbsList success");
-
-			while (rs.next()) {
-
-				QADto dto = new QADto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5),
-						rs.getString(6), rs.getString(7), rs.getString(8).substring(0, 16), rs.getInt(9), rs.getInt(10),
-						rs.getInt(11));
-
-				list.add(dto);
+			if (searchfor == 0) {
+				 sql = " SELECT COUNT(*) " + " FROM BBS " + "WHERE DEL=0 ";
+			} else if (searchfor == 1) {
+				 sql = " SELECT COUNT(*) " + " FROM BBS " + " WHERE ID LIKE '%"+search+"%' AND DEL=0 ";
+			} else if (searchfor == 2) {
+				 sql = " SELECT COUNT(*) " + " FROM BBS " + " WHERE TITLE LIKE '%"+search+"%' AND DEL=0 ";
+			} else if (searchfor == 3) {
+				 sql = " SELECT COUNT(*) " + " FROM BBS " + " WHERE CONTENT LIKE '%"+search+"%' AND DEL=0 ";
 			}
-			System.out.println("3/6 getBbsList success");
+			
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("getBbsList fail");
-		} finally {
-			DBClose.close(psmt, conn, rs);
+			try {
+				// 쿼리 준비
+				conn = DBConnection.makeConnection();
+				psmt = conn.prepareStatement(sql);
+
+				// 쿼리 실행 후 결과 리턴
+				rs = psmt.executeQuery();
+				if (rs.next()) { // 데이터가 있다면
+					count = rs.getInt(1);
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return count;
 		}
-		return list;
-	}
+		
+		 // 모든 (화면에 보여질 데이터를 10기씩 추출해서 리턴하는 메소드)
+		public List<QADto> getQAList(int startnum, int endnum){
+		      
+		      String sql ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 ORDER by REF DESC,STEP ASC ) A ) "
+		                + " WHERE RNUM >= ? AND RNUM <= ?";
+		      
+		      Connection conn = null;
+		      PreparedStatement psmt = null;
+		      ResultSet rs = null;
+		      System.out.println(startnum);
+		      
+		      List<QADto> list = new ArrayList<>();
+		      
+		      try {
+		         conn = DBConnection.makeConnection();
+		         psmt = conn.prepareStatement(sql);
+		         psmt.setInt(1, startnum);
+		         psmt.setInt(2, endnum);
+		         rs = psmt.executeQuery();
+		         
+		         while(rs.next()) {
+		        	 QADto dto = new QADto(
+		        			  rs.getInt(1), 
+		        			  rs.getString(2), 
+		        			  rs.getInt(3), 
+		        			  rs.getInt(4), 
+		        			  rs.getInt(5),
+		        	          rs.getString(6), 
+		        	          rs.getString(7), 
+		        	          rs.getString(8).substring(0, 16), 
+		        	          rs.getInt(9), 
+		        	          rs.getInt(10),
+		        	          rs.getInt(11));
+		        	 dto.setRownum(rs.getInt(12));
+		         
+		        	 list.add(dto);   
+		         }
+		         
+		      } catch (SQLException e) {
+		         e.printStackTrace();
+		      } finally {
+		         DBClose.close(psmt, conn, rs);
+		      }
+		      return list;
+		   }
+		
+		/*
+		 // 전체 글의 갯수를 리턴하는 메소드
+	    public int getAllCount() {
+	        getCon();
+	        int count = 0;
+	        System.out.println("2/6 QnA_List Success");
+	        try {
+	            //쿼리 준비
+	            String sql = "SELECT COUNT(*) FROM QNABBS";
+	            psmt = conn.prepareStatement(sql);
+	            System.out.println("3/6 QnA_List Success");
+	            //쿼리 실행 후 결과 리턴
+	            rs = psmt.executeQuery();
+	            if (rs.next()) { //데이터가 있다면
+	                count = rs.getInt(1);
+	                System.out.println("4/6 QnA_List Success");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return count;
+	    }
+
+	    //모든 (화면에 보여질 데이터를 10기씩 추출해서 리턴하는 메소드
+	    public Vector<QADto> getAllBoard(int startRow, int endRow) {
+	        int a = 0;
+	        Vector<QnABbsVo> v = new Vector<>();
+	        getCon();
+	        System.out.println("2/6 QnA_AllBoard Success");
+	        try {
+	            //쿼리작성
+	            String sql = "SELECT * FROM (SELECT A.* ,ROWNUM RNUM FROM (SELECT * FROM QNABBS ORDER BY REF DESC ,RE_STEP ASC)A) "
+	                    + " WHERE RNUM >= ? AND RNUM <= ?";
+	            //쿼리 실행할 객체 선언
+	            psmt = conn.prepareStatement(sql);
+	            // ? 값을 입력
+	            psmt.setInt(1, startRow);
+	            psmt.setInt(2, endRow);
+
+	            rs = psmt.executeQuery();
+	        System.out.println("3/6 QnA_AllBoard Success");
+	             while (rs.next()) {
+	                System.out.println("while");
+	                //데이터를 패키징( 가방 = helpBBSVo) 해줌
+	                QnABbsVo qdto = new QnABbsVo();
+
+	                 qdto.setNum(rs.getInt(1));
+	                 qdto.setWriter(rs.getString(2));
+	                 qdto.setSubject(rs.getString(3));
+	                 qdto.setPassword(rs.getString(4));
+	                 qdto.setReg_date(rs.getString(5));
+	                 qdto.setRef(rs.getInt(6));
+	                 qdto.setRe_step(rs.getInt(7));
+	                 qdto.setRe_depth(rs.getInt(8));
+	                 qdto.setReadcount(rs.getInt(9));
+	                 qdto.setContent(rs.getString(10));
+	                 qdto.setDel(rs.getInt(11));
+	                //패키징 데이터를 벡터에 저장
+	                v.add(qdto);
+	                System.out.println("4/6 QnA_AllBoard Success");
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            DBClose.close(psmt,conn,rs);
+
+	        }
+	        return v;
+	    }
+		
+		 */
 
 	// ADD(추가)
 	public boolean QAinsert(QADto dto) {
@@ -380,5 +486,4 @@ public class QADao {
 		}
 		return list;
 	}
-
 }
