@@ -11,23 +11,9 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Nav.css"/>
 <style type="text/css">
-li{
-float:left;
-list-style: none;
-margin-left: 40px;
-}
 
-a{
-color: #9d9d9d;
-text-decoration: none;
-font-size: 15px;
-font-family: sans-serif;
-}
-
-a:hover{
-color:#d1d1d1;
-}
 </style>
 </head>
 <body style="margin: 0;">
@@ -40,21 +26,22 @@ color:#d1d1d1;
 	if(memberSession!=null){
 		member = (MemberDto)memberSession.getAttribute("kh_member");
 	}else{
+		
 	}
 %> 
 
 
-<div style="width:100%; min-width:1020px; margin:0; background-color: #333">
-<div style="width:1020px; height:80px; margin: 0 auto 0; border: 1px solid #333;">
-	<div style="display: inline-block; margin-top:25px; float: left;">
+<div class="nav_outer_container" >
+<div class="nav_inner_container" >
+	<div class="main_nav" >
 
-		<a href="#" style="font-size: 20px;">KH_WEDDING</a> <!--네비게이션 제목 -->
+		<a href="<%=request.getContextPath()%>/JSP/SUB_Welcome.jsp" style="font-size: 20px;">KH_WEDDING</a> <!--네비게이션 제목 -->
 
 	</div>
 
-	<div style="display: inline-block; float: left; margin-top: 15px;">
+	<div class="page_nav">
 
-		<ul class="nav navbar-nav" style="width: 590px; height: 20px; display: block;">
+		<ul class="page_list">
 
 			<li><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> 
 
@@ -72,7 +59,7 @@ color:#d1d1d1;
 
 	</div>
 
-	<div style="float: right; display: inline-block; margin-top: 15px;">
+	<div class="member_nav" style="float: right; display: inline-block; margin-top: 15px;">
 	<ul>
  	<%if(member != null)	{%>
 		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
