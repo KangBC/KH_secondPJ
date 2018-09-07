@@ -4,6 +4,7 @@
 <%@page import="Dto.PdsDto"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,9 +14,79 @@
 <body>
 <jsp:include page="Header.jsp"></jsp:include>
 <%
-	List<PdsDto> pdslist = (List<PdsDto>) request.getAttribute("pdslist");
-%>
-<%
+	List<PdsDto> pdslist = (List<PdsDto>)request.getAttribute("pdslist");
+
+	String search = request.getParameter("mode");
+	String searchstr = request.getParameter("str");
+	String optionstr = request.getParameter("option");
+	int option = 0;
+	if(optionstr != null){
+		option = Integer.parseInt(optionstr);
+	}
+
+	String totalstr = (String)request.getAttribute("total");
+	int total = 0;
+	if(totalstr != null){
+		total = Integer.parseInt(totalstr);
+	}
+	
+	String currstr = (String)request.getAttribute("currpage");
+	int curr = 0;
+	if(currstr != null){
+		curr = Integer.parseInt(currstr);
+	}
+	
+	
+	int pagenums = total/10 + 1;
+	
+	System.out.println("" + total + " "+ curr + " " + pagenums);
+	
+	int[] arr = new int[5];
+	
+	//보통 앞에 두개 뒤에 두갠데
+	//그게 없을경우 앞에 하나더 ㄱ
+	
+	boolean dotbefore = true;
+	boolean dotafter = true;
+	
+	//페이지 전후로 점점이 있냐 없냐
+	if(pagenums <= 5){
+		dotbefore = false;
+		dotafter = false;
+		for(int i =1; i <= pagenums;i++){
+			arr[i-1] = i;
+		}
+	}else if(curr - 1 <= 2 ){
+		for(int i = 0; i < 5; i++){
+			arr[i] = i+1;
+		}
+		dotbefore = false;
+	}else if(pagenums - curr <= 2){
+		int j = 4;
+		
+		for(int i = 0; i < 5; i++){
+			arr[i] = pagenums - j;
+			j--;
+		}
+		dotafter= false;
+	}else{
+		int j = -2;
+		for(int i = 0; i < 5; i++){
+			arr[i] = curr + j;
+			j++;
+		}
+	}
+	
+	
+	for(int i = 0; i < 5; i++){
+		System.out.println(arr[i]);
+	}
+	
+	// 12345      56789
+		
+		
+	
+
 	MemberDao dao = MemberDao.getInstance();
 
 	HttpSession memberSession = request.getSession(false);
@@ -65,14 +136,11 @@
 
 						for (int i = 0; i < pdslist.size(); i++) {
 							PdsDto pds = pdslist.get(i);
-							
-							//삭제
-							if(pds.getDel() == 0){
-								Articlenumber++;
+
 				%>
 
 				<tr align="center" height="10">
-					<td><%=Articlenumber%></td>
+					<td><%=pds.getDel()%></td>
 					<td><%=pds.getId()%></td>
 					<td><a href="<%=request.getContextPath() %>/JSP/Pdsdetail.jsp?seq=<%=pds.getSeq()%>"> <%=pds.getTitle()%>
 					</a></td>
@@ -82,10 +150,50 @@
 
 				</tr>
 				<%
-					}
+
 					}
 				%>
 			</table>
+			<div id=page style="text-align: center;">
+			<button onclick=""> << </button>
+			<c:if test="<%= dotbefore %>">..</c:if>
+			
+			<%
+			String link = "";
+			if(search != null){
+				link = request.getContextPath() + "/PdsController?command=search&str=" + searchstr +"&option=" + option + "&pagenumber=";
+			}else{
+				link = request.getContextPath() + "/PdsController?command=list&pagenumber=";
+	
+			}
+			
+			for(int i = 0; i < 5; i++){
+				if(arr[i] != 0){
+					if(curr == arr[i]){
+						%>
+						<font size="3" color="red"><%=arr[i]%></font>
+						<%
+					}else{
+
+					%>
+					<a class="pages" href="<%=link%><%=arr[i]%>" ><%=arr[i]%></a>
+					<%
+					}
+				}
+			}
+			%>
+	        
+	        
+
+			
+			
+			<c:if test="<%= dotafter %>">..</c:if>
+			<button onclick=""> >> </button>
+			
+			
+			
+			
+			paging</div>
 
 
 			<a onclick="return ck_login()" href="<%=request.getContextPath() %>/JSP/Pdswrite.jsp">자료 올리기</a> 
@@ -100,6 +208,15 @@
 			<button type="button" name="search" onclick="srch()">검색</button> 
 		</form>
 	</div>
+	
+	<%
+	if(search != null){
+		%>
+		<h1><%=option==1?"아이디: ":"제목: " %> <%= searchstr %>로 검색한 결과입니다.</h1>
+		
+		<%
+	}
+	%>
 	
  	<script>
 	function srch(){
