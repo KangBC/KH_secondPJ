@@ -6,9 +6,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Member.css"/>
 <title>로그인</title>
+<style type="text/css">
+
+</style>
 </head>
 <body>
-
+<%
+if(request.getAttribute("login_false") !=null){
+	%>
+	<script type="text/javascript">
+	alert("아이디와 비밀번호를 확인해 주세요.")
+	</script>
+	<% 
+}
+%>
 <div id=loginDiv>
 <form action="/KH_SecondPJ/MemberController" method="post">
 	<input type="hidden" name="command" value="login">

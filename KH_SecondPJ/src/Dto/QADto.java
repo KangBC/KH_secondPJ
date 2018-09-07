@@ -45,6 +45,15 @@ public class QADto implements Serializable {
 
 	private int del; // 삭제 여부    0:안삭제  1:삭제
 	private int readcount; // 조회수
+	private int rownum;
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
 
 	//기본생성자
 	public QADto() {

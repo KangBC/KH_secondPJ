@@ -8,14 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
   
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Nav.css"/>
+<style type="text/css">
+
+</style>
 </head>
-<body >
+<body style="margin: 0;">
 
  <%
 	MemberDao dao = MemberDao.getInstance();
@@ -24,41 +25,42 @@
 	MemberDto member = null;
 	if(memberSession!=null){
 		member = (MemberDto)memberSession.getAttribute("kh_member");
+	}else{
+		
 	}
 %> 
 
-<nav class="navbar navbar-inverse"> 
 
-  <div class="container-fluid"><!-- 컨테이너 값이 전체화면을 쓴다는 속성, width값이 100% -->
+<div class="nav_outer_container" >
+<div class="nav_inner_container" >
+	<div class="main_nav" >
 
-    <div class="navbar-header">
+		<a href="<%=request.getContextPath()%>/JSP/SUB_Welcome.jsp" style="font-size: 20px;">KH_WEDDING</a> <!--네비게이션 제목 -->
 
-      <a class="navbar-brand" href="#">KH_WEDDING</a> <!--네비게이션 제목 -->
+	</div>
 
-    </div>
+	<div class="page_nav">
 
-    <div>
+		<ul class="page_list">
 
-      <ul class="nav navbar-nav">
+			<li><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> 
 
-        <li><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> <!-- li속성에 active값을 주면 실행된 값이 보임 -->
+			<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">Contact Us</a></li>
 
-		<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">Contact Us</a></li>
+			<li><a href="<%=request.getContextPath()%>/JSP/Gallery.jsp">Gallery</a></li>
+	
+	        <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a></li>
+	
+	        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">자료실</a></li>
 
-        <li><a href="<%=request.getContextPath()%>/JSP/Gallery.jsp">Gallery</a></li>
+			<li><a href="<%=request.getContextPath()%>/QAController?command=list&searchfor=0">QA</a></li>
 
-        <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a></li>
+		</ul>
 
-        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">자료실</a></li>
+	</div>
 
-        <li><a href="<%=request.getContextPath()%>/QAController?command=list&searchfor=0">QA</a></li>
-
-      </ul>
-
-    </div>
-
-	<div class="" style="float: right">
-	<ul class="nav navbar-nav">
+	<div class="member_nav" style="float: right; display: inline-block; margin-top: 15px;">
+	<ul>
  	<%if(member != null)	{%>
 		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
 		<li><a onclick="logout()" style="cursor: pointer;">로그아웃</a></li>
@@ -70,7 +72,7 @@
 	
 	</div>
   </div>
-</nav>
+</div>
 <script type="text/javascript">
 function logout() {
 	$.ajax({

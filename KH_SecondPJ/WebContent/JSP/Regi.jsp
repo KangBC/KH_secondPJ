@@ -9,16 +9,16 @@
 <title>회원가입</title>
 </head>
 <body>
-<div id=registDiv>
+<div id=registDiv style="margin-top: 10%">
 <form action="/KH_SecondPJ/MemberController" id="regist" method="post" onsubmit="return validityCk()">
 	<input type="hidden" name="command" value="regist_submit" >
-	<input class=registTB type="text" id="id" name="id" value="" placeholder="ID (6~12자의 영어, 숫자)" onblur="idCheck()" onfocus="$('#id').css('background-color','#f2f2f2');">
-	<input class=registTB type="password" id="pw" name="pw" placeholder="비밀번호 (특수문자, 숫자를 포함한 8~15자)">
-	<input class=registTB type="password" id="pw_check" name="pw_check" placeholder="비밀번호 확인">
-	<input class=registTB type="text" id="name" name="name" placeholder="이름">
-	<input class=registTB type="text" id="partner" name="partner" placeholder="배우자 이름">
-	<input class=registTB type="text" id="phone" name="phone" placeholder="전화번호 (010-1234-1234)">
-	<input class=registTB type="text" id="email" name="email" placeholder="E-MAIL (abc@naver.com)">
+	<input class=registTB type="text" id="id" name="id" value="" placeholder="*ID (6~12자의 영어, 숫자)" autocomplete="off" onblur="idCheck()" onfocus="$('#id').css('background-color','#f2f2f2');">
+	<input class=registTB type="password" id="pw" name="pw" placeholder="*비밀번호 (특수문자, 숫자를 포함한 8~15자)">
+	<input class=registTB type="password" id="pw_check" name="pw_check" placeholder="*비밀번호 확인">
+	<input class=registTB type="text" id="name" name="name" placeholder="*이름" autocomplete="off">
+	<input class=registTB type="text" id="partner" name="partner" placeholder="배우자 이름" autocomplete="off">
+	<input class=registTB type="text" id="phone" name="phone" placeholder="*전화번호 (010-1234-1234)" autocomplete="off">
+	<input class=registTB type="text" id="email" name="email" placeholder="*E-MAIL (abc@naver.com)" autocomplete="off">
 	<input class=btn type="submit" value="회원가입">
 </form>
 </div>
@@ -48,6 +48,7 @@ function idCheck(){
 
 	    		if(jsonObj.duplicated){
 	    			$("#id").css("background-color","#FFB4B4");
+	    			alert("이미 존재하는 아이디입니다.")
 	    			idok = false;
 	    		}else{
 	    			idok = true;

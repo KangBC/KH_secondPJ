@@ -14,6 +14,13 @@
 
 <%
 MemberDto mdo =(MemberDto) session.getAttribute("kh_member");
+boolean idcheck = false;
+String idstr = "";
+
+if(mdo != null){
+	idcheck = true;
+	idstr = mdo.getId();
+}
 
 String wk =request.getParameter("seq");
 int pdsid=Integer.parseInt(wk);
@@ -72,7 +79,8 @@ onclick="javascript:document.location.href='Pdsupdate.jsp?'"> -->
 var del = document.getElementById("delete");
 var up = document.getElementById("update");
 
-if("<%=mdo.getId() %>" !== "<%=dto.getId()%>"){
+
+if(<%=!idcheck %> || '<%=idstr %>' !== '<%=dto.getId()%>'){
 	del.setAttribute("disabled", "disabled");
 	up.setAttribute("disabled", "disabled");
 }

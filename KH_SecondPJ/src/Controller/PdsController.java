@@ -60,11 +60,34 @@ public class PdsController extends HttpServlet {
 		
 		if(command.equals("list")) {
 			
+			int pagenum = 1;
 			
-			System.out.println("process 실행");
+			String pagestr =req.getParameter("pagenumber");
 			
-			List<PdsDto> pdslist = pdao.getPdsList();
+			if(pagestr != null) {
+				pagenum = Integer.parseInt(pagestr);
+			}
 			
+			int totalcount = pdao.getAllCount(0, null);
+			
+			System.out.println(totalcount);
+			
+			int perpage = 10;
+			
+			int startnum = 1;
+			
+			if(pagenum != 1) {
+				startnum = (pagenum-1)*10 +1;
+			}
+
+			
+			List<PdsDto> pdslist = pdao.getPdsList(startnum, startnum+9);
+			
+			System.out.println(pdslist.size());
+
+			
+			req.setAttribute("total", totalcount+"");
+			req.setAttribute("currpage", pagenum+"");
 			req.setAttribute("pdslist", pdslist);
 			
 			dispatch("/JSP/PdsList.jsp", req, resp);
@@ -129,26 +152,50 @@ public class PdsController extends HttpServlet {
 			resp.sendRedirect("PdsController?command=list");
 			
 		}else if(command.equals("search")) {
-			PrintWriter writer = resp.getWriter();
+				PrintWriter writer = resp.getWriter();
 			
 				String str = req.getParameter("str");
 				int option = Integer.parseInt(req.getParameter("option"));
 				
 				List<PdsDto> pdslist = new ArrayList<>();
 				
-				if(option == 0) {
-					pdslist = pdao.getPdsList();
-				}else {
-					pdslist = pdao.searchlist(option, str);
+				int pagenum = 1;
+				String pagestr =req.getParameter("pagenumber");
+				if(pagestr != null) {
+					pagenum = Integer.parseInt(pagestr);
 				}
 				
-				if(pdslist.isEmpty()) {
+				
+				if(option == 0) {
+					writer.println("<script> location = \'PdsController?command=list\';  </script>");
+				}else {
+					
+					int totalcount = pdao.getAllCount(option, str);
+					
+					System.out.println(totalcount);
+					
+					int perpage = 10;
+					int startnum = 1;
+					
+					if(pagenum != 1) {
+						startnum = (pagenum-1)*10 +1;
+					}
+					
+					req.setAttribute("total", totalcount+"");
+					req.setAttribute("currpage", pagenum+"");
+					req.setAttribute("pdslist", pdslist);
+					
+					pdslist = pdao.searchlist(option, str, startnum, startnum+9);
+				}
+				
+			if(pdslist.isEmpty()) {
 					writer.println("<script>alert(\"찾으시는 내용이 없습니다.\"); location = \'PdsController?command=list\';  </script>");
 			}else {
 			
 				req.setAttribute("pdslist", pdslist);
 				
-				dispatch("/JSP/PdsList.jsp", req, resp);
+				
+				dispatch("/JSP/PdsList.jsp?mode=search&str="+str+"&option="+option, req, resp);
 			}
 			
 		}else if(command.equals("download")) {
