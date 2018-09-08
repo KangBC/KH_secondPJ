@@ -3,8 +3,8 @@
 .outer_container{
 	width: 100%;
 	min-width: 1000px;
-	height: 130px;
-	padding-top:20px;
+	height: 120px;
+	padding-top:10px;
 	background-color: #333;
 }
 .inner_container{

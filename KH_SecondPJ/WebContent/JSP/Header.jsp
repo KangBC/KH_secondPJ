@@ -31,17 +31,17 @@
 %> 
 
 
-<div class="nav_outer_container" >
-<div class="nav_inner_container" >
-	<div class="main_nav" >
+<div id="nav_outer_container" >
+<div id="nav_inner_container" >
+	<div id="main_nav" >
 
 		<a href="<%=request.getContextPath()%>/JSP/SUB_Welcome.jsp" style="font-size: 20px;">KH_WEDDING</a> <!--네비게이션 제목 -->
 
 	</div>
 
-	<div class="page_nav">
+	<div id="page_nav">
 
-		<ul class="page_list">
+		<ul id="page_list">
 
 			<li><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> 
 
@@ -49,9 +49,9 @@
 
 			<li><a href="<%=request.getContextPath()%>/JSP/Gallery.jsp">Gallery</a></li>
 	
-	        <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">Calendar</a></li>
+	        <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">상담 신청</a></li>
 	
-	        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">자료실</a></li>
+	        <li><a href="<%=request.getContextPath()%>/PdsController?command=list">자료 올리기</a></li>
 
 			<li><a href="<%=request.getContextPath()%>/QAController?command=list&searchfor=0">QA</a></li>
 
@@ -59,8 +59,8 @@
 
 	</div>
 
-	<div class="member_nav" style="float: right; display: inline-block; margin-top: 15px;">
-	<ul>
+	<div id="member_nav" style="float: right; display: inline-block; margin-top: 15px;">
+	<ul style="margin: 16px 0 16px 0">
  	<%if(member != null)	{%>
 		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
 		<li><a onclick="logout()" style="cursor: pointer;">로그아웃</a></li>
