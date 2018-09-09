@@ -44,6 +44,7 @@ public class MemberController extends HttpServlet{
 				
 				dispatch("JSP/About.jsp", req, resp);
 			}else {
+				req.setAttribute("login_false", true);
 				dispatch("JSP/Login.jsp", req, resp);
 			}
 		}else if(command.equals("logout")) {
