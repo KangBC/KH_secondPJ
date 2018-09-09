@@ -1,9 +1,10 @@
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 
 .img {
 	position: relative;
-	background-image: url(../img/img_2.jpg);
-	height: 30vh;
+	background-image: url(../img/img_1.jpg);
+	height: 75vh;
 	background-size: cover;
 }
 
@@ -26,11 +27,152 @@
 	text-align: center;
 }
 
-.p {
-	padding: 30px;
-	font-size: 50px;
-	font-weight: bold;
+.search_Group {
+	padding: 5px; /* 폭 */
+	margin:15px;  /* 넒이 */
+	font-style: italic; /* 폰트 */
+	font-size: 15px; /* 글씨 크기 */
+	font-weight: 900;
+	text-align: center; /*위치 */
+	background-color: gray;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+#search{
+	padding: 1px;
+	font-size: 20px;   /* text_글씨 굵기 */
+	font-weight: bold; /* text_누르고 글쓸떄 굵기 */
 	text-align: center;
-	background-color: #ffffff;
-	background-color: rgba(210, 77, 87, 0.5);
+	background-color: rgba(255, 255, 255, 0.5); /* Text 투명도 */
+    text-shadow: 2px 2px 4px red; /* 글씨잔상 효과 */
+	color: white;/* 글자 색상 */
+}
+
+/* 부트스크립트 강제로 여기서 수정함 a테그 */
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+  margin: 15px;
+}
+
+
+/* botton 3D 효과ㅣ */
+.button-row {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: inline-box;
+  display: -webkit-inline-flex;
+  display: -moz-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+.button-row > div {
+  position: relative;
+  height: 50px;
+  margin: 0 15px;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  perspective: 1000px;
+}
+.button-row > div > a {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translateZ(-25px);
+  -moz-transform: translateZ(-25px);
+  -ms-transform: translateZ(-25px);
+  -o-transform: translateZ(-25px);
+  transform: translateZ(-25px);
+  -webkit-transition: -webkit-transform 0.25s;
+  -moz-transition: -moz-transform 0.25s;
+  transition: transform 0.25s;
+}
+.button-row > div > a::before, .button-row > div > a::after {
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  width: 160px;
+  height: 50px;
+  position: absolute;
+  border: 2px solid #000000; /* 검색창 마우스 전 이미지 테이블 색상 */
+  box-sizing: border-box;
+  content: attr(title);
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.button-row > div > a::before {
+  background-color: rgba(255, 255, 255, 0.5); /* 검색 이미지 투명 */
+  color: #fff;
+  
+  -webkit-transform: rotateY(0deg) translateZ(25px);
+  -moz-transform: rotateY(0deg) translateZ(25px);
+  -ms-transform: rotateY(0deg) translateZ(25px);
+  -o-transform: rotateY(0deg) translateZ(25px);
+  transform: rotateY(0deg) translateZ(25px);
+}
+.button-row > div > a::after {
+  background-color: rgba(255, 255, 255, 0.5); /* 마우스 이미지 투명 */
+  border-color: red; /* 마우스 이미지 테이블 색상 */
+  color: #dfc19f; /* text 색상 */
+  
+  -webkit-transform: rotateX(90deg) translateZ(25px);
+  -moz-transform: rotateX(90deg) translateZ(25px);
+  -ms-transform: rotateX(90deg) translateZ(25px);
+  -o-transform: rotateX(90deg) translateZ(25px);
+  transform: rotateX(90deg) translateZ(25px);
+}
+.button-row > div > a:hover {
+  -webkit-transform: translateZ(-25px) rotateX(-90deg);
+  -moz-transform: translateZ(-25px) rotateX(-90deg);
+  -ms-transform: translateZ(-25px) rotateX(-90deg);
+  -o-transform: translateZ(-25px) rotateX(-90deg);
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+/* 글쓰기  button*/
+.border_Button {
+	position: relative;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    background-color: white;
+    font-family: 'Yanone Kaffeesatz';
+    font-weight: 900;
+    font-size: 2em;
+    display: block;
+    padding: 4px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    box-shadow: 0px 9px 0px rgba(255,255,255,0.5), 0px 9px 25px rgba(0,0,0,.7);
+    margin: 40px auto;
+	width: 200px;
+	text-align: center;
+	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+}
+
+.border_Button:active {
+    -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px rgba(255,255,255,0.5), 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 10px;
 }
