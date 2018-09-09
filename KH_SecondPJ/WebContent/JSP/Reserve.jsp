@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/form.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -21,7 +22,12 @@ request.setCharacterEncoding("utf-8");
 MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 %>
 
-<h1><%=dto.getId() %>님 안녕하세요!</h1>
+
+<div style="width:1020px; margin: 50px auto 30px; text-align: center;">
+<h2>Reserve</h2>
+
+<hr style="width: 1020px; border-color: black;">
+
 
 <form action="<%=request.getContextPath() %>/ReserveController?command=reserve" method="post">
 <table border="1">
@@ -65,7 +71,32 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 </table>
 </form>
 
+<div class="form-style-5">
+<form>
+<fieldset>
+<legend><span class="number">1</span> 회원 정보 </legend>
+<input type="text" name="name"  value="<%=dto.getName() %>" readonly>
+<input type="date" name="date" value='<%=today %>' id="date">
+<textarea name="field3" placeholder="About yourself"></textarea>
+<label for="job">Interests:</label>
 
+<select id="job" name="time">
+<option value="0900">9:00 AM</option>
+<option value="1100">11:00 AM</option>
+<option value="1400">2:00 PM</option>
+<option value="1600">4:00 PM</option>
+</select>      
+
+</fieldset>
+<fieldset>
+<legend><span class="number">2</span> Additional Info</legend>
+<textarea name="field3" placeholder="About Your School"></textarea>
+</fieldset>
+<input type="submit" value="Apply" />
+</form>
+</div>
+
+</div>
 
 </body>
 </html>

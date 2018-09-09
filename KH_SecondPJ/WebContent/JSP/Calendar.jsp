@@ -35,11 +35,7 @@ $(function() {
 		      center: 'title',
 		      right: 'month,agendaWeek,agendaDay'
 		    },
-		  navLinkDayClick: function(date, jsEvent) {
-			    console.log('day', date.format()); // date is a moment
-			    
-			    location = '<%=request.getContextPath() %>/JSP/CalendarDay.jsp?date='+ date.format();
-			  },
+
 		  viewRender: function(view,element){
 				var moment = view.intervalStart;
 					//$('#calendar').fullCalendar('getDate');
@@ -82,10 +78,12 @@ $(function() {
 <style type="text/css">
 #calendar{
 	margin: 20px auto;
+	width: 1020px;
 }
 .wrapper{
 	text-align: center;
 }
+
 </style>
 
 <meta charset="UTF-8">
@@ -93,17 +91,21 @@ $(function() {
 </head>
 <body>
 
+<div style="width:1020px; margin: 50px auto 30px; text-align: center;">
+<h2>Reservation</h2>
 
-<h1>상담 일정</h1>
+<hr style="width: 1020px; border-color: black;">
 
 <div id='calendar'></div>
 
-<div class="wrapper">
+
 <button id="btn" class="btn btn-primary" type="button" onclick="location = '<%=request.getContextPath() %>/JSP/About.jsp'" >돌아가기</button>
 <button id="btn" class="btn btn-primary" onclick="reserve()" type="button" >상담예약</button>
 <button id="btn" class="btn btn-primary" onclick="mylist()" type="button" >내 예약 보기</button>
-</div>
 
+
+<br>
+<br>
 <script>
 
 
@@ -129,7 +131,7 @@ function mylist(){
 
 
 </script>
-
+</div>
 </body>
 </html>
 

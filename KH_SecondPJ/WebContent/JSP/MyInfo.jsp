@@ -26,7 +26,7 @@
 		
 	}
 %>
-<div id=myInfoDiv>
+<div id=myInfoDiv style="margin-top: 10%">
 <form action="/KH_SecondPJ/MemberController" onsubmit="return validityCk()"> 
 <!-- <form action="" id="loginForm"> -->
 	<input type="hidden" name="command" value="updateInfo" >

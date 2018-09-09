@@ -69,6 +69,7 @@ public class PdsDao {
 		String sql ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM pds ORDER by seq desc) A ) "
                 + " WHERE RNUM >= ? AND RNUM <= ?";
 		
+		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
