@@ -62,8 +62,8 @@
 	<div id="member_nav" style="float: right; display: inline-block; margin-top: 15px;">
 	<ul style="margin: 16px 0 16px 0">
  	<%if(member != null)	{%>
-		<li><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
-		<li><a onclick="logout()" style="cursor: pointer;">로그아웃</a></li>
+		<li style="margin-left: 0;"><a href="<%=request.getContextPath()%>/JSP/MyInfo.jsp">내 정보</a></li>
+		<li><a onclick="logout()" style="cursor: pointer; margin: 0">로그아웃</a></li>
 		<%}else{
 		%>
 			<li><a href="<%=request.getContextPath()%>/JSP/Login.jsp">로그인</a></li>
