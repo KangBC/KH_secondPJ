@@ -41,11 +41,15 @@
 
 	</div>
 	<%
-	MemberDto mem = (MemberDto)session.getAttribute("kh_member");
-    boolean idcheck = true;
- 	 if(mem == null){
-		idcheck = false;
- 	}
+		MemberDto mem = (MemberDto) session.getAttribute("kh_member");
+		String tempid;
+		boolean idcheck = true;
+		if (mem == null) {
+			idcheck = false;
+			tempid = "";
+		}else{
+			tempid = mem.getId();
+		}
 		String sseq = request.getParameter("seq");
 		int seq = Integer.parseInt(sseq.trim());
 
@@ -118,26 +122,30 @@
 		</div>
 
 		<input type="button" value="글 목록 " class="pull-right"
-			onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
+			onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
 
 
 	</div>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 	var idcheck = <%=idcheck%>;
 //삭제
-function delsubmit() {
-	
+	function delsubmit() {
+		if (idcheck) {
+			if('<%=tempid%>' == '<%=dto.getId()%>'){ 			
+				var result = confirm("정말 삭제하시겠습니까?");
+				if(result){
+					location = "../QAController?command=QAdelete&seq=<%=dto.getSeq()%>";
+				}else{
+					return
+				}
+		 	}else{
+				alert('아이디가 다르다 니글아니야 슈발아.');
+			    return;
+		} 
 
-	if (idcheck) {
-		var result = confirm("정말 삭제하시겠습니까?");
-		if(result){
-			location = "../QAController?command=QAdelete&seq=<%=dto.getSeq()%>";
-		}else{
-			return
-		}
 	}else{
-		alert('작성자만 글을 지울수 있습니다.');
+		alert('애미 로그인부터 하세여.');
 	    return;
 	}
 }
@@ -145,19 +153,26 @@ function delsubmit() {
 //수정
 function Upsubmit() {
 		if (idcheck) {
-			var result = confirm("정말 수정하시겠습니까?");
-			if(result){
-				location = "QAupdatel.jsp?seq="+<%=dto.getSeq()%>;
-			}else{
-				return
-			}
+
+		if('<%=tempid%>' == '<%=dto.getId()%>'){
+				var result = confirm("정말 수정하시겠습니까?");
+				
+				if(result){
+					location = "QAupdatel.jsp?seq="+<%=dto.getSeq()%>;
+				}else{
+					return
+				}
 		}else{
-			alert('작성자만 수정할수있습니다.');
+			alert('아이디가 다르다 니글아니야 슈발아.');
 		    return;
 		}
+
+	}else{
+		alert('애미 로그인부터 하세여.');
+	    return;
 	}
-	
-	
+}	
+
 //답글
 function QAanswer() {
 	if (idcheck) {
