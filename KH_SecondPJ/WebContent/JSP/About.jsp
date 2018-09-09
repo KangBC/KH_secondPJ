@@ -21,15 +21,15 @@ width: 100%;
 <jsp:include page="Header.jsp"></jsp:include>
 
 <!-- 상단 그림 -->
-<div style="width: 100%; min-width:1020px; height:35%;">
+<%-- <div style="width: 100%; min-width:1020px; height:35%;">
 <img style="width: 100%; min-width:1020px; max-height: 40%;" src="<%=request.getContextPath() %>/img/wedding_top016rr.jpg">
-</div>
+</div> --%>
 <!--
  /////////////////////////////////////////////////////////////////////////////
  -->
-<div style="width:1020px; margin: 0 auto 30px; text-align: center;">
+<div style="width:1020px; margin: 50px auto 10px; text-align: center;">
 <h2>About</h2>
-<hr style="width: 1020px; border-color: black;">
+<hr style="width: 80px; border-color: black; margin: 0 auto;">
 
 <br>
 <p style="font-family: Noto Sans KR, sans-serif; font-size: 17px;" >또 하나의 가족을 맞이하는 가슴 따뜻한 순간,
@@ -85,8 +85,8 @@ width: 100%;
            </tbody>
 </table>
 
-<hr style="width: 1020px; border-color: black;">
 
+<br>
 </div>
 
 
