@@ -179,9 +179,9 @@
 			%>
 			<tr>
 				<td><%=QAbbs.getRownum()%></td>
-				<td><%=arrow(QAbbs.getDepth())%> <a
+				<td><a
 					href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
-				</a></td>
+				</a> re:<%=QAbbs.getStep() %></td>
 				<td><%=QAbbs.getContent()%></td>
 				<td><%=QAbbs.getId()%></td>
 				<td><%=QAbbs.getWdate() %></td>
