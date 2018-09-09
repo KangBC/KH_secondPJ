@@ -7,7 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Table.css"/>
 </head>
+
 <body>
 <%
 response.setCharacterEncoding("utf-8");
@@ -24,40 +26,45 @@ if(loginmember != null){
 }
 
 %>
-<table border="1">
-<col width="100"><col width="250">
+<jsp:include page="Header.jsp"></jsp:include>
+
+<div class="outer-container">
+<h2>상담예약 확인</h2>
+<hr><br>
+
+<div class="inner-container">
+<table border="0" style="border-collapse:collapse;">
+<col width="100"><col width="920">
 <tr>
-<th>아이디</th>
-<td><%=dto.getId() %></td>
+<th>신청인</th>
+<td><input type="text" class="input_data" value="<%=dto.getId() %>" readonly></td>
 </tr>
 
 <tr>
-<th>제목</th>
-<td><%=dto.getTitle() %></td>
-</tr>
-
-<tr>
-<td>예정시간</td>
-<td><input type="date" name="date" value='<%=dateori %>' readonly><%=timeori %>시</td>
+<th>예정시간</th>
+<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' readonly></td>
 </tr>
 
 <tr>
 <th>신청시간</th>
-<td><%=dto.getWdate()%></td>
+<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate()%>' readonly></td>
 </tr>
 
-<tr>
-<th>내용</th>
-<td><textarea rows="4" cols="50" readonly><%=dto.getContent() %></textarea></td>
+<tr style="border-bottom: 0;">
+<th style="vertical-align: top; padding-top: 8px;">내용</th>
+<td style="padding-top: 8px;">
+<textarea class="input_data" rows="4" cols="50" style="width: 90%; height:500px;" readonly><%=dto.getContent() %></textarea>
+</td>
 </tr>
 
 </table>
-
+</div>
+<hr>
 <button id="update" type="button" onclick="updatesch()">예약변경</button>
 <button id="delete" type="button" onclick="deletesch()">예약취소</button>
 <button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
-
-
+</div>
+<jsp:include page="Footer.jsp"></jsp:include>
 <script>
 function deletesch(){
 	var result = confirm("정말 지우시겠습니까");

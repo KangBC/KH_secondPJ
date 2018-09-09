@@ -57,8 +57,9 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 </tr>
 <tr style="border-bottom: 0;">
 <td style="vertical-align: top; padding-top: 8px;">내용</td>
-<td style="padding-top: 8px;"><textarea class="input_data" rows="4" cols="50" name="content" required style="width: 90%; height:500px;">
-</textarea></td>
+<td style="padding-top: 8px;">
+<textarea class="input_data" rows="4" cols="50" name="content" required style="width: 90%; height:500px;"></textarea>
+</td>
 </tr>
 
 </table>
