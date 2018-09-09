@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.outer-container{
+width:1020px;
+margin: 50px auto 30px; 
+text-align: center; 
+}
+
+.inner-container{
+border: 1px solid #c6c6c6; 
+padding-top: 0px; 
+padding-bottom: 20px; 
+margin-bottom: 20px;
+}
+
+.input_data{
+float: left;
+margin-left: 10px;
+}
+
+tr{
+height: 40px;
+border-bottom: 1px solid #c6c6c6;
+}
+
+hr{
+width: 1020px; 
+border-color: black;
+}

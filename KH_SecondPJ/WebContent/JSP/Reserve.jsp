@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/form.css">
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/form.css"> --%>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Reserve.css"/>
 <title>Insert title here</title>
 </head>
 <body>
@@ -21,32 +22,30 @@ request.setCharacterEncoding("utf-8");
 
 MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 %>
+<jsp:include page="Header.jsp"></jsp:include>
 
-
-<div style="width:1020px; margin: 50px auto 30px; text-align: center;">
+<div class="outer-container">
 <h2>Reserve</h2>
-
-<hr style="width: 1020px; border-color: black;">
-
+<hr><br>
 
 <form action="<%=request.getContextPath() %>/ReserveController?command=reserve" method="post">
-<table border="1">
-<col width="70"><col width="500">
-<tr><td colspan="2" align="center">Reservation Form</td></tr>
+<div class="inner-container">
+<table border="0" style="border-collapse: collapse">
+<col width="100"><col width="920">
 <tr>
 <td>이름</td>
-<td><input type="text" name="title" readonly value="<%=dto.getName() %>"></td>
+<td><input type="text" class="input_data" name="title" readonly value="<%=dto.getName() %>" style="padding-left: 2px;"></td>
 </tr>
 
 <tr>
 <td>일자</td>
-<td><input type="date" name="date" value='<%=today %>' id="date"></td>
+<td><input type="date" class="input_data" name="date" value='<%=today %>' id="date" style="width: 170px;"></td>
 </tr>
 
 <tr>
 <td>시간</td>
 <td>
-<select name="time" required>
+<select class="input_data" name="time" required >
 <option value="0900">9:00 AM</option>
 <option value="1100">11:00 AM</option>
 <option value="1400">2:00 PM</option>
@@ -56,22 +55,20 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 
 </td>
 </tr>
-
-<tr>
-<td>내용</td>
-<td><textarea rows="4" cols="50" name="content" required>
-At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. 
+<tr style="border-bottom: 0;">
+<td style="vertical-align: top; padding-top: 8px;">내용</td>
+<td style="padding-top: 8px;"><textarea class="input_data" rows="4" cols="50" name="content" required style="width: 90%; height:500px;">
 </textarea></td>
 </tr>
 
-<tr>
-<td colspan="2"><input type="submit" value="예약하기">
-<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button></td>
-</tr>
 </table>
+</div>
+<hr>
+<input type="submit" value="예약하기">
+<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
 </form>
 
-<div class="form-style-5">
+<%-- <div class="form-style-5">
 <form>
 <fieldset>
 <legend><span class="number">1</span> 회원 정보 </legend>
@@ -95,8 +92,10 @@ At w3schools.com you will learn how to make a website. We offer free tutorials i
 <input type="submit" value="Apply" />
 </form>
 </div>
-
+ --%>
+ 
 </div>
+<jsp:include page="Footer.jsp"></jsp:include>
 
 </body>
 </html>
