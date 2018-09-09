@@ -5,7 +5,8 @@
 	min-width: 1000px;
 	height: 120px;
 	padding-top:10px;
-	background-color: #333;
+	background-color: #white;
+	border-top: 1px solid black;
 }
 #inner_container{
 width: 1020px; 
@@ -13,7 +14,7 @@ height: 100px;
 margin: 0 auto; 
 }
 #inner_container p{
-color:#9d9d9d;
+color:#333;
 margin-top:5px;
 margin-bottom: 0;
 font-family: sans-serif;
