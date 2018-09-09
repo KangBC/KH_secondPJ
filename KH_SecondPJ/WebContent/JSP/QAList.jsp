@@ -22,8 +22,6 @@
 <!-- 글쓰기 버튼 -->
 <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700' rel='stylesheet' type='text/css'>
 
-<!-- 검색창 밑 backgraund_img.css -->
-<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
 
 <!-- bootstrapk table 링크  -->
 <link rel="stylesheet"
@@ -45,6 +43,8 @@
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
 
+<!-- 검색창 밑 backgraund_img.css -->
+<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -147,7 +147,7 @@
 			<!-- 검색 -->
 			<div class="inner_MAIN">
 				<div class="search_form">
-					<div class="botton_main"><!-- bouut -->
+					<div class="botton_main"><!-- butt -->
 				
 					<fieldset>
 						<div class="inner_SUB">
@@ -177,8 +177,7 @@
 	</div>
 
 	<!-- 게시판 table -->
-	<div align="center">
-
+	<div style="min-height: 220px" align="center">
 		<table class="table">
 
 			<col width="10">
@@ -225,7 +224,7 @@
 			<tr>
 				<td><%=QAbbs.getRownum()%></td>
 				<td><%=arrow(QAbbs.getDepth())%> 
-				<a href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
+				<a style="text-decoration: none;" href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
 				</a></td>
 				<td><%=QAbbs.getContent()%></td>
 				<td><%=QAbbs.getId()%></td>
@@ -245,7 +244,7 @@
 	<!-- 글쓰기 버튼  -->	
 	<div align="center">
 		<div class="border_Button">
-		<a href="#" onclick="QAwrite()">글쓰기</a>
+		<a style="text-decoration: none;" href="#" onclick="QAwrite()">글쓰기</a>
 		</div>
 	</div>
 
@@ -267,8 +266,10 @@
 						+ "&pageNum=";
 			}
 		%>
-		<a href="<%=link%>1">첫페이지</a>
+		
+		<img id="pageimg" src="./img/Page_left-arrow_1.png" alt="이미지없음" class="btn" onclick="location='<%=link%>1'">
 		<c:if test="<%=dotbefore%>">..</c:if>
+		
 		<%
 			for (int i = 0; i < 9; i++) {
 				if (pagenumbers[i] != 0) {
@@ -286,7 +287,9 @@
 		%>
 
 		<c:if test="<%=dotafter%>">..</c:if>
-		<a href="<%=link%><%=pagenums%>">마지막페이지</a>
+			<img id="pageimg" src="./img/Page_Right-arrow_1.png" alt="이미지없음" class="btn" onclick="location='<%=link%><%=pagenums%>'">
+			
+		
 	</div>
 
 	<br>
@@ -318,6 +321,7 @@
 			    return;
 			}
 		}
+		
 		
 	</script>
 
