@@ -27,3 +27,7 @@ hr{
 width: 1020px; 
 border-color: black;
 }
+
+textarea{
+	resize: none;
+}

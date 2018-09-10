@@ -20,7 +20,9 @@
 
 <head>
 <!-- 글쓰기 버튼 -->
-<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700' rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700'
+	rel='stylesheet' type='text/css'>
 
 
 <!-- bootstrapk table 링크  -->
@@ -44,7 +46,8 @@
 	crossorigin="anonymous"></script>
 
 <!-- 검색창 밑 backgraund_img.css -->
-<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/CSS/QAList.css"
+	rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -54,8 +57,8 @@
 
 
 <body>
-		<!-- 댓글!! -->
-		<%! public String arrow(int depth) {
+	<!-- 댓글!! -->
+	<%! public String arrow(int depth) {
 
 		String rs = "<img src='img/arrow.png' width='20px' height='20px'/>";
 		String nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;"; // depth의 간격
@@ -67,8 +70,8 @@
 		return depth == 0 ? "" : ts + rs;
 	} %>
 
-	
-	 <!-- mamber Session -->
+
+	<!-- mamber Session -->
 	<% MemberDto mem = (MemberDto) session.getAttribute("kh_member");
 		
 		boolean idcheck = true;
@@ -147,26 +150,27 @@
 			<!-- 검색 -->
 			<div class="inner_MAIN">
 				<div class="search_form">
-					<div class="botton_main"><!-- butt -->
-				
-					<fieldset>
-						<div class="inner_SUB">
-							<select class="search_Group" id="searchbox" name="searchbox">
-								<option value="0">전체보기</option>
-								<option value="1">작성자</option>
-								<option value="2">제목</option>
-								<option value="3">내용</option>
-								</select> 
-								
-								<input type="text" class="text_1" id="search" name="search" maxlength="20">
-								
+					<div class="botton_main">
+						<!-- butt -->
+
+						<fieldset>
+							<div class="inner_SUB">
+								<select class="search_Group" id="searchbox" name="searchbox">
+									<option value="0">전체보기</option>
+									<option value="1">작성자</option>
+									<option value="2">제목</option>
+									<option value="3">내용</option>
+								</select> <input type="text" class="text_1" id="search" name="search"
+									maxlength="20">
+
 								<div class="button-row">
 									<div>
-										<a id="searchQA" name="searchQA" onclick="searchQA()" title="검색"> </a>
+										<a id="searchQA" name="searchQA" onclick="searchQA()"
+											title="검색"> </a>
 									</div>
 								</div>
 							</div>
-						</div>
+					</div>
 					</fieldset>
 				</div>
 			</div>
@@ -223,28 +227,28 @@
 
 			<tr>
 				<td><%=QAbbs.getRownum()%></td>
-				<td><%=arrow(QAbbs.getDepth())%> 
-				<a style="text-decoration: none;" href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
-				</a></td>
+				<td><a style="text-decoration: none;"
+					href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
+				</a> re:<%=QAbbs.getStep() %></td>
 				<td><%=QAbbs.getContent()%></td>
 				<td><%=QAbbs.getId()%></td>
 				<td><%=QAbbs.getWdate()%></td>
 				<td><%=QAbbs.getReadcount()%></td>
 			</tr>
-			
+
 			<%
 						}
 					}
 				}
 			%>
-			
+
 		</table>
 	</div>
 
-	<!-- 글쓰기 버튼  -->	
+	<!-- 글쓰기 버튼  -->
 	<div align="center">
 		<div class="border_Button">
-		<a style="text-decoration: none;" href="#" onclick="QAwrite()">글쓰기</a>
+			<a style="text-decoration: none;" href="#" onclick="QAwrite()">글쓰기</a>
 		</div>
 	</div>
 
@@ -266,10 +270,11 @@
 						+ "&pageNum=";
 			}
 		%>
-		
-		<img id="pageimg" src="./img/Page_left-arrow_1.png" alt="이미지없음" class="btn" onclick="location='<%=link%>1'">
+
+		<img id="pageimg" src="./img/Page_left-arrow_1.png" alt="이미지없음"
+			class="btn" onclick="location='<%=link%>1'">
 		<c:if test="<%=dotbefore%>">..</c:if>
-		
+
 		<%
 			for (int i = 0; i < 9; i++) {
 				if (pagenumbers[i] != 0) {
@@ -287,15 +292,16 @@
 		%>
 
 		<c:if test="<%=dotafter%>">..</c:if>
-			<img id="pageimg" src="./img/Page_Right-arrow_1.png" alt="이미지없음" class="btn" onclick="location='<%=link%><%=pagenums%>'">
-			
-		
+		<img id="pageimg" src="./img/Page_Right-arrow_1.png" alt="이미지없음"
+			class="btn" onclick="location='<%=link%><%=pagenums%>'">
+
+
 	</div>
 
 	<br>
-	
-		<!-- 검색 -->
-		<script type="text/javascript">
+
+	<!-- 검색 -->
+	<script type="text/javascript">
 		function searchQA() {
 			var sel = document.getElementById("searchbox");
 			var searchfor = sel.options[sel.selectedIndex].value;
@@ -325,9 +331,9 @@
 		
 	</script>
 
-<!-- Footer -->
-<jsp:include page="Footer.jsp"></jsp:include>
-		
+	<!-- Footer -->
+	<jsp:include page="Footer.jsp"></jsp:include>
+
 </body>
 
 </html>
