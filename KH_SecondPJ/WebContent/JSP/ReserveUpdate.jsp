@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Table.css"/>
 <title>Insert title here</title>
 </head>
 <body>
@@ -16,34 +17,36 @@ ReserveDto dto = (ReserveDto)request.getAttribute("dto");
 String dateori = dto.getRdate().substring(0, 4) + "-"+ dto.getRdate().substring(4, 6)+ "-"+  dto.getRdate().substring(6, 8);
 String timeori = dto.getRdate().substring(8, 12);
 %>
+<jsp:include page="Header.jsp"></jsp:include>
+
+<div class="outer-container">
+<h2>상담예약 수정</h2>
+<hr><br>
+
 <form action="<%=request.getContextPath() %>/ReserveController?command=updateAF" method="post">
+<div class="inner-container">
 <input type="hidden" name="seq" value="<%=dto.getSeq()%>">
-<table border="1">
-<col width="100"><col width="250">
+<table border="0" style="border-collapse:collapse;">
+<col width="100"><col width="920">
 <tr>
 <th>아이디</th>
-<td><input type="text" value='<%=dto.getId() %>' readonly></td>
-</tr>
-
-<tr>
-<th>제목</th>
-<td><input name="title" type="text" value='<%=dto.getTitle() %>'></td>
+<td><input type="text" class="input_data" value='<%=dto.getId() %>' readonly></td>
 </tr>
 
 <tr>
 <th>신청시간</th>
-<td><%=dto.getWdate()%></td>
+<td><input type="text" class="input_data" value="<%=dto.getWdate()%>" readonly></td>
 </tr>
 
 <tr>
-<td>예정일자</td>
-<td><input type="date" name="date" value='<%=dateori %>'></td>
+<th>예정일자</th>
+<td><input type="date" class="input_data" name="date" value='<%=dateori %>'></td>
 </tr>
 
 <tr>
-<td>예정시간</td>
+<th>예정시간</th>
 <td>
-<select name="time" required id="time">
+<select class="input_data" name="time" required id="time">
 <option value="0900">9:00 AM</option>
 <option value="1100">11:00 AM</option>
 <option value="1400">2:00 PM</option>
@@ -57,18 +60,18 @@ String timeori = dto.getRdate().substring(8, 12);
 
 <tr>
 <th>내용</th>
-<td><textarea name="content" rows="4" cols="50" ><%=dto.getContent() %></textarea></td>
+<td><textarea class="input_data" name="content" rows="4" cols="50" style="width: 90%; height:500px;"><%=dto.getContent() %></textarea></td>
 </tr>
 
-<tr>
-<td colspan="2"><input type="submit" value="예약 변경"></td>
-</tr>
 
 </table>
+</div>
+<hr>
+<input type="submit" value="예약 변경">
+<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
 </form>
 
-<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
-
+</div>
 <script>
 var arr = document.getElementsByTagName("option");
 
@@ -78,5 +81,6 @@ for(var i =0;i<arr.length;i++){
 	}
 }
 </script>
+<jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>

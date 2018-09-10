@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/form.css"> --%>
-<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Reserve.css"/>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Table.css"/>
 <title>Insert title here</title>
 </head>
 <body>
@@ -24,12 +24,12 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 %>
 <jsp:include page="Header.jsp"></jsp:include>
 
-<div class="outer-container">
+<div class="outer-container" >
 <h2>Reserve</h2>
 <hr><br>
 
 <form action="<%=request.getContextPath() %>/ReserveController?command=reserve" method="post">
-<div class="inner-container">
+<div class="inner-container" >
 <table border="0" style="border-collapse: collapse">
 <col width="100"><col width="920">
 <tr>
@@ -57,8 +57,9 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 </tr>
 <tr style="border-bottom: 0;">
 <td style="vertical-align: top; padding-top: 8px;">내용</td>
-<td style="padding-top: 8px;"><textarea class="input_data" rows="4" cols="50" name="content" required style="width: 90%; height:500px;">
-</textarea></td>
+<td style="padding-top: 8px;">
+<textarea class="input_data" rows="4" cols="50" name="content" required style="width: 90%; height:500px;"></textarea>
+</td>
 </tr>
 
 </table>
