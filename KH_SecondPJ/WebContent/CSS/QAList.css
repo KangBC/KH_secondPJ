@@ -44,7 +44,7 @@
 	font-weight: bold; /* text_누르고 글쓸떄 굵기 */
 	text-align: center;
 	background-color: rgba(255, 255, 255, 0.5); /* Text 투명도 */
-    text-shadow: 2px 2px 4px red; /* 글씨잔상 효과 */
+    text-shadow: 1px 4px 6px white; /* 글씨잔상 효과 */
 	color: black;/* 글자 색상 */
 }
 
@@ -151,7 +151,7 @@ a{
     background-color: white;
     font-family: 'Yanone Kaffeesatz';
     font-weight: 900;
-    font-size: 2em;
+    font-size: 1em;
     display: block;
     padding: 4px;
     -webkit-border-radius: 8px;

@@ -37,7 +37,13 @@
 	}
 	
 	
-	int pagenums = total/10 + 1;
+	int pagenums = 0;
+	
+	if(total%10 == 0){
+			pagenums = total/10;
+		}else{
+			pagenums = total/10 +1;
+		}
 	
 	System.out.println("" + total + " "+ curr + " " + pagenums);
 	
@@ -186,7 +192,6 @@
 	        
 	        
 
-			
 			
 			<c:if test="<%= dotafter %>">..</c:if>
 			<a href="<%=link%><%=pagenums%>">마지막페이지</a>

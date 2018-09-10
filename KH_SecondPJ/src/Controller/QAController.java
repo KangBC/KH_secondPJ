@@ -166,8 +166,6 @@ public class QAController extends HttpServlet {
 
 			// QADetail (개인정보)
 		} else if (command.equals("QADetail")) {
-		
-
 			QADto dto = new QADto();
 			boolean result = dao.QADetail(dto);
 			req.setAttribute("QADetail", dto);
