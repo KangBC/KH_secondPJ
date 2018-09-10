@@ -4,7 +4,7 @@
 .img {
 	position: relative;
 	background-image: url(../img/img_1.jpg);
-	height: 75vh;
+	height: 30vh;
 	background-size: cover;
 }
 
@@ -45,7 +45,7 @@
 	text-align: center;
 	background-color: rgba(255, 255, 255, 0.5); /* Text 투명도 */
     text-shadow: 2px 2px 4px red; /* 글씨잔상 효과 */
-	color: white;/* 글자 색상 */
+	color: black;/* 글자 색상 */
 }
 
 /* 부트스크립트 강제로 여기서 수정함 a테그 */
@@ -55,6 +55,9 @@ a:not([href]):not([tabindex]) {
   margin: 15px;
 }
 
+a{
+	color: black ;
+}
 
 /* botton 3D 효과ㅣ */
 .button-row {
@@ -101,7 +104,7 @@ a:not([href]):not([tabindex]) {
   width: 160px;
   height: 50px;
   position: absolute;
-  border: 2px solid #000000; /* 검색창 마우스 전 이미지 테이블 색상 */
+  border: 2px solid #333; /* 검색창 마우스 전 이미지 테이블 색상 */
   box-sizing: border-box;
   content: attr(title);
   display: -webkit-box;
@@ -114,8 +117,7 @@ a:not([href]):not([tabindex]) {
 }
 .button-row > div > a::before {
   background-color: rgba(255, 255, 255, 0.5); /* 검색 이미지 투명 */
-  color: #fff;
-  
+  color: black;
   -webkit-transform: rotateY(0deg) translateZ(25px);
   -moz-transform: rotateY(0deg) translateZ(25px);
   -ms-transform: rotateY(0deg) translateZ(25px);
@@ -124,8 +126,8 @@ a:not([href]):not([tabindex]) {
 }
 .button-row > div > a::after {
   background-color: rgba(255, 255, 255, 0.5); /* 마우스 이미지 투명 */
-  border-color: red; /* 마우스 이미지 테이블 색상 */
-  color: #dfc19f; /* text 색상 */
+  border-color: #333; /* 마우스 이미지 테이블 색상 */
+  color: black; /* text 색상  (검색창 색상)*/ 
   
   -webkit-transform: rotateX(90deg) translateZ(25px);
   -moz-transform: rotateX(90deg) translateZ(25px);
@@ -175,4 +177,11 @@ a:not([href]):not([tabindex]) {
     box-shadow: 0px 3px 0px rgba(255,255,255,0.5), 0px 3px 6px rgba(0,0,0,.9);
     position: relative;
     top: 10px;
+}
+
+
+#pageimg{
+	height: 10%;
+	width: 3%;
+	
 }
