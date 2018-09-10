@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Dao.QADao;
 import Dto.QADto;
+import Dto.ReplyDto;
 
 public class QAController extends HttpServlet {
 
@@ -165,15 +166,6 @@ public class QAController extends HttpServlet {
 			}
 
 			// QADetail (개인정보)
-		} else if (command.equals("QADetail")) {
-		
-
-			QADto dto = new QADto();
-			boolean result = dao.QADetail(dto);
-			req.setAttribute("QADetail", dto);
-			dispatch("QADetail.jsp", req, resp);
-
-			// Update(수정)
 		} else if (command.equals("QAupdate")) {
 
 			int seq = Integer.parseInt(req.getParameter("seq"));
@@ -202,7 +194,6 @@ public class QAController extends HttpServlet {
 			boolean result = dao.QAdelete(seq);
 
 			if (result == true) {
-				System.out.println("result was true");
 
 				out.println("<script type=\"text/javascript\">");
 				out.println("alert('삭제되었습니다.');");
@@ -239,9 +230,57 @@ public class QAController extends HttpServlet {
 			}
 			resp.sendRedirect("QAController?command=list&searchfor=0"); // 입력만하고 다음 view 이동할떄 사용
 
-		}
+		} else if(command.equals("reply")) {
+			int ref = Integer.parseInt(req.getParameter("ref"));
+			String id = req.getParameter("id");
+			String content = req.getParameter("content");
+			String parent = req.getParameter("parent");
+			
+			int parseq = Integer.parseInt(parent);
+			
+			System.out.println(ref +" "+ id + " " + content + " " + parent);
+			
 
+				ReplyDto dto = new ReplyDto(id, ref, parseq, content);
+				
+				boolean result = dao.reply(dto);
+
+				if(result) {
+					out.println("<script>alert(\'답변이 등록되었습니다.\'); location=\'" + req.getContextPath()+ "/JSP/QADetail.jsp?seq="+ ref+ "\'</script>");
+				}else {
+					out.println("<script>alert(\'문제가 생겼습니다.\'); location=\'" + req.getContextPath()+ "/JSP/QADetail.jsp?seq="+ ref+ "\'</script>");
+
+				}
+			
+			//다시 
+		}else if(command.equals("repdelete")) {
+			int seq = Integer.parseInt(req.getParameter("seq"));
+			int ref = Integer.parseInt(req.getParameter("ref"));
+			
+			boolean result = dao.repdelete(seq, ref);
+			
+			if (result == true) {
+				out.println("<script>alert(\'답변이 삭제되었습니다.\'); location=\'" + req.getContextPath()+ "/JSP/QADetail.jsp?seq="+ ref+ "\'</script>");
+
+			} else {
+				out.println("<script>alert(\'문제가 생겼습니다.\'); location=\'" + req.getContextPath()+ "/JSP/QADetail.jsp?seq="+ ref+ "\'</script>");
+			}
+		}else if(command.equals("repupdate")) {
+			int seq = Integer.parseInt(req.getParameter("seq"));
+			String content = req.getParameter("content");
+			int ref = Integer.parseInt(req.getParameter("ref"));
+			
+			boolean result = dao.repupdate(seq, content);
+			
+			if (result == true) {
+				out.println("<script>alert(\'답변이 수정되었습니다.\'); location=\'" + req.getContextPath()+ "/JSP/QADetail.jsp?seq="+ ref+ "\'</script>");
+
+			} else {
+				out.println("<script>alert(\'문제가 생겼습니다.\'); location=\'" + req.getContextPath()+ "/JSP/QADetail.jsp?seq="+ ref+ "\'</script>");
+			}
+		}
 	}
+
 
 	// 이동
 	public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp)

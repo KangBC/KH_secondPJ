@@ -11,6 +11,7 @@ import java.util.Vector;
 import DB.DBClose;
 import DB.DBConnection;
 import Dto.QADto;
+import Dto.ReplyDto;
 
 public class QADao {
 
@@ -240,39 +241,6 @@ public class QADao {
 		return count > 0 ? true : false;
 	}
 
-	// Detail
-	public boolean QADetail(QADto dto) {
-
-		String sql = " INSERT INTO BBS (SEQ, ID, REF, STEP, DEPTH, TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT) "
-				+ " VALUES (SEQ_BBS.NEXTVAL, ?, SEQ_BBS.CURRVAL, 0, 0, ?, ?, SYSDATE, 0, 0, 0) ";
-
-		// SEQ_BBS.CURRVAL REF 값 표현하는 다른 방법
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-
-		int count = 0;
-
-		try {
-			conn = DBConnection.makeConnection();
-			psmt = conn.prepareStatement(sql);
-
-			psmt.setString(1, dto.getId());
-			psmt.setString(2, dto.getTitle());
-			psmt.setString(3, dto.getContent());
-
-			count = psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println("writeBBS fail");
-		} finally {
-			DBClose.close(psmt, conn, null);
-		}
-
-		System.out.println("sql : " + sql);
-
-		return count > 0 ? true : false;
-	}
 
 	// 순서
 	public QADto getBbs(int seq) {
@@ -509,5 +477,241 @@ public class QADao {
 			DBClose.close(psmt, conn, rs);
 		}
 		return list;
+	}
+	
+	public List<ReplyDto> getreplist(int seq){
+		
+		String sql = "SELECT * FROM REP WHERE REF=? ORDER BY STEP ASC";
+		
+
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      ResultSet rs = null;
+	      
+	      List<ReplyDto> list = new ArrayList<>();
+	      
+	      try {
+	         conn = DBConnection.makeConnection();
+	         psmt = conn.prepareStatement(sql);
+	         
+	         psmt.setInt(1, seq);
+	         
+	         rs = psmt.executeQuery();
+	         
+	         while(rs.next()) {
+	        	 ReplyDto dto = new ReplyDto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getString(8).substring(0, 16), rs.getInt(9));
+	         
+	        	 list.add(dto);   
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(psmt, conn, rs);
+	      }
+
+		return list;
+	}
+	public ReplyDto getreply(int seq) {
+		String sql = " SELECT * " + " FROM REP "
+				+ " WHERE SEQ=? ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		ReplyDto dto = null;
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setInt(1, seq);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				dto = new ReplyDto(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(8), rs.getString(9), rs.getInt(10));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("getBbs failed");
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		return dto;
+	}
+	
+	
+	public boolean reply(ReplyDto dto) {
+		// 밀어주는 작업
+		
+				String sql1 = "UPDATE BBS SET STEP=STEP+1 WHERE SEQ=?";
+				
+				String sql = " UPDATE REP " + " SET STEP=STEP+1 " + " WHERE REF=?"
+						+ "  		AND STEP> (SELECT STEP FROM REP WHERE SEQ=?) ";
+
+
+				// 집어넣는 작업 (INSERT)
+				String sql2 = " INSERT INTO REP VALUES(SEQ_REP.NEXTVAL, ?, "
+				+ " 				?, "
+				+ " 				(SELECT STEP FROM REP WHERE SEQ=?)+1, "
+				+ " 				(SELECT DEPTH FROM REP WHERE SEQ=?)+1, "
+				+ " 				?, ?, SYSDATE, 0) ";
+				
+				
+				String sql3 =  " UPDATE REP " + " SET STEP=STEP+1 " + " WHERE REF=?";
+				
+				String sql4 =  " INSERT INTO REP VALUES(SEQ_REP.NEXTVAL, ?, "
+						+ " 				?, "
+						+ " 				0, "
+						+ " 				0, "
+						+ " 				0, ?, SYSDATE, 0) ";
+				
+				
+				Connection conn = null;
+				PreparedStatement psmt = null;
+				
+
+				int count = 0;
+
+				try {
+					//seq; id; ref;step;depth;parent;content; wdate;del;
+					conn = DBConnection.makeConnection();
+					
+					psmt = conn.prepareStatement(sql1);
+					psmt.setInt(1, dto.getRef());
+					
+					psmt.executeQuery();
+					psmt.clearParameters(); // 쿼리문 두개 이상 썼을때 클리어
+					System.out.println(dto.getParent());
+					
+					if(dto.getParent() != 0) {
+						psmt = conn.prepareStatement(sql);
+						psmt.setInt(1, dto.getRef());
+						psmt.setInt(2, dto.getParent());
+						psmt.executeQuery();
+						psmt.clearParameters(); // 쿼리문 두개 이상 썼을때 클리어
+						psmt = conn.prepareStatement(sql2);
+						psmt.setString(1, dto.getId());
+
+						psmt.setInt(2, dto.getRef()); // ref
+						psmt.setInt(3, dto.getParent()); // step
+						psmt.setInt(4, dto.getParent()); // depth
+
+						psmt.setInt(5, dto.getParent()); // parent
+						psmt.setString(6, dto.getContent().trim());  //content
+						System.out.println("4/6 answer success");
+
+						count = psmt.executeUpdate();
+						System.out.println("5/6 answer success");
+					}else {
+						psmt = conn.prepareStatement(sql3);
+						psmt.setInt(1, dto.getRef());
+						
+						psmt.executeQuery();
+						
+						psmt = conn.prepareStatement(sql4);
+						psmt.setString(1, dto.getId());
+						psmt.setInt(2, dto.getRef());
+						psmt.setString(3, dto.getContent());
+						
+						count = psmt.executeUpdate();
+					}
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+			DBClose.close(psmt, conn, null);
+					System.out.println("6/6 answer success");
+				}
+
+				return count > 0 ? true : false;
+		
+		
+	}
+	
+	public boolean repdelete(int seq, int ref) {
+		
+		//원글 댓글수
+				String sql1 = "UPDATE BBS SET STEP=STEP-1 WHERE SEQ=?";
+				
+				//스텝 원상복귀
+				String sql = " UPDATE REP " + " SET STEP=STEP-1 " + " WHERE REF=?"
+						+ "  		AND STEP> (SELECT STEP FROM REP WHERE SEQ=?) ";
+
+
+				// 집어넣는 작업 (INSERT)
+				String sql2 = " DELETE FROM REP WHERE SEQ=? ";
+				
+				
+				Connection conn = null;
+				PreparedStatement psmt = null;
+
+
+				int count = 0;
+
+				try {
+					//seq; id; ref;step;depth;parent;content; wdate;del;
+					conn = DBConnection.makeConnection();
+					
+					psmt = conn.prepareStatement(sql1);
+					psmt.setInt(1, ref);
+					psmt.executeQuery();
+					psmt.clearParameters(); // 쿼리문 두개 이상 썼을때 클리어
+					
+					psmt = conn.prepareStatement(sql);
+					psmt.setInt(1, ref);
+					psmt.setInt(2, seq);
+					psmt.executeQuery();
+					psmt.clearParameters(); // 쿼리문 두개 이상 썼을때 클리어
+					
+					psmt = conn.prepareStatement(sql2);
+					psmt.setInt(1, seq);
+					count = psmt.executeUpdate();
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+			DBClose.close(psmt, conn, null);
+					System.out.println("6/6 answer success");
+				}
+
+				return count > 0 ? true : false;
+		
+		
+	}
+	public boolean repupdate(int seq, String content) {
+		
+		//원글 댓글수
+				String sql1 = "UPDATE REP SET CONTENT=?, WDATE=SYSDATE WHERE SEQ=?";
+				
+				
+				
+				
+				Connection conn = null;
+				PreparedStatement psmt = null;
+
+
+				int count = 0;
+
+				try {
+					//seq; id; ref;step;depth;parent;content; wdate;del;
+					conn = DBConnection.makeConnection();
+					
+					psmt = conn.prepareStatement(sql1);
+					psmt.setString(1, content);
+					psmt.setInt(2, seq);
+					count = psmt.executeUpdate();
+					
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+			DBClose.close(psmt, conn, null);
+					System.out.println("6/6 answer success");
+				}
+
+				return count > 0 ? true : false;
+		
+		
 	}
 }

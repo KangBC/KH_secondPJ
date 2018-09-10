@@ -223,9 +223,15 @@
 
 			<tr>
 				<td><%=QAbbs.getRownum()%></td>
+<<<<<<< HEAD
 				<td><%=arrow(QAbbs.getDepth())%> 
 				<a style="text-decoration: none;" href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
 				</a></td>
+=======
+				<td><a
+					href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
+				</a> re:<%=QAbbs.getStep() %></td>
+>>>>>>> origin/Minseok
 				<td><%=QAbbs.getContent()%></td>
 				<td><%=QAbbs.getId()%></td>
 				<td><%=QAbbs.getWdate()%></td>
