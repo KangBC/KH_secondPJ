@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +19,6 @@ public class QAController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public QAController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	// 공개
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -111,19 +105,6 @@ public class QAController extends HttpServlet {
 		        }
 		        int endRow = currentPage * pasgeSize;
 		       
-		        //최신글 10개를 기준으로 게시글을 리턴 받아주는 메소드 호출
-		        //int v = dao.getAllCount(searchfor,search);
-		       // number = count - (currentPage - 1) * pasgeSize;
-
-		        ////////QAList.jsp 쪽으로 request객체에 담아서 넘겨줌
-		        //req.setAttribute("v", v);
-		        //req.setAttribute("number", number);
-		        //req.setAttribute("pageSize", pasgeSize);
-		        
-		        /*<option value="0">전체보기</option>
-				<option value="1">작성자</option>
-				<option value="2">제목</option>
-				<option value="3">내용</option>*/
 		        
 		        List<QADto> list = new ArrayList<>();
 		        
@@ -166,7 +147,7 @@ public class QAController extends HttpServlet {
 			}
 
 			// QADetail (개인정보)
-		} else if (command.equals("QAupdate")) {
+		}  else if (command.equals("QAupdate")) {
 
 			int seq = Integer.parseInt(req.getParameter("seq"));
 			// Parameter에서는 int 숫자를 받을떄 형변환을 해줘야한다.

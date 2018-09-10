@@ -1,77 +1,76 @@
 <%@page import="Dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;  charset=EUC-KR">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Write something else you want</title>
 
+<link href="<%=request.getContextPath()%>/CSS/Table.css"
+	rel="stylesheet">
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript-->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
+<title>QAwrite</title>
 </head>
+
 <body>
 	<%
-Object ologin = session.getAttribute("kh_member");
+		Object ologin = session.getAttribute("kh_member");
 
-MemberDto mem = null;
+		MemberDto mem = null;
 
-mem = (MemberDto)ologin;
-%>
+		mem = (MemberDto) ologin;
+	%>
 
-	<div class="container">
-		<form action="../QAController" method="post">
-			<input type="hidden" name="command" value="regist_add">
-			<table class="table table-bordered" style="width: 700px"
-				height="500px" align="center">
+	<jsp:include page="Header.jsp"></jsp:include>
 
+	<div class="outer-container">
 
-				<col width="50px">
+		<h2>QAwrite</h2>
+		<br>
+		<form action="<%=request.getContextPath() %>/QAController?command=regist_add" method="post">
+
+		<div class="inner-container">
+			<table border="0" style="border-collapse: collapse">
+				<col width="100">
+				<col width="920">
 				<tr>
-					<th>ID:</th>
-					<td><input type="text" placeholder="제목을 입력하세요. " required
-						name="id" class="form-control" value="<%=mem.getId()%>"></td>
+					<td>이름</td>
+					<td><input type="text" class="input_data" name="id" readonly
+						value="<%=mem.getId()%>" style="padding-left: 2px;"></td>
 				</tr>
 
 				<tr>
-					<th>제목:</th>
-					<td><input type="text" placeholder="제목을 입력하세요. " required
-						id="title" name="title" class="form-control" /></td>
-				</tr>
-				<tr>
-					<th>내용:</th>
-					<td><textarea cols="700" placeholder="내용을 입력하세요. " required
-							id="content" name="content" class="form-control"></textarea></td>
+					<td>제목</td>
+					<td><input type="text" class="input_data" name="title"
+						placeholder="제목을 입력하세요. " required id="title"
+						style="width: 170px;"></td>
 				</tr>
 
-				<tr>
-					<td colspan="2"><input type="submit" value="등록"
-						class="pull-right" /> <input type="button" value="글 목록 "
-						class="pull-right" onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
-					</td>
+				<tr style="border-bottom: 0;">
+
+					<td style="vertical-align: top; padding-top: 8px;">내용</td>
+					<td style="padding-top: 8px;"><textarea class="input_data"
+							id="content" name="content" rows="4" cols="50"
+							placeholder="내용을 입력하세요." required
+							style="width: 90%; height: 500px;"></textarea></td>
+
 				</tr>
 			</table>
-		</form>
+		</div>
+		<div align="right">
+			<tr>
+				<td colspan="2"><input type="submit" value="등록"
+					class="pull-right" /> <input type="button" value="글 목록 "
+					class="pull-right"
+					onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
+				</td>
+			</tr>
+		</div>
 	</div>
 
+	<!-- Footer -->
+	<jsp:include page="Footer.jsp"></jsp:include>
 
 </body>
 </html>

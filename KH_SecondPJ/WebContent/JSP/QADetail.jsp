@@ -7,7 +7,7 @@
 <%@page import="Dao.QADao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%!// 댓글!!
 	public String arrow(int depth) {
 
@@ -19,220 +19,159 @@
 			ts += nbsp;
 		}
 		return depth == 0 ? "" : ts + rs;
-	}
-	%>
+	}%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link href="<%=request.getContextPath()%>/CSS/Table.css"
+	rel="stylesheet">
+
 <title>QAdetail</title>
 
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
-
-<style>
-textarea{
-	resize: none;
-}
-.btns{
-	margin-right: 0;
-    margin-left: auto;
-}
-</style>
-
 </head>
+
 <body>
-	<div align="center">
-		<a href="Login.jsp">로그아웃</a>
 
-		<h1>상세 글 보기</h1>
-
-	</div>
 	<%
-<<<<<<< .merge_file_a02468
 		MemberDto mem = (MemberDto) session.getAttribute("kh_member");
-		String tempid;
 		boolean idcheck = true;
+		String temp = "";
 		if (mem == null) {
 			idcheck = false;
-			tempid = "";
-		}else{
-			tempid = mem.getId();
+		} else {
+			temp = mem.getId();
 		}
 		String sseq = request.getParameter("seq");
 		int seq = Integer.parseInt(sseq.trim());
-=======
-	MemberDto mem = (MemberDto)session.getAttribute("kh_member");
-    boolean idcheck = true;
-    String temp ="";
- 	if(mem == null){
-		idcheck = false;
- 	}else{
- 		temp = mem.getId();
- 	}
-	String sseq = request.getParameter("seq");
-	int seq = Integer.parseInt(sseq.trim());
->>>>>>> .merge_file_a00708
 
-	QADao dao = QADao.getInstance();
+		QADao dao = QADao.getInstance();
 
-	// 조회수를 증가
-	dao.QAreadcount(seq);
-	QADto dto = dao.getBbs(seq);
-	
-	
-	
-	List<ReplyDto> replylist = dao.getreplist(seq);
-	
-	int replysize = replylist.size();
-	
-	System.out.println("답변 수: " + replysize);
-	
+		// 조회수를 증가
+		dao.QAreadcount(seq);
+		QADto dto = dao.getBbs(seq);
+
+		List<ReplyDto> replylist = dao.getreplist(seq);
+
+		int replysize = replylist.size();
+
+		System.out.println("답변 수: " + replysize);
 	%>
 
-	<div class="center">
-		<form action="../QAController?command=QADetail" method="post">
-			<table class="table table-bordered" style="width: 700px"
-				height="500px" align="center">
-				<col width="100px"><col width="500px"><col width="100px">
+	<jsp:include page="Header.jsp"></jsp:include>
 
-				<tr>
-					<td>ID:</td>
-					<td><input readonly type="text" placeholder="제목을 입력하세요. " name="id"
-						class="form-control" value="<%=dto.getId()%>"></td>
+	<div class="outer-container">
 
-				</tr>
+		<h2>QADetail</h2>
+		<br>
+<%-- 		<form action="<%=request.getContextPath()%>/QAController?command=QADetail" method="post"> --%>
+			<div class="inner-container">
+				<table border="0" style="border-collapse: collapse">
+					<col width="100">
+					<col width="920">
 
-				<tr>
-					<td>제목:</td>
-					<td><input readonly type="text" placeholder="제목을 입력하세요. " name="title"
-						class="form-control" value="<%=dto.getTitle()%>"></td>
-				</tr>
+					<tr>
+						<td>이름</td>
+						<td><input type="text" class="input_data" name="id" readonly
+							value="<%=dto.getId()%>" style="padding-left: 2px;"></td>
+					</tr>
 
-				<tr>
-					<td>작성일:</td>
-					<td><input readonly type="text" name="wdate" class="form-control"
-						value="<%=dto.getWdate()%>"></td>
-				</tr>
+					<tr>
+						<td>제목</td>
+						<td><input type="text" class="input_data" name="title"
+							readonly value="<%=dto.getTitle()%>" style="padding-left: 2px;"></td>
+					</tr>
 
-				<tr>
-					<td>조회수:</td>
-					<td><input readonly type="text" name="readcount" class="form-control"
-						value="<%=dto.getReadcount()%>"></td>
-				</tr>
+					<tr>
+						<td>작성일</td>
+						<td><input type="text" class="input_data" name="Wdate"
+							readonly value="<%=dto.getWdate()%>" style="padding-left: 2px;"></td>
+					</tr>
+
+					<tr>
+						<td>조회수</td>
+						<td><input type="text" class="input_data" name="readcount"
+							readonly value="<%=dto.getReadcount()%>"
+							style="padding-left: 2px;"></td>
+					</tr>
+
+					<tr>
+						<td>정보</td>
+						<td><input type="text" class="input_data" name="Ref" readonly
+							value="<%=dto.getRef()%>" style="padding-left: 2px;"></td>
+					</tr>
 
 
-				<tr>
-					<td>내용</td>
-					<td><textarea readonly cols="700" placeholder="내용을 입력하세요. "
-							name="content" class="form-control"> <%=dto.getContent()%> </textarea>
-					</td>
-				</tr>
+					<tr style="border-bottom: 0;">
 
-			</table>
-		</form>
-
-		<!-- 댓글기능  -->
-		<div align="center">
+						<td style="vertical-align: top; padding-top: 8px;">내용</td>
+						<td style="padding-top: 8px;"><textarea class="input_data"
+								id="content" name="content" rows="4" cols="50"
+								style="width: 90%; height: 500px;"> <%=dto.getContent()%> </textarea></td>
+					</tr>
+				</table>
+			</div>
 
 			<button onclick="answerTable(this)" value="0">답글달기</button>
 
 			<button onclick="Upsubmit()">수정</button>
 
 			<button onclick="delsubmit()">삭제</button>
-			
+
 			<input type="button" value="글 목록 " class=""
-			onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
+				onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
 
-		</div>
 
-<<<<<<< .merge_file_a02468
-		<input type="button" value="글 목록 " class="pull-right"
-			onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
-=======
-	<hr>
-	<div>
-	<table class="table table-bordered" style="width: 700px" align="center" id="replysection">
-	<col width="100px"><col width="530px">
-	<%
-	if(replysize != 0){
-		for(int i =0; i < replysize; i++){
-			ReplyDto reply = replylist.get(i);
-		%>
-			<tr>
-				<th><%=reply.getId() %></th>
-				<th>
-					<table>
-					<tr><%=arrow(reply.getDepth()) %>
-					<input type="text" readonly value="<%=reply.getContent() %>">
+			<div>
+				<table class="table table-bordered" style="width: 700px"
+					align="center" id="replysection">
+					<col width="100px">
+					<col width="530px">
+					<%
+						if (replysize != 0) {
+							for (int i = 0; i < replysize; i++) {
+								ReplyDto reply = replylist.get(i);
+					%>
+					<tr>
+						<th><%=reply.getId()%></th>
+						<th>
+							<table>
+								<tr><%=arrow(reply.getDepth())%>
+									<input type="text" readonly value="<%=reply.getContent()%>">
+								</tr>
+
+								<tr height="40px">
+									<td><font size="1" color="gray"><%=reply.getWdate()%></font></td>
+								</tr>
+							</table>
+						</th>
+						<td><button onclick="changeReply(this)"
+								value="<%=reply.getSeq()%> <%=reply.getId()%>">수정</button>
+							<button onclick="delReply(this)"
+								value="<%=reply.getSeq()%> <%=reply.getId()%>">삭제</button>
+							<button onclick="answerTable(this)" value="<%=reply.getSeq()%>">답글</button>
+						</td>
 					</tr>
-					
-					<tr height="40px">
-					<td><font size="1" color="gray"><%=reply.getWdate() %></font></td>
-					</tr>
-					</table>
-				</th>
-				<td><button onclick="changeReply(this)" value="<%=reply.getSeq() %> <%=reply.getId() %>">수정</button>
-					<button onclick="delReply(this)" value="<%=reply.getSeq() %> <%=reply.getId() %>">삭제</button>
-					<button onclick="answerTable(this)" value="<%=reply.getSeq() %>">답글</button>
-				</td>
-			</tr>
-		
-		<%
-		}
-	}
-	
-	%>
-	
-	</table>
-	</div>
->>>>>>> .merge_file_a00708
+
+					<%
+						}
+						}
+					%>
+
+				</table>
+			</div>
+
+			<!-- //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+			<hr>
 
 
-	</div>
-
-	<script type="text/javascript">
+			<script type="text/javascript">
 	var idcheck = <%=idcheck%>;
 //삭제
-<<<<<<< .merge_file_a02468
-	function delsubmit() {
-		if (idcheck) {
-			if('<%=tempid%>' == '<%=dto.getId()%>'){ 			
-				var result = confirm("정말 삭제하시겠습니까?");
-				if(result){
-					location = "../QAController?command=QAdelete&seq=<%=dto.getSeq()%>";
-				}else{
-					return
-				}
-		 	}else{
-				alert('아이디가 다르다 니글아니야 슈발아.');
-			    return;
-		} 
-
-	}else{
-		alert('애미 로그인부터 하세여.');
-=======
 function delsubmit() {
 	if (idcheck) {
-		if('<%=temp%>' == '<%=dto.getId() %>'){
+		if('<%=temp%>' == '<%=dto.getId()%>'){
 		
 			var result = confirm("정말 삭제하시겠습니까?");
 			if(result){
@@ -247,23 +186,22 @@ function delsubmit() {
 		
 	}else{
 		alert('로그인하셔야 합니다.');
->>>>>>> .merge_file_a00708
 	    return;
 	}
 }
 	
+	
 //수정
 function Upsubmit() {
-<<<<<<< .merge_file_a02468
 		if (idcheck) {
 
-		if('<%=tempid%>' == '<%=dto.getId()%>'){
+		if('<%=temp%>' == '<%=dto.getId()%>'){
 				var result = confirm("정말 수정하시겠습니까?");
 				
 				if(result){
 					location = "QAupdatel.jsp?seq="+<%=dto.getSeq()%>;
 				}else{
-					return
+					return;// ;;; 넣음
 				}
 		}else{
 			alert('아이디가 다르다 니글아니야 슈발아.');
@@ -276,29 +214,6 @@ function Upsubmit() {
 	}
 }	
 
-//답글
-function QAanswer() {
-=======
-	if (idcheck) {
-		if('<%=temp%>' == '<%=dto.getId() %>'){
-		
-			var result = confirm("정말 변경하시겠습니까?");
-			if(result){
-				location = "../QAController?command=QAdelete&seq=<%=dto.getSeq()%>";
-			}else{
-				return
-			}
-		}else{
-			alert('작성자만 글을 변경할 수 있습니다.');
-		    return;
-		}
-		
-	}else{
-		alert('로그인하셔야 합니다.');
-	    return;
-	}
-}
-	
 
 function makeReply(element){
 	
@@ -383,7 +298,6 @@ function answerTable(element){
 					row.appendChild(th1);
 					row.appendChild(th2);
 					row.appendChild(td3);
-					//reptbl.insertBefore(tr, reptbl.children[element.parentElement.parentElement.rowIndex+1].nextSibling);
 				}else{
 					reptbl.deleteRow(element.parentElement.parentElement.rowIndex+1);
 				}
@@ -397,14 +311,13 @@ function answerTable(element){
 }
 
 function delReply(element){
->>>>>>> .merge_file_a00708
 	if (idcheck) {
 		var arr = element.value.split(" ");
 		if('<%=temp%>' == arr[1]){
 		
 			var result = confirm("정말 삭제하시겠습니까?");
 			if(result){
-				location = "../QAController?command=repdelete&seq="+arr[0]+"&ref=<%=dto.getRef() %>";
+				location = "../QAController?command=repdelete&seq="+arr[0]+"&ref=<%=dto.getRef()%>";
 			}else{
 				return
 			}
@@ -431,7 +344,7 @@ function changeReply(element){
 				if(str == null){
 					return
 				}else{
-					location = "../QAController?command=repupdate&seq="+arr[0]+"&content="+str+"&ref=<%=dto.getRef() %>";
+					location = "../QAController?command=repupdate&seq="+arr[0]+"&content="+str+"&ref=<%=dto.getRef()%>";
 				}
 			}else{
 				return
@@ -447,7 +360,6 @@ function changeReply(element){
 }
 
 </script>
-
 </body>
 </html>
 
