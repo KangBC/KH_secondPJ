@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<%=request.getContextPath()%>/CSS/Table.css" rel="stylesheet">
 <title>Insert title here</title>
 </head>
 <body>
@@ -15,59 +16,51 @@
 MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 
 %>
+<jsp:include page="../JSP/Header.jsp"></jsp:include>
 
-<h3>자료 쓰기!</h3>
-
-<div align="center">
+<div class="outer-container" align="center">
 <form action="Pdsupload.jsp" method="post" enctype="multipart/form-data" >
 <input type="hidden" name="command" value="write">
-<table border="1" bgcolor="pink">	
-<col width="200"><col width="500">
+<div class="inner-container">
+<table border="0" style="border-collapse: collapse">	
+<col width="100"><col width="920">
 
 <tr>
 	<td>아이디</td>
 	<td>
-		<input type="text" name="id" value="<%=dto.getId() %>" readonly="readonly">
+		<input type="text" class="input_data" name="id" value="<%=dto.getId() %>" readonly="readonly">
 	</td>
 </tr>
 
 <tr>
 	<td>제목</td>
 	<td>
-		<input type="text" name="title" size="75" required >
+		<input type="text" class="input_data" name="title" required >
 	</td>
 </tr>
 
 <tr>
 	<td>파일 업로드</td>
 	<td>
-		<input type="file" name="fileload" style="width: 400px" required>
+		<input type="file" class="input_data" name="fileload" style="width: 400px" required>
 	</td>
 </tr>
 
-<tr>
-	<td>내용</td>
-	<td >
-		<textarea rows="30" cols="77" name="content" required></textarea>
+<tr style="border-bottom: 0;">
+	<td style="vertical-align: top; padding-top: 8px;">내용</td>
+	<td style="padding-top: 8px;">
+		<textarea class="input_data" name="content" style="width:90%; height: 500px; " placeholder="내용을 입력하세요."></textarea>
 	</td>
-</tr>
-
-
-
-<tr align="center">
-	<td colspan="2">
-		<input type="submit" value="올리기">
-	</td>
-	
 </tr>
 
 </table>
-
-<a href="<%=request.getContextPath() %>/PdsController?command=list">돌아가기</a>
-
+</div>
+		<input type="submit" value="올리기">
+		<button type="button" onclick="location= '<%=request.getContextPath() %>/PdsController?command=list'">돌아가기</button>
 </form>
 </div>
 
+<jsp:include page="../JSP/Footer.jsp"></jsp:include>
 
 </body>
 </html>

@@ -3,7 +3,18 @@ package Dto;
 import java.io.Serializable;
 
 public class PdsDto implements Serializable{
-
+/*
+CREATE TABLE PDS(
+   SEQ NUMBER(8) PRIMARY KEY,
+   ID VARCHAR2(50) NOT NULL,
+   TITLE VARCHAR2(200) NOT NULL,
+   CONTENT VARCHAR2(4000) NOT NULL,
+   FILENAME VARCHAR2(50) NOT NULL,
+    DEL NUMBER(8) NOT NULL,
+   READCOUNT NUMBER(8) NOT NULL,
+   DOWNCOUNT NUMBER(8) NOT NULL,
+   REGDATE DATE NOT NULL
+);*/
 	private int seq;
 	private String id;
 	private String title;

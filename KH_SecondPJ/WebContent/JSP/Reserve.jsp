@@ -34,7 +34,7 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 <col width="100"><col width="920">
 <tr>
 <td>이름</td>
-<td><input type="text" class="input_data" name="title" readonly value="<%=dto.getName() %>" style="padding-left: 2px;"></td>
+<td><input type="text" class="input_data" name="title" readonly value="<%=dto.getName() %>" style="padding-left: 2px; border: 0;"></td>
 </tr>
 
 <tr>

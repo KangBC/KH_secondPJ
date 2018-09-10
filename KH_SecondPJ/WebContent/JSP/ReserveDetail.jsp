@@ -37,23 +37,23 @@ if(loginmember != null){
 <col width="100"><col width="920">
 <tr>
 <th>신청인</th>
-<td><input type="text" class="input_data" value="<%=dto.getId() %>" readonly></td>
+<td><input type="text" class="input_data" value="<%=dto.getId() %>" style="border: 0;" readonly></td>
 </tr>
 
 <tr>
 <th>예정시간</th>
-<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' readonly></td>
+<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>' style="border: 0;" readonly></td>
 </tr>
 
 <tr>
 <th>신청시간</th>
-<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate()%>' readonly></td>
+<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate()%>' style="border: 0;" readonly></td>
 </tr>
 
 <tr style="border-bottom: 0;">
 <th style="vertical-align: top; padding-top: 8px;">내용</th>
 <td style="padding-top: 8px;">
-<textarea class="input_data" rows="4" cols="50" style="width: 90%; height:500px;" readonly><%=dto.getContent() %></textarea>
+<textarea class="input_data" rows="4" cols="50" style="width: 90%; height:500px;"  readonly><%=dto.getContent() %></textarea>
 </td>
 </tr>
 
