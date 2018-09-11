@@ -93,7 +93,7 @@ public class PdsDao {
 								rs.getInt(10),
 								rs.getInt(7),
 								rs.getInt(8),
-								rs.getString(9));
+								rs.getString(9).substring(0,16));
 				list.add(dto);	
 			}
 			
@@ -234,7 +234,7 @@ public class PdsDao {
 				int del = rs.getInt(6);
 				int readcount = rs.getInt(7);
 				int downcount = rs.getInt(8);
-				String regdate = rs.getString(9);
+				String regdate = rs.getString(9).substring(0,16);
 				
 				dto = new PdsDto(seq, id, title, content, filename, del, readcount, downcount, regdate);
 			}
@@ -369,7 +369,7 @@ public class PdsDao {
 								rs.getInt(10),
 								rs.getInt(7),
 								rs.getInt(8),
-								rs.getString(9));
+								rs.getString(9).substring(0,16));
 				list.add(dto);	
 			}
 			

@@ -17,7 +17,7 @@ width: 100%;
 
 </style>
 </head>
-<body>
+<body style="font-family: Noto Sans KR, sans-serif; font-size: 15px;">
 <jsp:include page="Header.jsp"></jsp:include>
 
 <!-- 상단 그림 -->
@@ -31,42 +31,35 @@ width: 100%;
 <h2>About</h2>
 <hr style="width: 80px; border-color: black; margin: 0 auto;">
 
-<br>
-<p style="font-family: Noto Sans KR, sans-serif; font-size: 17px;" >또 하나의 가족을 맞이하는 가슴 따뜻한 순간,
-완벽해야만 하는 그날을 위해 각 분야 최고의 전문가들이 처음부터 끝까지
-<br> 당신의 웨딩을 최고로 아릅답게  Design해 드립니다.<br>
-인생의 모든 순간을 빛낼 일생에 단 하나뿐인 당신의 웨딩 축제<strong>KH_Wedding&Party</strong>  당신을 더욱 빛나게 합니다.
-</p>
-
+<div style="line-height: 1.5em; margin: 30px 0 30px 0;">
+	<p>또 하나의 가족을 맞이하는 가슴 따뜻한 순간,</p>
+	<p>완벽해야만 하는 그날을 위해 각 분야 최고의 전문가들이 처음부터 끝까지<p/>
+	<p>당신의 웨딩을 최고로 아릅답게  Design해 드립니다.</p>
+	<p>인생의 모든 순간을 빛낼 일생에 단 하나뿐인 당신의 웨딩 축제, KH_Wedding에서 당신을 더욱 빛나게 합니다.</p>
+</div>
 
 <!-- 자동 슬라이더 -->
+<div style="width: 1020px; position: relative;">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide01.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide02.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide03.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide04.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide05.jpg">
+<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="font-size: 20px; color: #555555" >&#10094;</button>
+<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="font-size: 20px; color: #555555" >&#10095;</button>
+</div>
 
-
-<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="top:120%; left: 16%">&#10094;</button>
-<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="top:120%; right: 16%">&#10095;</button>
-<hr style="width: 1020px; border-color: black;">
-
-
-
-
-<p style="font-family: Noto Sans KR, sans-serif; font-size: 18px;" >
-
-이세상 누구보다 아름다운 당신, 행복함과 설레임으로 다가올 당신의 가장 소중한 순간을 위해 준비했습니다.<br>
-전통과 격식을 존중한 클래식한 감성은 물론, 모던하고 내추럴한 세련된 감각의 품격있는 웨딩까지  <br>
-다양한 웨딩 스타일을 제안하며 럭셔리하고 차별화된 데코레이션과
-최상의 요리와 세심한 서비스, <br> 
-일생에 단한번뿐인 당신의 소중한 순간을 가슴속에 남겨드리겠습니다.</p>
-
-</font>
+<div style="margin: 30px 0 50px 0;">
+<p>이세상 누구보다 아름다운 당신, 행복함과 설레임으로 다가올 당신의 가장 소중한 순간을 위해 준비했습니다.</p>
+<p>전통과 격식을 존중한 클래식한 감성은 물론, 모던하고 내추럴한 세련된 감각의 품격있는 웨딩까지  </p>
+<p>다양한 웨딩 스타일을 제안하며 럭셔리하고 차별화된 데코레이션과</p>
+<p>최상의 요리와 세심한 서비스, </p>
+<p>일생에 단한번뿐인 당신의 소중한 순간을 가슴속에 남겨드리겠습니다.</p>
+</div>
 
 <hr style="width: 1020px; border-color: black;">
-
-<table style="width: 1020px;  border-color: black;  cellspacing="0" cellpadding="0">
+<div>
+<table style="width: 1020px;  border-color: black; margin:50px 0 30px 0 ;  cellspacing="0" cellpadding="0">
             <tbody>
             <tr>
                 <td><img style="width: 100%"  src="<%=request.getContextPath() %>/img/wedding_slide01.jpg"></td>
@@ -84,9 +77,8 @@ width: 100%;
             </tr> 
            </tbody>
 </table>
+</div>
 
-
-<br>
 </div>
 
 
