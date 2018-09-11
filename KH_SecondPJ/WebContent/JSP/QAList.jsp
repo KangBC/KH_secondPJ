@@ -47,8 +47,7 @@
 	crossorigin="anonymous"></script>
 
 <!-- 검색창 밑 backgraund_img.css -->
-<link href="<%=request.getContextPath()%>/CSS/QAList.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -162,7 +161,7 @@
 									<option value="2">제목</option>
 									<option value="3">내용</option>
 								</select> <input type="text" class="text_1" id="search" name="search"
-									maxlength="20">
+									maxlength="20" style="margin: -27px;">
 
 								<div class="button-row">
 									<div>

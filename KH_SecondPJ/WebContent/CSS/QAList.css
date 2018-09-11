@@ -19,7 +19,7 @@
 .img .content {
 	position: absolute;
 	top: 50%;
-	left: 50%;
+	left: 43%;
 	transform: translate(-50%, -50%);
 	font-size: 1rem;
 	color: white;
@@ -29,7 +29,7 @@
 
 .search_Group {
 	padding: 5px; /* 폭 */
-	margin:15px;  /* 넒이 */
+	margin:30px;  /* 넒이 */
 	font-style: italic; /* 폰트 */
 	font-size: 15px; /* 글씨 크기 */
 	font-weight: 900;
@@ -39,7 +39,7 @@
 }
 
 #search{
-	padding: 1px;
+	padding: 5px;
 	font-size: 20px;   /* text_글씨 굵기 */
 	font-weight: bold; /* text_누르고 글쓸떄 굵기 */
 	text-align: center;

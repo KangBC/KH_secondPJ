@@ -64,8 +64,9 @@
 	<div class="outer-container">
 
 		<h2>QADetail</h2>
+		
 		<br>
-		<%-- 		<form action="<%=request.getContextPath()%>/QAController?command=QADetail" method="post"> --%>
+
 		<div class="inner-container">
 			<table border="0" style="border-collapse: collapse">
 				<col width="100">
@@ -73,21 +74,21 @@
 
 				<tr>
 					<td>이름</td>
-					<td><input type="text" class="input_data" name="id" readonly
-						value="<%=dto.getId()%>" style="padding-left: 2px;"></td>
+					<td><input  type="text" class="input_data" name="id" readonly
+						value="<%=dto.getId()%>" style="padding-left: 2px; border: 0;"></td>
 				</tr>
 
 				<tr>
 					<td>작성일</td>
 					<td><input type="text" class="input_data" name="Wdate"
-						readonly value="<%=dto.getWdate()%>" style="padding-left: 2px;"></td>
+						readonly value="<%=dto.getWdate().substring(0, 16)%>" style="padding-left: 2px; border: 0; "></td>
 				</tr>
 
 				<tr>
 					<td>조회수</td>
 					<td><input type="text" class="input_data" name="readcount"
 						readonly value="<%=dto.getReadcount()%>"
-						style="padding-left: 2px;"></td>
+						style="padding-left: 2px; border: 0; "></td>
 				</tr>
 
 

@@ -177,7 +177,7 @@
 									<option value="1">작성자</option>
 									<option value="2">제목</option>
 								</select> <input type="text" class="text_1" id="search" name="search"
-									maxlength="20">
+									maxlength="20" style="margin: -27px;">
 
 
 								<div class="button-row">
@@ -243,7 +243,8 @@
 				<tr>
 					<td><%=pds.getDel()%></td>
 					<td><%=pds.getId()%></td>
-					<td><a href="<%=request.getContextPath() %>/JSP/Pdsdetail.jsp?seq=<%=pds.getSeq()%>"> <%=pds.getTitle()%>
+					<td>
+					<a style="text-decoration: none;" href="<%=request.getContextPath() %>/JSP/Pdsdetail.jsp?seq=<%=pds.getSeq()%>"> <%=pds.getTitle()%>
 					</a></td>
 					<td><%=pds.getReadcount()%></td>
 					<td><%=pds.getRegdate()%></td>

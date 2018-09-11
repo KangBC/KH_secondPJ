@@ -45,7 +45,7 @@
 				<tr>
 					<td>작성일</td>
 					<td><input type="text" name="wdate" class="input_data"
-						value="<%=dto.getWdate()%>" style="border: 0;" readonly></td>
+						value="<%=dto.getWdate().substring(0, 16)%>" style="border: 0;" readonly></td>
 				</tr>
 
 				<tr>
