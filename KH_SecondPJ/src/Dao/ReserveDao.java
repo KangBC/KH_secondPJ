@@ -254,7 +254,7 @@ private static ReserveDao calDao = new ReserveDao();
 	}
 	
 	public boolean updateschedule(int seq, ReserveDto dto) {
-		String sql = "UPDATE CALENDAR SET TITLE=?, RDATE=?, CONTENT=? WHERE SEQ=?";
+		String sql = "UPDATE CALENDAR SET RDATE=?, CONTENT=? WHERE SEQ=?";
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -267,10 +267,10 @@ private static ReserveDao calDao = new ReserveDao();
 			System.out.println("1/6 getCalendarList success");
 				
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, dto.getTitle());
-			psmt.setString(2, dto.getRdate());
-			psmt.setString(3, dto.getContent());
-			psmt.setInt(4, seq);
+
+			psmt.setString(1, dto.getRdate());
+			psmt.setString(2, dto.getContent());
+			psmt.setInt(3, seq);
 			System.out.println("2/6 getCalendarList success");
 			
 			result = psmt.executeUpdate();
@@ -299,11 +299,14 @@ private static ReserveDao calDao = new ReserveDao();
 				+ "	WHERE RN BETWEEN 1 AND 5";*/
 		
 		
-		String sql = "SELECT * FROM CALENDAR WHERE ID=? ORDER BY rdate desc";
+		String sql = "SELECT * FROM CALENDAR WHERE ID=? ORDER BY RDATE ASC";
+		
+		System.out.println(sql);
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
+		
 		
 		List<ReserveDto> list = new ArrayList<>();
 		
@@ -313,6 +316,7 @@ private static ReserveDao calDao = new ReserveDao();
 				
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, loginid);
+			System.out.println(psmt);
 			System.out.println("2/6 getCalendarList success");
 			
 			rs = psmt.executeQuery();

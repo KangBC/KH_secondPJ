@@ -29,8 +29,8 @@ String timeori = dto.getRdate().substring(8, 12);
 <table border="0" style="border-collapse:collapse;">
 <col width="100"><col width="920">
 <tr>
-<th>아이디</th>
-<td><input type="text" class="input_data" value='<%=dto.getId() %>' readonly></td>
+<th>이름</th>
+<td><input type="text" class="input_data" name="title" value='<%=dto.getTitle() %>' readonly></td>
 </tr>
 
 <tr>
