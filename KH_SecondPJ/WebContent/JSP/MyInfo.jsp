@@ -95,6 +95,9 @@ function validityCk() {
 	var _partner = "<%=member.getPartner()%>";
 	var _phone = "<%=member.getPhone()%>";
 	var _email = "<%=member.getEmail()%>";
+
+	var phoneRule = /^\d{3}-\d{3,4}-\d{4}$/;
+	var emailRule = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 	
 	if(name.length<1){
 		alert("이름을 입력해 주세요");
@@ -104,6 +107,12 @@ function validityCk() {
 		return false;
 	} else if(phone.length<1){
 		alert("email을 입력해 주세요");
+		return false;
+	} else if(!phoneRule.test(phone)){
+		alert("전화번호를 형식에 맞게 입력해 주세요");
+		return false;
+	} else if(!emailRule.test(email)){
+		alert("이메일을 형식에 맞게 입력해 주세요");
 		return false;
 	}
 	if(name == _name.trim() && partner == _partner.trim() && phone == _phone.trim() && email == _email.trim()){
