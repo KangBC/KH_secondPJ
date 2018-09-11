@@ -97,8 +97,8 @@ a.animated-button:link, a.animated-button:visited {
 /* Victoria Buttons */
 /* 버튼 처음 색상 바꿀때  */
 a.animated-button.victoria-one {
-	border: 2px solid #D24D57;
-	background-color: rgba(210, 77, 87, 0.5);
+	border: 2px solid #ffffff;
+	background-color: rgba(255, 255, 255, 0.5);
 }
 a.animated-button.victoria-one:after {
 	background: #D24D57;

@@ -11,7 +11,7 @@
 <%!// 댓글!!
 	public String arrow(int depth) {
 
-		String rs = "<img src='img/arrow.png' width='20px' height='20px'/>";
+		String rs = "<img src='../img/arrow.png' width='20px' height='20px'/>";
 		String nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;"; // depth의 간격
 		String ts = "";
 
@@ -65,109 +65,104 @@
 
 		<h2>QADetail</h2>
 		<br>
-<%-- 		<form action="<%=request.getContextPath()%>/QAController?command=QADetail" method="post"> --%>
-			<div class="inner-container">
-				<table border="0" style="border-collapse: collapse">
-					<col width="100">
-					<col width="920">
+		<%-- 		<form action="<%=request.getContextPath()%>/QAController?command=QADetail" method="post"> --%>
+		<div class="inner-container">
+			<table border="0" style="border-collapse: collapse">
+				<col width="100">
+				<col width="920">
 
-					<tr>
-						<td>이름</td>
-						<td><input type="text" class="input_data" name="id" readonly
-							value="<%=dto.getId()%>" style="padding-left: 2px;"></td>
-					</tr>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" class="input_data" name="id" readonly
+						value="<%=dto.getId()%>" style="padding-left: 2px;"></td>
+				</tr>
 
-					<tr>
-						<td>제목</td>
-						<td><input type="text" class="input_data" name="title"
-							readonly value="<%=dto.getTitle()%>" style="padding-left: 2px;"></td>
-					</tr>
+				<tr>
+					<td>작성일</td>
+					<td><input type="text" class="input_data" name="Wdate"
+						readonly value="<%=dto.getWdate()%>" style="padding-left: 2px;"></td>
+				</tr>
 
-					<tr>
-						<td>작성일</td>
-						<td><input type="text" class="input_data" name="Wdate"
-							readonly value="<%=dto.getWdate()%>" style="padding-left: 2px;"></td>
-					</tr>
-
-					<tr>
-						<td>조회수</td>
-						<td><input type="text" class="input_data" name="readcount"
-							readonly value="<%=dto.getReadcount()%>"
-							style="padding-left: 2px;"></td>
-					</tr>
-
-					<tr>
-						<td>정보</td>
-						<td><input type="text" class="input_data" name="Ref" readonly
-							value="<%=dto.getRef()%>" style="padding-left: 2px;"></td>
-					</tr>
+				<tr>
+					<td>조회수</td>
+					<td><input type="text" class="input_data" name="readcount"
+						readonly value="<%=dto.getReadcount()%>"
+						style="padding-left: 2px;"></td>
+				</tr>
 
 
-					<tr style="border-bottom: 0;">
-
-						<td style="vertical-align: top; padding-top: 8px;">내용</td>
-						<td style="padding-top: 8px;"><textarea class="input_data"
-								id="content" name="content" rows="4" cols="50"
-								style="width: 90%; height: 500px;"> <%=dto.getContent()%> </textarea></td>
-					</tr>
-				</table>
-			</div>
-
-			<button onclick="answerTable(this)" value="0">답글달기</button>
-
-			<button onclick="Upsubmit()">수정</button>
-
-			<button onclick="delsubmit()">삭제</button>
-
-			<input type="button" value="글 목록 " class=""
-				onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
+				<tr>
+					<td>제목</td>
+					<td><input type="text" class="input_data" name="title"
+						readonly value="<%=dto.getTitle()%>" style="padding-left: 2px;"></td>
+				</tr>
 
 
-			<div>
-				<table class="table table-bordered" style="width: 700px"
-					align="center" id="replysection">
-					<col width="100px">
-					<col width="530px">
-					<%
-						if (replysize != 0) {
-							for (int i = 0; i < replysize; i++) {
-								ReplyDto reply = replylist.get(i);
-					%>
-					<tr>
-						<th><%=reply.getId()%></th>
-						<th>
-							<table>
-								<tr><%=arrow(reply.getDepth())%>
-									<input type="text" readonly value="<%=reply.getContent()%>">
-								</tr>
+				<tr style="border-bottom: 0;">
 
-								<tr height="40px">
-									<td><font size="1" color="gray"><%=reply.getWdate()%></font></td>
-								</tr>
-							</table>
-						</th>
-						<td><button onclick="changeReply(this)"
-								value="<%=reply.getSeq()%> <%=reply.getId()%>">수정</button>
-							<button onclick="delReply(this)"
-								value="<%=reply.getSeq()%> <%=reply.getId()%>">삭제</button>
-							<button onclick="answerTable(this)" value="<%=reply.getSeq()%>">답글</button>
-						</td>
-					</tr>
+					<td style="vertical-align: top; padding-top: 8px;">내용</td>
+					<td style="padding-top: 8px;"><textarea class="input_data"
+							id="content" name="content" readonly rows="4" cols="50"
+							style="width: 90%; height: 500px;"> <%=dto.getContent()%> </textarea></td>
+				</tr>
+			</table>
+		</div>
 
-					<%
-						}
-						}
-					%>
+		<button onclick="answerTable(this)" value="0">답글달기</button>
 
-				</table>
-			</div>
+		<button onclick="Upsubmit()">수정</button>
 
-			<!-- //////////////////////////////////////////////////////////////////////////////////////////////////  -->
-			<hr>
+		<button onclick="delsubmit()">삭제</button>
+
+		<input type="button" value="글 목록 " class=""
+			onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
+
+		<br>
+		<br>
+
+		<div>
+			<table class="table table-bordered" style="width: 700px"
+				align="center" id="replysection">
+				<col width="100px">
+				<col width="530px">
+				<%
+					if (replysize != 0) {
+						for (int i = 0; i < replysize; i++) {
+							ReplyDto reply = replylist.get(i);
+				%>
+
+				<div style="text-align: left; border: 1px solid #aaa; padding: 20px; margin:20px">
+					<!-- 아이디 -->
+					<span
+						style="display: inline-block; font-weight: 700; margin-right: 5px;"><%=reply.getId()%></span>
+					<!-- 날짜 -->
+					<span style="display: inline-block; font-size: 12px; color: #555"><%=reply.getWdate()%></span>
+					<hr style="border: none; border-bottom: 1px solid #aaa; width: 100%;">
+					<p style="margin-top: 10px; word-wrap: break-word;"><%=arrow(reply.getDepth())%><%=reply.getContent()%></p>
+				
+					<div style="text-align: right;">
+						<button onclick="changeReply(this)"
+							value="<%=reply.getSeq()%> <%=reply.getId()%>">수정</button>
+						<button onclick="delReply(this)"
+							value="<%=reply.getSeq()%> <%=reply.getId()%>">삭제</button>
+						<button onclick="answerTable(this)" value="<%=reply.getSeq()%>">답글</button>
+					</div>
+				</div>
+
+				<%
+					}
+					}
+				%>
+
+			</table>
+		</div>
+
+		<hr>
 
 
-			<script type="text/javascript">
-	var idcheck = <%=idcheck%>;
+		<script type="text/javascript">
+var idcheck = <%=idcheck%>;
+
 //삭제
 function delsubmit() {
 	if (idcheck) {
@@ -245,7 +240,7 @@ function answerTable(element){
 					var texta = document.createElement('textarea');
 					texta.setAttribute('id', 'repcont');
 					texta.setAttribute('name', 'repcont');
-					texta.setAttribute('cols', '700');
+					texta.setAttribute('cols', '120%');
 					texta.setAttribute('class', 'form-control');
 					th2.appendChild(texta);
 					
@@ -283,7 +278,7 @@ function answerTable(element){
 					var texta = document.createElement('textarea');
 					texta.setAttribute('id', 'repcont');
 					texta.setAttribute('name', 'repcont');
-					texta.setAttribute('cols', '700');
+					texta.setAttribute('cols', '120%');
 					texta.setAttribute('class', 'form-control');
 					th2.appendChild(texta);
 					

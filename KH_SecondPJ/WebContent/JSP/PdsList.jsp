@@ -1,20 +1,68 @@
-<%@page import="Dto.MemberDto"%>
 <%@page import="Dao.MemberDao"%>
-<%@page import="Dao.PdsDao"%>
 <%@page import="Dto.PdsDto"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="Dto.QADto"%>
+<%@page import="java.util.*"%>
+<%@page import="Dao.QADao"%>
+<%@page import="Dto.MemberDto"%>
+
+<%
+	String findword = request.getParameter("findword");
+%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
+<jsp:include page="Header.jsp"></jsp:include>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
+
 <head>
+<!-- 글쓰기 버튼 -->
+<link
+	href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:700'
+	rel='stylesheet' type='text/css'>
+
+
+<!-- bootstrapk table 링크  -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+
+<!-- 검색창 밑 backgraund_img.css -->
+<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>PdsList</title>
+
+<title>자료실</title>
+
 </head>
+
+
 <body>
-<jsp:include page="Header.jsp"></jsp:include>
-<%
-	List<PdsDto> pdslist = (List<PdsDto>)request.getAttribute("pdslist");
+	<!-- mamber Session -->
+	<% List<PdsDto> pdslist = (List<PdsDto>)request.getAttribute("pdslist");
+	
+	System.out.println("listsize: " + pdslist.size());
 
 	String search = request.getParameter("mode");
 	String searchstr = request.getParameter("str");
@@ -89,9 +137,6 @@
 	}
 	
 	// 12345      56789
-		
-		
-	
 
 	MemberDao dao = MemberDao.getInstance();
 
@@ -101,68 +146,146 @@
 		member = (MemberDto)memberSession.getAttribute("kh_member");
 	}
 	
-	boolean c_login = false;
+	/* boolean c_login = false;
 	if(member != null){
 		c_login = true;
+	} */
+	
+	
+	boolean idcheck = true;
+	if (member == null) {
+		idcheck = false;
 	}
+	
 %> 
 
 
-	<h3>자료실!</h3>
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<div class="content">
+			<!-- 검색 -->
+			<div class="inner_MAIN">
+				<div class="search_form">
+				<fieldset>
+					<div class="botton_main">
+						<!-- butt -->
 
-	<div align="center">
-		<form action="PdsController" method="post">
-			<input type="hidden" name="command" value="muldel">
-			<table border="1">
-				<col width="50">
-				<col width="100">
-				<col width="400">
-				<col width="100">
-				<col width="100">
-				<col width="100">
+						
+							<div class="inner_SUB">
+								<select class="search_Group" id="option" name="searchbox">
+									<option value="0">전체보기</option>
+									<option value="1">작성자</option>
+									<option value="2">제목</option>
+								</select> <input type="text" class="text_1" id="search" name="search"
+									maxlength="20">
 
-				<tr bgcolor="pink">
-					<th>번호</th>
-					<th>작성자</th>
-					<th>제목</th>
-					<th>조회수</th>
-					<th>작성일</th>
-				</tr>
 
-				<%
-					if (pdslist == null || pdslist.size() == 0) {
-				%>
+								<div class="button-row">
+									<div>
+										<a id="searchQA" name="searchQA" onclick="srch()"
+											title="검색"> </a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+
+	</div>
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;">자료실</h2> 
+	</div>
+
+	<!-- 게시판 table -->
+	<div style="min-height: 220px" align="center">
+
+		<table style="width: 1100px;" class="table">
+
+			<col width="100">
+			<col width="200">
+			<col width="300">
+			<col width="100">
+			<col width="150">
+			<thead>
+			
 				<tr>
-					<td colspan="3">작성된 글이 없습니다</td>
+					<th scope="col">번호</th>
+					<th scope="col">작성자</th>
+					<th scope="col">제목</th>
+					<th scope="col">조회수</th>
+					<th scope="col">날자</th>
 				</tr>
+			</thead>
 
-				<%
-					}
-					int Articlenumber = 0; //글번호
 
-						for (int i = 0; i < pdslist.size(); i++) {
-							PdsDto pds = pdslist.get(i);
+			<%	/* List 사이즈 정의 */
+				if (pdslist == null || pdslist.size() == 0) {
+			%>
 
-				%>
+			<tr>
+				<td colspan="3">작성된 글이 없습니다</td>
+			</tr>
 
-				<tr align="center" height="10">
+			<%
+				} else {
+
+					int Articlenumber = 0; //글번호(삭제,글 나타나기 선언 객체)
+					
+					/* List 뿌려주기  */
+					for (int i = 0; i < pdslist.size(); i++) {
+					     PdsDto pds = pdslist.get(i);
+			%>
+
+				<tr>
 					<td><%=pds.getDel()%></td>
 					<td><%=pds.getId()%></td>
 					<td><a href="<%=request.getContextPath() %>/JSP/Pdsdetail.jsp?seq=<%=pds.getSeq()%>"> <%=pds.getTitle()%>
 					</a></td>
-
 					<td><%=pds.getReadcount()%></td>
 					<td><%=pds.getRegdate()%></td>
 
 				</tr>
-				<%
 
+			<%
+						}
 					}
-				%>
-			</table>
-			<div id=page style="text-align: center;">
-			
-			
+			%>
+
+		</table>
+	</div>
+
+	 <!-- 글쓰기 버튼  -->
+	<div align="center">
+		<div class="border_Button">
+			<a style="text-decoration: none;" href="#" onclick="QAwrite()">자료올리기</a>
+		</div>
+	</div>
+
+	<!-- Page페이징 글자 표기 view -->
+	<div style="text-align: center;">
+<%-- 		
+		<%
+			String link = "";
+
+			if (searchint == 0) {
+				link = request.getContextPath() + "/QAController?command=list&searchfor=0&pageNum=";
+			} else if (searchint == 1) {
+				link = request.getContextPath() + "/QAController?command=list&searchfor=1&findword=" + searchstr
+						+ "&pageNum=";
+			} else if (searchint == 2) {
+				link = request.getContextPath() + "/QAController?command=list&searchfor=2&findword=" + searchstr
+						+ "&pageNum=";
+			} else if (searchint == 3) {
+				link = request.getContextPath() + "/QAController?command=list&searchfor=3&findword=" + searchstr
+						+ "&pageNum=";
+			}
+		%> 
+		--%>
+		
 			<%
 			String link = "";
 			if(search != null){
@@ -171,9 +294,29 @@
 				link = request.getContextPath() + "/PdsController?command=list&pagenumber=";
 			}
 			%>
-			<a href="<%=link%>1">첫페이지</a>
-			<c:if test="<%= dotbefore %>">..</c:if>
-			<%
+		
+
+		<img id="pageimg" src="./img/Page_left-arrow_1.png" alt="이미지없음"
+			class="btn" onclick="location='<%=link%>1'">
+		<c:if test="<%=dotbefore%>">..</c:if>
+
+	<%-- 	<%
+			for (int i = 0; i < 9; i++) {
+				if (arr[i] != 0) {
+					if (arr[i] == curr) {
+		%>
+		<font color="red"><%=arr[i]%></font>
+		<%
+			} else {
+		%>
+		<a href="<%=link%><%=arr[i]%>"> <%=arr[i]%></a>
+		<%
+			}
+				}
+			}
+		%> --%>
+		
+		<%
 			for(int i = 0; i < 5; i++){
 				if(arr[i] != 0){
 					if(curr == arr[i]){
@@ -189,54 +332,60 @@
 				}
 			}
 			%>
-	        
-	        
 
-			
-			<c:if test="<%= dotafter %>">..</c:if>
-			<a href="<%=link%><%=pagenums%>">마지막페이지</a>
-			</div>
+		<c:if test="<%=dotafter%>">..</c:if>
+		<img id="pageimg" src="./img/Page_Right-arrow_1.png" alt="이미지없음"
+			class="btn" onclick="location='<%=link%><%=pagenums%>'">
 
 
-			<a onclick="return ck_login()" href="<%=request.getContextPath() %>/JSP/Pdswrite.jsp">자료 올리기</a> 
-			<br> <br> 
- 			<select id="option">
-			<option value="0">전체보기</option>
-			<option value="1">아이디</option>
-			<option value="2">제목</option>
-			</select>
-			<input type="text" id="search">
-			
-			<button type="button" name="search" onclick="srch()">검색</button> 
-		</form>
 	</div>
-	
-	<%
-	if(search != null){
-		%>
-		<h1><%=option==1?"아이디: ":"제목: " %> <%= searchstr %>로 검색한 결과입니다.</h1>
+
+	<br>
+
+	<!-- 검색 -->
+	<script type="text/javascript">
+	/* 	function searchQA() {
+			var sel = document.getElementById("searchbox");
+			var searchfor = sel.options[sel.selectedIndex].value;
+			var msg = document.getElementById("search").value;
+			location.href = "./QAController?command=list&searchfor="+searchfor + "&findword=" + msg ;
 		
-		<%
-	}
-	%>
-	
- 	<script>
-	function srch(){
-		var search = document.getElementById("search");
-		var option = document.getElementById("option");
-		var str = "<%=request.getContextPath() %>/PdsController?command=search&str=" + search.value + "&option="+option.value;
+		} */
 		
-		location = str;
-	}
-	
-	function ck_login(){
-		if(<%=c_login%>){
-			return true;
-		}else{
-			alert("로그인해주세요");
-			return false;
+	/* 	<!-- 검색 --> */
+		function srch(){
+			var search = document.getElementById("search");
+			var option = document.getElementById("option");
+			var str = "<%=request.getContextPath() %>/PdsController?command=search&str=" + search.value + "&option="+option.value;
+			
+			location = str;
 		}
-	}
+		
+	
+		//자료올리기(완료)
+		function QAwrite() {
+			var idcheck = <%=idcheck%>; // 아이디값 불러옴
+			
+			if (idcheck){
+				var result = confirm("자료올리기.");
+				
+				if(result){
+					location = "<%=request.getContextPath() %>/JSP/Pdswrite.jsp";
+				}else{
+					return
+				}
+			}else{
+				alert('로그인을 해주세요.');
+			    return;
+			}
+		}
+		
+		
 	</script> 
-	</body>
+
+	<!-- Footer -->
+	<jsp:include page="Footer.jsp"></jsp:include>
+
+</body>
+
 </html>

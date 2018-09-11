@@ -9,6 +9,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
@@ -170,26 +171,32 @@
 									</div>
 								</div>
 							</div>
-					</div>
+						</div>
 					</fieldset>
 				</div>
 			</div>
 		</div>
-
 		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
 		<div class="img-cover"></div>
+
 	</div>
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;">Q&A게시판</h2>
+	</div>
+
+
 
 	<!-- 게시판 table -->
 	<div style="min-height: 220px" align="center">
-		<table class="table">
 
-			<col width="10">
+		<table style="width: 1100px;" class="table">
+
+			<col width="100">
 			<col width="200">
 			<col width="300">
 			<col width="100">
 			<col width="150">
-			<col width="10">
+			<col width="60">
 			<thead>
 				<tr>
 					<th scope="col">번호</th>

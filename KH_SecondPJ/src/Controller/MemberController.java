@@ -31,6 +31,8 @@ public class MemberController extends HttpServlet{
 		
 		String command = req.getParameter("command");
 		
+		PrintWriter writer = resp.getWriter();
+		
 		if(command.equals("login")) {
 			String id = req.getParameter("id");
 			String pw = req.getParameter("pw");
@@ -64,14 +66,13 @@ public class MemberController extends HttpServlet{
 			String email = req.getParameter("email");
 			
 			MemberDto member = new MemberDto(id,pw,name,partner,phone,email);
-
+			
 			if(memberDao.addMember(member)) {
-				PrintWriter writer = resp.getWriter();
+				
 				writer.write("<script>alert(\"성공적으로 회원가입 되었습니다.\"); location.href=\"JSP/Login.jsp\"; </script>");
 				writer.flush();
 				writer.close();
 			}else {
-				PrintWriter writer = resp.getWriter();
 				writer.write("<script>alert(\"회원가입에 실패했습니다.\"); location.href=\"JSP/Regi.jsp\"; </script>");
 				writer.flush();
 				
@@ -90,7 +91,7 @@ public class MemberController extends HttpServlet{
 			msg.append(" \"duplicated\" : " + b); 
 			msg.append(" } ");
 
-			PrintWriter writer = resp.getWriter();
+
 			writer.write(msg.toString());
 			writer.flush();
 			writer.close();
@@ -106,10 +107,12 @@ public class MemberController extends HttpServlet{
 			
 			if(memberDao.update(member)) {
 				System.out.println("성공");
+				writer.println("<script>alert(\'정보가 변경되었습니다.\'); location=\'" + req.getContextPath()+ "/JSP/About.jsp\'</script>");
 			}else {
 				System.out.println("실패");
+				writer.println("<script>alert(\'정보 변경 실패.\'); location=\'" + req.getContextPath()+ "/JSP/About.jsp\'</script>");
 			}
-		}
+		} 
 	}
 
 	public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
