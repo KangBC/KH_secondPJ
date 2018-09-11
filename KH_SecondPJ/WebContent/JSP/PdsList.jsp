@@ -261,8 +261,8 @@
 
 	 <!-- 글쓰기 버튼  -->
 	<div align="center">
-		<div class="border_Button">
-			<a style="text-decoration: none;" href="#" onclick="QAwrite()">자료올리기</a>
+		<div class="border_Button" onclick="QAwrite()">
+			<p style="text-decoration: none;">자료올리기</p>
 		</div>
 	</div>
 

@@ -128,11 +128,9 @@ public class QAController extends HttpServlet {
 		        
 		        RequestDispatcher dis = req.getRequestDispatcher("/JSP/QAList.jsp");
 		        dis.forward(req, resp);
-		        //////////////////////////////////////////////////////////////////
 		      
-				// 추가
+			// 추가
 		      } else if (command.equals("regist_add")) {
-			
 		    // 로그인 후 Dto에 저장된 객체값들을 가져옴.
 			String id = req.getParameter("id");
 			String title = req.getParameter("title");
@@ -141,7 +139,8 @@ public class QAController extends HttpServlet {
 			QADto QAadd = new QADto(id, title, content);
 
 			if (dao.QAinsert(QAadd)) {
-				dispatch("QAController?command=list&searchfor=0", req, resp);
+				resp.sendRedirect("QAController?command=list&searchfor=0");
+
 			} else {
 				dispatch("JSP/QAwrite.jsp", req, resp);
 			}

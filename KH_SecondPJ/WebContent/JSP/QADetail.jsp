@@ -64,7 +64,7 @@
 	<div class="outer-container">
 
 		<h2>QADetail</h2>
-		
+
 		<br>
 
 		<div class="inner-container">
@@ -74,21 +74,22 @@
 
 				<tr>
 					<td>이름</td>
-					<td><input  type="text" class="input_data" name="id" readonly
+					<td><input type="text" class="input_data" name="id" readonly
 						value="<%=dto.getId()%>" style="padding-left: 2px; border: 0;"></td>
 				</tr>
 
 				<tr>
 					<td>작성일</td>
 					<td><input type="text" class="input_data" name="Wdate"
-						readonly value="<%=dto.getWdate().substring(0, 16)%>" style="padding-left: 2px; border: 0; "></td>
+						readonly value="<%=dto.getWdate().substring(0, 16)%>"
+						style="padding-left: 2px; border: 0;"></td>
 				</tr>
 
 				<tr>
 					<td>조회수</td>
 					<td><input type="text" class="input_data" name="readcount"
 						readonly value="<%=dto.getReadcount()%>"
-						style="padding-left: 2px; border: 0; "></td>
+						style="padding-left: 2px; border: 0;"></td>
 				</tr>
 
 
@@ -118,29 +119,31 @@
 		<input type="button" value="글 목록 " class=""
 			onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
 
-		<br>
-		<br>
+		<br> <br>
 
 		<div>
-			<table class="table table-bordered" style="width: 700px"
+		<!--  작업중 -->
+			<table class="table table-bordered" style="width: 1020px"
 				align="center" id="replysection">
+				<col width="150px">
+				<col width="770px">
 				<col width="100px">
-				<col width="530px">
 				<%
 					if (replysize != 0) {
 						for (int i = 0; i < replysize; i++) {
 							ReplyDto reply = replylist.get(i);
 				%>
-
-				<div style="text-align: left; border: 1px solid #aaa; padding: 20px; margin:20px">
+<tr><td colspan="3">
+				<div style="text-align: left; border: 1px solid #aaa; padding: 20px; margin: 20px">
 					<!-- 아이디 -->
 					<span
 						style="display: inline-block; font-weight: 700; margin-right: 5px;"><%=reply.getId()%></span>
 					<!-- 날짜 -->
 					<span style="display: inline-block; font-size: 12px; color: #555"><%=reply.getWdate()%></span>
-					<hr style="border: none; border-bottom: 1px solid #aaa; width: 100%;">
+					<hr
+						style="border: none; border-bottom: 1px solid #aaa; width: 100%;">
 					<p style="margin-top: 10px; word-wrap: break-word;"><%=arrow(reply.getDepth())%><%=reply.getContent()%></p>
-				
+
 					<div style="text-align: right;">
 						<button onclick="changeReply(this)"
 							value="<%=reply.getSeq()%> <%=reply.getId()%>">수정</button>
@@ -149,7 +152,7 @@
 						<button onclick="answerTable(this)" value="<%=reply.getSeq()%>">답글</button>
 					</div>
 				</div>
-
+</td></tr>
 				<%
 					}
 					}
@@ -157,11 +160,11 @@
 
 			</table>
 		</div>
+	</div>
+	<hr>
 
-		<hr>
 
-
-		<script type="text/javascript">
+	<script type="text/javascript">
 var idcheck = <%=idcheck%>;
 
 //삭제
@@ -197,15 +200,15 @@ function Upsubmit() {
 				if(result){
 					location = "QAupdatel.jsp?seq="+<%=dto.getSeq()%>;
 				}else{
-					return;// ;;; 넣음
+					return;
 				}
 		}else{
-			alert('아이디가 다르다 니글아니야 슈발아.');
+			alert('아이디가 일치 하지 않습니다.');
 		    return;
 		}
 
 	}else{
-		alert('애미 로그인부터 하세여.');
+		alert('로그인 부탁드립니다..');
 	    return;
 	}
 }	
@@ -230,7 +233,7 @@ function answerTable(element){
 		var reptbl = document.getElementById('replysection');
 			
 			if(element.value == 0){
-				
+				/* 작업중 */
 				if(element.style.borderStyle == 'inset'){
 
 					var tr = document.createElement('tr');
@@ -269,7 +272,7 @@ function answerTable(element){
 				
 				if(element.style.borderStyle == 'inset'){
 					
-					var row = reptbl.insertRow(element.parentElement.parentElement.rowIndex+1);
+					var row = reptbl.insertRow(element.parentElement.parentElement.parentElement.parentElement.rowIndex+1);
 
 					//var tr = document.createElement('tr');
 					var th1 = document.createElement('th');
@@ -295,7 +298,7 @@ function answerTable(element){
 					row.appendChild(th2);
 					row.appendChild(td3);
 				}else{
-					reptbl.deleteRow(element.parentElement.parentElement.rowIndex+1);
+					reptbl.deleteRow(element.parentElement.parentElement.parentElement.parentElement.rowIndex+1);
 				}
 				
 				
@@ -305,12 +308,12 @@ function answerTable(element){
 	    return;
 	}
 }
-
+//삭제
 function delReply(element){
 	if (idcheck) {
 		var arr = element.value.split(" ");
+		//temp: 부모글 arr:자식글
 		if('<%=temp%>' == arr[1]){
-		
 			var result = confirm("정말 삭제하시겠습니까?");
 			if(result){
 				location = "../QAController?command=repdelete&seq="+arr[0]+"&ref=<%=dto.getRef()%>";
@@ -327,7 +330,7 @@ function delReply(element){
 	    return;
 	}
 }
-
+// 수정
 function changeReply(element){
 	if (idcheck) {
 		var arr = element.value.split(" ");
@@ -356,6 +359,10 @@ function changeReply(element){
 }
 
 </script>
+
+	<!-- Footer -->
+	<jsp:include page="Footer.jsp"></jsp:include>
+
 </body>
 </html>
 

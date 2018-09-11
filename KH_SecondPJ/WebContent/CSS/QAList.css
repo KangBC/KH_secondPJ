@@ -55,7 +55,9 @@ a:not([href]):not([tabindex]) {
   margin: 15px;
 }
 
-a{
+p{
+	margin-top: 10px;
+    margin-bottom: 0rem;
 	color: black ;
 }
 
