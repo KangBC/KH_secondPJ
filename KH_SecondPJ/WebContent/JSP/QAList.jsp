@@ -233,9 +233,8 @@
 
 			<tr>
 				<td><%=QAbbs.getRownum()%></td>
-				<td><a style="text-decoration: none;"
-					href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
-				</a> re:<%=QAbbs.getStep() %></td>
+				<td><a style="text-decoration: none;" href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%> </a> 
+				       re:<%=QAbbs.getStep() %></td>
 				<td><%=QAbbs.getContent()%></td>
 				<td><%=QAbbs.getId()%></td>
 				<td><%=QAbbs.getWdate()%></td>
@@ -253,8 +252,8 @@
 
 	<!-- 글쓰기 버튼  -->
 	<div align="center">
-		<div class="border_Button">
-			<a style="text-decoration: none;" href="#" onclick="QAwrite()">글쓰기</a>
+		<div class="border_Button" onclick="QAwrite()">
+			<p style="text-decoration: none;" href="#">글쓰기</p>
 		</div>
 	</div>
 

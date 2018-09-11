@@ -38,7 +38,7 @@
 					<tr>
 						<td>이름</td>
 						<td><input type="text" class="input_data" name="id" readonly
-							value="<%=mem.getId()%>" style="padding-left: 2px;"></td>
+							value="<%=mem.getId()%>" style="padding-left: 2px; border: 0; "></td>
 					</tr>
 
 					<tr>
@@ -60,7 +60,7 @@
 				</table>
 
 			</div>
-			<div align="right">
+			<div align="center">
 				<tr>
 					<td colspan="2"><input type="submit" value="등록"
 						class="pull-right" /> <input type="button" value="글 목록 "
