@@ -45,8 +45,6 @@
 
 			<li><a href="<%=request.getContextPath()%>/JSP/About.jsp">About Us</a></li> 
 
-			<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">Contact Us</a></li>
-
 			<li><a href="<%=request.getContextPath()%>/JSP/Gallery.jsp">Gallery</a></li>
 	
 	        <li><a href="<%=request.getContextPath()%>/JSP/Calendar.jsp">상담 신청</a></li>
@@ -55,6 +53,7 @@
 
 			<li><a href="<%=request.getContextPath()%>/QAController?command=list&searchfor=0">QA</a></li>
 
+			<li><a href="<%=request.getContextPath()%>/JSP/Contact.jsp">Contact Us</a></li>
 		</ul>
 
 	</div>
