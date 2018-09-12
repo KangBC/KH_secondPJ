@@ -9,6 +9,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
@@ -46,8 +47,7 @@
 	crossorigin="anonymous"></script>
 
 <!-- 검색창 밑 backgraund_img.css -->
-<link href="<%=request.getContextPath()%>/CSS/QAList.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -161,7 +161,7 @@
 									<option value="2">제목</option>
 									<option value="3">내용</option>
 								</select> <input type="text" class="text_1" id="search" name="search"
-									maxlength="20">
+									maxlength="20" style="margin: -27px;">
 
 								<div class="button-row">
 									<div>
@@ -170,26 +170,32 @@
 									</div>
 								</div>
 							</div>
-					</div>
+						</div>
 					</fieldset>
 				</div>
 			</div>
 		</div>
-
 		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
 		<div class="img-cover"></div>
+
 	</div>
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;">Q&A게시판</h2>
+	</div>
+
+
 
 	<!-- 게시판 table -->
 	<div style="min-height: 220px" align="center">
-		<table class="table">
 
-			<col width="10">
+		<table style="width: 1100px;" class="table">
+
+			<col width="100">
 			<col width="200">
 			<col width="300">
 			<col width="100">
 			<col width="150">
-			<col width="10">
+			<col width="60">
 			<thead>
 				<tr>
 					<th scope="col">번호</th>
@@ -227,9 +233,8 @@
 
 			<tr>
 				<td><%=QAbbs.getRownum()%></td>
-				<td><a style="text-decoration: none;"
-					href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%>
-				</a> re:<%=QAbbs.getStep() %></td>
+				<td><a style="text-decoration: none;" href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%> </a> 
+				       re:<%=QAbbs.getStep() %></td>
 				<td><%=QAbbs.getContent()%></td>
 				<td><%=QAbbs.getId()%></td>
 				<td><%=QAbbs.getWdate()%></td>
@@ -247,8 +252,8 @@
 
 	<!-- 글쓰기 버튼  -->
 	<div align="center">
-		<div class="border_Button">
-			<a style="text-decoration: none;" href="#" onclick="QAwrite()">글쓰기</a>
+		<div class="border_Button" onclick="QAwrite()">
+			<p style="text-decoration: none;" href="#">글쓰기</p>
 		</div>
 	</div>
 

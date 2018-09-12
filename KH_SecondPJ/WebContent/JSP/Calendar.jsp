@@ -18,6 +18,9 @@ if(dto != null){
 <html>
 <head>
 
+<!-- 검색창 밑 backgraund_img.css -->
+<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
+
 <link rel='stylesheet' href='../fullcalendar/fullcalendar.min.css' />
 <script src="../fullcalendar/lib/jquery.min.js"></script>
 <script src='../fullcalendar/lib/moment.min.js'></script>
@@ -90,6 +93,13 @@ $(function() {
 <title>Insert title here</title>
 </head>
 <body>
+
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
 
 <div style="width:1020px; margin: 50px auto 30px; text-align: center;">
 <h2>Reservation</h2>

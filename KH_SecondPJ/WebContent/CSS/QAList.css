@@ -19,7 +19,7 @@
 .img .content {
 	position: absolute;
 	top: 50%;
-	left: 50%;
+	left: 43%;
 	transform: translate(-50%, -50%);
 	font-size: 1rem;
 	color: white;
@@ -29,7 +29,7 @@
 
 .search_Group {
 	padding: 5px; /* 폭 */
-	margin:15px;  /* 넒이 */
+	margin:30px;  /* 넒이 */
 	font-style: italic; /* 폰트 */
 	font-size: 15px; /* 글씨 크기 */
 	font-weight: 900;
@@ -39,12 +39,12 @@
 }
 
 #search{
-	padding: 1px;
+	padding: 5px;
 	font-size: 20px;   /* text_글씨 굵기 */
 	font-weight: bold; /* text_누르고 글쓸떄 굵기 */
 	text-align: center;
 	background-color: rgba(255, 255, 255, 0.5); /* Text 투명도 */
-    text-shadow: 1px 4px 6px white; /* 글씨잔상 효과 */
+    text-shadow: 1px 4px 3px white; /* 글씨잔상 효과 */
 	color: black;/* 글자 색상 */
 }
 
@@ -55,7 +55,9 @@ a:not([href]):not([tabindex]) {
   margin: 15px;
 }
 
-a{
+p{
+	margin-top: 10px;
+    margin-bottom: 0rem;
 	color: black ;
 }
 

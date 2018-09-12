@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>KH_Wedding QA 수정</title>
+<link href="<%=request.getContextPath()%>/CSS/Table.css" rel="stylesheet">
 </head>
 <body>
 
@@ -18,42 +19,55 @@ PdsDao dao = PdsDao.getInstance();
 
 PdsDto dto =dao.getPDS(pdsid);
 %>
-<h3>자료 수정</h3>
+<jsp:include page="../JSP/Header.jsp"></jsp:include>
 
+<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
+<div align="center" style="margin: 80px auto 0;">
+<h2>QA 수정</h2>
+</div>
+<hr style="width: 100px; border-color: black; margin: 0 auto;">
+
+<div class="outer-container" style="margin-bottom: 80px;">
 <form action="<%=request.getContextPath() %>/PdsController" method="post">
 <input type="hidden" name="seq" value="<%=pdsid %>">
 <input type="hidden" name="command" value="update">
-<table border="1">
-
+<div class="inner-container">
+<table border="0" style="border-collapse: collapse;">
+<col width="100">
+<col width="920">
 <tr>
 	<td>작성자</td>
-	<td><input type="text" name="id" value="<%=dto.getId() %>" readonly></td>
-</tr>
-
-<tr>
-	<td>제목</td>
-	<td><input type="text" name="title" value="<%=dto.getTitle() %>"></td>
+	<td><input type="text" class="input_data" name="id" value="<%=dto.getId() %>" style="border: 0;" readonly></td>
 </tr>
 
 <tr>
 	<td>작성일</td>
-	<td><input type="text" name="wdate" value="<%=dto.getRegdate() %>" readonly></td>
-</tr>
-
-
-<tr>
-	<td>내용</td>
-	<td><textarea name="content" rows="20" cols="40"><%=dto.getContent() %></textarea></td>
+	<td><input type="text" class="input_data" name="wdate" value="<%=dto.getRegdate() %>" style="border: 0;" readonly></td>
 </tr>
 
 <tr>
-	<td colspan="2"><input type="submit" value="수정하기"></td>
+	<td>제목</td>
+	<td><input type="text" class="input_data" name="title" value="<%=dto.getTitle() %>"></td>
 </tr>
+
+<tr style="border-bottom: 0;">
+	<td style="vertical-align: top; padding-top: 8px;">내용</td>
+	<td style="padding-top: 8px;"><textarea class="input_data" id="content" name="content"
+		style="width: 90%; height: 500px;" placeholder="내용을 입력하세요."><%=dto.getContent() %></textarea></td>
+</tr>
+
 
 </table>
-
+</div>
+	<input  class="mainbut" type="submit" value="수정하기">
 </form>
-
+</div>
+<jsp:include page="../JSP/Footer.jsp"></jsp:include>
 </body>
 </html>
 

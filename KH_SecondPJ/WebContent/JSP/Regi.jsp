@@ -80,6 +80,9 @@ function validityCk() {
 	}else if(pw!=pw_check){
 		alert("비밀번호와 비밀번호 확인이 동일하지 않습니다.");
 		return false;
+	}else if(namee.trim().length<1){
+		alert("이름을 입력해 주세요");
+		return false;
 	}else if(phone.trim().length<1){
 		alert("전화번호를 입력해 주세요");
 		return false;

@@ -11,100 +11,85 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>QAupdatel</title>
 
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript-->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
-
+<link href="<%=request.getContextPath()%>/CSS/Table.css" rel="stylesheet">
 </head>
 <body>
-	<div align="center">
-		<a href="Login.jsp">로그아웃</a>
-		<h1>수정</h1>
+<%
+	Object ologin = session.getAttribute("kh_member");
+	MemberDto mem = null;
+	mem = (MemberDto) ologin;
+
+	String sseq = request.getParameter("seq");
+	int seq = Integer.parseInt(sseq.trim());
+
+	QADao dao = QADao.getInstance();
+	QADto dto = dao.getBbs(seq);
+%>
+	
+<jsp:include page="../JSP/Header.jsp"></jsp:include>
+
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
 	</div>
-	<%
-		Object ologin = session.getAttribute("kh_member");
-		MemberDto mem = null;
-		mem = (MemberDto) ologin;
+	
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;">Q&A Update</h2>
+	</div>
 
-		String sseq = request.getParameter("seq");
-		int seq = Integer.parseInt(sseq.trim());
 
-		QADao dao = QADao.getInstance();
-		QADto dto = dao.getBbs(seq);
-	%>
-
-	<div class="center">
-		<form action="../QAController" method="post">
-			<input type="hidden" name="seq" value="<%=seq%>"> <input
-				type="hidden" name="command" value="QAupdate">
-			<table class="table table-bordered" style="width: 700px"
-				height="500px" align="center">
-				<col width="100px">
+<div class="outer-container">
+	<form action="../QAController" method="post">
+		<input type="hidden" name="seq" value="<%=seq%>"> <input type="hidden" name="command" value="QAupdate">
+		<div class="inner-container">
+			<table border="0" style="border-collapse: collapse">
+				<col width="100">
+				<col width="920">
 
 				<tr>
-					<td>ID:</td>
+					<td>ID</td>
 					<td><input type="text" placeholder="제목을 입력하세요. " name="id"
-						class="form-control" value="<%=dto.getId()%>"></td>
+						class="input_data" value="<%=dto.getId()%>" style="border: 0;" readonly></td>
+				</tr>
+
+
+				<tr>
+					<td>작성일</td>
+					<td><input type="text" name="wdate" class="input_data"
+						value="<%=dto.getWdate().substring(0, 16)%>" style="border: 0;" readonly></td>
 				</tr>
 
 				<tr>
-					<td>제목:</td>
+					<td>조회수</td>
+					<td><input type="text" name="readcount" class="input_data"
+						value="<%=dto.getReadcount()%>" style="border: 0;" readonly></td>
+				</tr>
+
+				<tr>
+					<td>제목</td>
 					<td><input type="text" placeholder="제목을 입력하세요. " name="title"
-						class="form-control" value="<%=dto.getTitle()%>"></td>
+						class="input_data" value="<%=dto.getTitle()%>"></td>
+				</tr>
+			
+				<tr style="border-bottom: 0;">
+					<td style="vertical-align: top; padding-top: 8px;">내용</td>
+						<td style="padding-top: 8px;"><textarea class="input_data"
+								id="content" name="content"
+								style="width: 90%; height: 500px; placeholder="내용을 입력하세요."> <%=dto.getContent()%> </textarea></td>
 				</tr>
 
-				<tr>
-					<td>작성일:</td>
-					<td><input type="text" name="wdate" class="form-control"
-						value="<%=dto.getWdate()%>"></td>
-				</tr>
-
-				<tr>
-					<td>조회수:</td>
-					<td><input type="text" name="readcount" class="form-control"
-						value="<%=dto.getReadcount()%>"></td>
-				</tr>
-
-				<tr>
-					<td>정보</td>
-					<td><%=dto.getRef()%>-<%=dto.getStep()%>-<%=dto.getDepth()%></td>
-				</tr>
-
-				<tr>
-					<td>내용</td>
-					<td><textarea cols="700" placeholder="내용을 입력하세요. "
-							name="content" class="form-control"> <%=dto.getContent()%> </textarea>
-					</td>
-				</tr>
-
-				<tr>
-					<td colspan="2"><input type="submit" value="수정하기"></td>
-				</tr>
 
 
 			</table>
-		</form>
-	</div>
+		</div>
+		<input class="mainbut" type="submit" value="수정하기">
+		<input class="mainbut" type="button" value="글 목록 "
+		class="pull-right" onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
+	</form>
+</div>
 
-<input type="button" value="글 목록 "
-class="pull-right" onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
-
+<jsp:include page="../JSP/Footer.jsp"></jsp:include>
 </body>
 </html>
 

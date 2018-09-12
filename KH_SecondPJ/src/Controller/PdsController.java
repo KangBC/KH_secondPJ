@@ -21,269 +21,269 @@ import Dto.PdsDto;
 
 public class PdsController extends HttpServlet {
 
-	
+   
 
-	private static final int BUFFER_SIZE = 8192;			
-	private ServletConfig mConfig = null;
-	private int seq;
-	
-	
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		super.init(config);
-		
-		mConfig = config;
-	}
-	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doProcess(req, resp);
-	
-	}
-	
+   private static final int BUFFER_SIZE = 8192;         
+   private ServletConfig mConfig = null;
+   private int seq;
+   
+   
+   public void init(ServletConfig config) throws ServletException {
+      // TODO Auto-generated method stub
+      super.init(config);
+      
+      mConfig = config;
+   }
+   
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      doProcess(req, resp);
+   
+   }
+   
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doProcess(req, resp);
-	}
-	
-	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
-	
-		req.setCharacterEncoding("utf-8");
-		resp.setContentType("text/html; charset=utf-8");
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      doProcess(req, resp);
+   }
+   
+   public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      
+      
+   
+      req.setCharacterEncoding("utf-8");
+      resp.setContentType("text/html; charset=utf-8");
 
-		String command = req.getParameter("command");
-		
-		PdsDao pdao = PdsDao.getInstance();
-		
-		
-		
-		if(command.equals("list")) {
-			
-			int pagenum = 1;
-			
-			String pagestr =req.getParameter("pagenumber");
-			
-			if(pagestr != null) {
-				pagenum = Integer.parseInt(pagestr);
-			}
-			
-			int totalcount = pdao.getAllCount(0, null);
-			
-			System.out.println(totalcount);
-			
-			int perpage = 10;
-			
-			int startnum = 1;
-			
-			if(pagenum != 1) {
-				startnum = (pagenum-1)*10 +1;
-			}
+      String command = req.getParameter("command");
+      
+      PdsDao pdao = PdsDao.getInstance();
+      
+      
+      
+      if(command.equals("list")) {
+         
+         int pagenum = 1;
+         
+         String pagestr =req.getParameter("pagenumber");
+         
+         if(pagestr != null) {
+            pagenum = Integer.parseInt(pagestr);
+         }
+         
+         int totalcount = pdao.getAllCount(0, null);
+         
+         System.out.println(totalcount);
+         
+         int perpage = 10;
+         
+         int startnum = 1;
+         
+         if(pagenum != 1) {
+            startnum = (pagenum-1)*10 +1;
+         }
 
-			
-			List<PdsDto> pdslist = pdao.getPdsList(startnum, startnum+9);
-			
-			System.out.println(pdslist.size());
+         
+         List<PdsDto> pdslist = pdao.getPdsList(startnum, startnum+9);
+         
+         System.out.println(pdslist.size());
 
-			
-			req.setAttribute("total", totalcount+"");
-			req.setAttribute("currpage", pagenum+"");
-			req.setAttribute("pdslist", pdslist);
-			
-			dispatch("/JSP/PdsList.jsp", req, resp);
-			
-		}
-		else if(command.equals("write")) {
-			
-			String id = req.getParameter("id");
-			String title = req.getParameter("title");
-			String content = req.getParameter("content");
-			String filename = req.getParameter("filename");
-			
-			System.out.println(id);
-			System.out.println(title);
-			System.out.println(content);
-			System.out.println(filename);
-			
-			PdsDto pdto = new PdsDto(id, title, content, filename);
-			
-			if(pdao.writePds(pdto)) {
-				dispatch("JSP/PdsList.jsp", req, resp);
-			}else {
-				dispatch("JSP/Pdswrite.jsp", req, resp);
-			}
-		}
-		else if(command.equals("detail")) {
-			String id = req.getParameter("id");
-			
-			PdsDto pdto = new PdsDto();
-			
-			boolean result = pdao.detailPds(pdto);
-			req.setAttribute("detail", pdto);
-			dispatch("Pdsdetail.jsp", req, resp);
-			
-		}
-		else if(command.equals("update")) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			String title = req.getParameter("title");
-			String content = req.getParameter("content");
-			
-			boolean result = pdao.updatePds(seq, title, content);
-			
-			if(result == true) {
-				System.out.println("수정되었습니다.");
-			}
-			else {
-				System.out.println("수정 실패.");
-			}
-			resp.sendRedirect("PdsController?command=list");
-		}
-		else if(command.equals("delete")){
-			
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			boolean result = pdao.deletePds(seq);
-			
-			if(result == true) {
-				System.out.println("삭제되었습니다.");
-			}
-			else {
-				System.out.println("삭제 실패.");
-			}
-			resp.sendRedirect("PdsController?command=list");
-			
-		}else if(command.equals("search")) {
-				PrintWriter writer = resp.getWriter();
-			
-				String str = req.getParameter("str");
-				int option = Integer.parseInt(req.getParameter("option"));
-				
-				List<PdsDto> pdslist = new ArrayList<>();
-				
-				int pagenum = 1;
-				String pagestr =req.getParameter("pagenumber");
-				if(pagestr != null) {
-					pagenum = Integer.parseInt(pagestr);
-				}
-				
-				
-				if(option == 0) {
-					writer.println("<script> location = \'PdsController?command=list\';  </script>");
-				}else {
-					
-					int totalcount = pdao.getAllCount(option, str);
-					
-					System.out.println(totalcount);
-					
-					int perpage = 10;
-					int startnum = 1;
-					
-					if(pagenum != 1) {
-						startnum = (pagenum-1)*10 +1;
-					}
-					
-					req.setAttribute("total", totalcount+"");
-					req.setAttribute("currpage", pagenum+"");
-					req.setAttribute("pdslist", pdslist);
-					
-					pdslist = pdao.searchlist(option, str, startnum, startnum+9);
-				}
-				
-			if(pdslist.isEmpty()) {
-					writer.println("<script>alert(\"찾으시는 내용이 없습니다.\"); location = \'PdsController?command=list\';  </script>");
-			}else {
-			
-				req.setAttribute("pdslist", pdslist);
-				
-				
-				dispatch("/JSP/PdsList.jsp?mode=search&str="+str+"&option="+option, req, resp);
-			}
-			
-		}else if(command.equals("download")) {
-			
-			//	String filename = new String(req.getParameter("filename").getBytes("8859_1"), "KSC5601");
-				String filename = req.getParameter("filename");
-				System.out.println("filename = " + filename);
-				
-				System.out.println("seq =" + req.getParameter("seq"));
-				
-				// download 회수를 증가
-				String pdsseq = req.getParameter("seq");
-				int seq = Integer.parseInt(pdsseq);
-				
-				PdsDao dao = PdsDao.getInstance();
-				boolean isS = dao.downloadcount(seq);
-				/*if(!isS) {
-							
-				}*/
-				
-				BufferedOutputStream out = new BufferedOutputStream(resp.getOutputStream());
-				String filePath = "";
-				
-				if(pdsseq != null) {
-					
-					// tomcat
-					//filePath = mConfig.getServletContext().getRealPath("/upload");
+         
+         req.setAttribute("total", totalcount+"");
+         req.setAttribute("currpage", pagenum+"");
+         req.setAttribute("pdslist", pdslist);
+         
+         dispatch("/JSP/PdsList.jsp", req, resp);
+         
+      }
+      else if(command.equals("write")) {
+         
+         String id = req.getParameter("id");
+         String title = req.getParameter("title");
+         String content = req.getParameter("content");
+         String filename = req.getParameter("filename");
+         
+         System.out.println(id);
+         System.out.println(title);
+         System.out.println(content);
+         System.out.println(filename);
+         
+         PdsDto pdto = new PdsDto(id, title, content, filename);
+         
+         if(pdao.writePds(pdto)) {
+            dispatch("JSP/PdsList.jsp", req, resp);
+         }else {
+            dispatch("JSP/Pdswrite.jsp", req, resp);
+         }
+      }
+      else if(command.equals("detail")) {
+         String id = req.getParameter("id");
+         
+         PdsDto pdto = new PdsDto();
+         
+         boolean result = pdao.detailPds(pdto);
+         req.setAttribute("detail", pdto);
+         dispatch("Pdsdetail.jsp", req, resp);
+         
+      }
+      else if(command.equals("update")) {
+         int seq = Integer.parseInt(req.getParameter("seq"));
+         String title = req.getParameter("title");
+         String content = req.getParameter("content");
+         
+         boolean result = pdao.updatePds(seq, title, content);
+         
+         if(result == true) {
+            System.out.println("수정되었습니다.");
+         }
+         else {
+            System.out.println("수정 실패.");
+         }
+         resp.sendRedirect("PdsController?command=list");
+      }
+      else if(command.equals("delete")){
+         
+         int seq = Integer.parseInt(req.getParameter("seq"));
+         boolean result = pdao.deletePds(seq);
+         
+         if(result == true) {
+            System.out.println("삭제되었습니다.");
+         }
+         else {
+            System.out.println("삭제 실패.");
+         }
+         resp.sendRedirect("PdsController?command=list");
+         
+      }else if(command.equals("search")) {
+            PrintWriter writer = resp.getWriter();
+         
+            String str = req.getParameter("str");
+            int option = Integer.parseInt(req.getParameter("option"));
+            
+            List<PdsDto> pdslist = new ArrayList<>();
+            
+            int pagenum = 1;
+            String pagestr =req.getParameter("pagenumber");
+            if(pagestr != null) {
+               pagenum = Integer.parseInt(pagestr);
+            }
+            
+            
+            if(option == 0) {
+               writer.println("<script> location = \'PdsController?command=list\';  </script>");
+            }else {
+               
+               int totalcount = pdao.getAllCount(option, str);
+               
+               System.out.println(totalcount);
+               
+               int perpage = 10;
+               int startnum = 1;
+               
+               if(pagenum != 1) {
+                  startnum = (pagenum-1)*10 +1;
+               }
+               
+               req.setAttribute("total", totalcount+"");
+               req.setAttribute("currpage", pagenum+"");
+               req.setAttribute("pdslist", pdslist);
+               
+               pdslist = pdao.searchlist(option, str, startnum, startnum+9);
+            }
+            
+         if(pdslist.isEmpty()) {
+               writer.println("<script>alert(\"찾으시는 내용이 없습니다.\"); location = \'PdsController?command=list\';  </script>");
+         }else {
+         
+            req.setAttribute("pdslist", pdslist);
+            
+            
+            dispatch("/JSP/PdsList.jsp?mode=search&str="+str+"&option="+option, req, resp);
+         }
+         
+      }else if(command.equals("download")) {
+         
+         //   String filename = new String(req.getParameter("filename").getBytes("8859_1"), "KSC5601");
+            String filename = req.getParameter("filename");
+            System.out.println("filename = " + filename);
+            
+            System.out.println("seq =" + req.getParameter("seq"));
+            
+            // download 회수를 증가
+            String pdsseq = req.getParameter("seq");
+            int seq = Integer.parseInt(pdsseq);
+            
+            PdsDao dao = PdsDao.getInstance();
+            boolean isS = dao.downloadcount(seq);
+            /*if(!isS) {
+                     
+            }*/
+            
+            BufferedOutputStream out = new BufferedOutputStream(resp.getOutputStream());
+            String filePath = "";
+            
+            if(pdsseq != null) {
+               
+               // tomcat
+               //filePath = mConfig.getServletContext().getRealPath("/upload");
 
-					
-					// 개인폴더
-					filePath = "C:\\tmp";			
-				}
-				
-				try {
-				
-					filePath = filePath + "\\" + filename;
-					
-					File f = new File(filePath);
-					System.out.println("filePath:" + filePath);
-					
-					if(f.exists() && f.canRead()) {
-					
-						// 다운 로드 window 설정(다운로드창)
-						resp.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\";");
-						resp.setHeader("Content-Transfer-Encoding", "binary;");
-						resp.setHeader("Content-Length", "" + f.length());
-						resp.setHeader("Pragma", "no-cache;"); 
-						resp.setHeader("Expires", "-1;");
-						
-						// 파일 생성, 기입
-						BufferedInputStream fileInput = new BufferedInputStream(new FileInputStream(f));
-						byte buffer[] = new byte[BUFFER_SIZE];
-						
-						int read = 0;
-						
-						while((read = fileInput.read(buffer)) != -1) {
-							out.write(buffer, 0, read);					
-						}
-						
-						fileInput.close();
-						out.flush();
-					}else {
-						System.out.println("파일이 존재하지 않습니다");
-					}
-				
-				}catch (Exception e) {			
-				}finally {
-					if(out != null) {
-						out.flush();
-						out.close();
-					}
-				}
-				
-				
-		}
-				/*PrintWriter out = resp.getWriter();
-				
-				out.println("<script> location= \'./JSP/Pdsdetail.jsp?seq="+seq+"\';</script>");*/
-		
-		/*resp.sendRedirect("./JSP/Pdsdetail.jsp?seq="+seq);	*/
-		
-	}		
-	
-	
-	
-		
-	public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		RequestDispatcher dispatch = req.getRequestDispatcher(urls);
-		dispatch.forward(req, resp);
-	}
+               
+               // 개인폴더
+               filePath = "C:\\tmp";         
+            }
+            
+            try {
+            
+               filePath = filePath + "\\" + filename;
+               
+               File f = new File(filePath);
+               System.out.println("filePath:" + filePath);
+               
+               if(f.exists() && f.canRead()) {
+               
+                  // 다운 로드 window 설정(다운로드창)
+                  resp.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\";");
+                  resp.setHeader("Content-Transfer-Encoding", "binary;");
+                  resp.setHeader("Content-Length", "" + f.length());
+                  resp.setHeader("Pragma", "no-cache;"); 
+                  resp.setHeader("Expires", "-1;");
+                  
+                  // 파일 생성, 기입
+                  BufferedInputStream fileInput = new BufferedInputStream(new FileInputStream(f));
+                  byte buffer[] = new byte[BUFFER_SIZE];
+                  
+                  int read = 0;
+                  
+                  while((read = fileInput.read(buffer)) != -1) {
+                     out.write(buffer, 0, read);               
+                  }
+                  
+                  fileInput.close();
+                  out.flush();
+               }else {
+                  System.out.println("파일이 존재하지 않습니다");
+               }
+            
+            }catch (Exception e) {         
+            }finally {
+               if(out != null) {
+                  out.flush();
+                  out.close();
+               }
+            }
+            
+            
+      }
+            /*PrintWriter out = resp.getWriter();
+            
+            out.println("<script> location= \'./JSP/Pdsdetail.jsp?seq="+seq+"\';</script>");*/
+      
+      /*resp.sendRedirect("./JSP/Pdsdetail.jsp?seq="+seq);   */
+      
+   }      
+   
+   
+   
+      
+   public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+      RequestDispatcher dispatch = req.getRequestDispatcher(urls);
+      dispatch.forward(req, resp);
+   }
 }
