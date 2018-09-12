@@ -28,7 +28,15 @@ if(loginmember != null){
 %>
 <jsp:include page="Header.jsp"></jsp:include>
 
-<div class="outer-container">
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
+
+
+	<div class="outer-container">
 <h2>상담예약 확인</h2>
 <hr><br>
 
@@ -37,17 +45,17 @@ if(loginmember != null){
 <col width="100"><col width="920">
 <tr>
 <th>신청인</th>
-<td><input type="text" class="input_data" value="<%=dto.getId() %>" readonly></td>
+<td><input style="border: 0;" type="text" class="input_data" value="<%=dto.getId() %>" readonly></td>
 </tr>
 
 <tr>
 <th>예정시간</th>
-<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' readonly></td>
+<td><input style="border: 0;"  type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' readonly></td>
 </tr>
 
 <tr>
 <th>신청시간</th>
-<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate().substring(0, 16 )%>시' readonly></td>
+<td><input style="border: 0;" type="text" class="input_data" name="date" value='<%=dto.getWdate().substring(0, 16 )%>시' readonly></td>
 </tr>
 
 <tr style="border-bottom: 0;">
@@ -60,9 +68,9 @@ if(loginmember != null){
 </table>
 </div>
 <hr>
-<button id="update" type="button" onclick="updatesch()">예약변경</button>
-<button id="delete" type="button" onclick="deletesch()">예약취소</button>
-<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
+<button class="mainbut" id="update" type="button" onclick="updatesch()">예약변경</button>
+<button class="mainbut" id="delete" type="button" onclick="deletesch()">예약취소</button>
+<button class="mainbut" type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
 </div>
 <jsp:include page="Footer.jsp"></jsp:include>
 <script>

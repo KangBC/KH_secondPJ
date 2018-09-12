@@ -19,6 +19,13 @@ String timeori = dto.getRdate().substring(8, 12);
 %>
 <jsp:include page="Header.jsp"></jsp:include>
 
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
+
 <div class="outer-container">
 <h2>상담예약 수정</h2>
 <hr><br>
@@ -30,17 +37,17 @@ String timeori = dto.getRdate().substring(8, 12);
 <col width="100"><col width="920">
 <tr>
 <th>이름</th>
-<td><input type="text" class="input_data" name="title" value='<%=dto.getTitle() %>' readonly></td>
+<td><input style="border: 0; type="text" class="input_data" name="title" value='<%=dto.getTitle() %>' readonly></td>
 </tr>
 
 <tr>
 <th>신청시간</th>
-<td><input type="text" class="input_data" value="<%=dto.getWdate()%>" readonly></td>
+<td><input  style="border: 0; type="text" class="input_data" value="<%=dto.getWdate().substring(0, 16)%>" readonly></td>
 </tr>
 
 <tr>
 <th>예정일자</th>
-<td><input type="date" class="input_data" name="date" value='<%=dateori %>'></td>
+<td><input style="border: 0; type="date" class="input_data" name="date" value='<%=dateori %>'></td>
 </tr>
 
 <tr>
@@ -67,8 +74,8 @@ String timeori = dto.getRdate().substring(8, 12);
 </table>
 </div>
 <hr>
-<input type="submit" value="예약 변경">
-<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
+<input  class="mainbut" type="submit" value="예약 변경">
+<button class="mainbut" type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
 </form>
 
 </div>
