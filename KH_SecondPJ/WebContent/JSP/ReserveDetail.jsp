@@ -37,17 +37,17 @@ if(loginmember != null){
 <col width="100"><col width="920">
 <tr>
 <th>신청인</th>
-<td><input type="text" class="input_data" value="<%=dto.getId() %>" readonly></td>
+<td><input type="text" class="input_data" value="<%=dto.getId() %>" style="border: 0;" readonly></td>
 </tr>
 
 <tr>
 <th>예정시간</th>
-<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' readonly></td>
+<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' style="border: 0;" readonly></td>
 </tr>
 
 <tr>
 <th>신청시간</th>
-<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate().substring(0, 16 )%>시' readonly></td>
+<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate().substring(0, 16 )%>시' style="border: 0;" readonly></td>
 </tr>
 
 <tr style="border-bottom: 0;">

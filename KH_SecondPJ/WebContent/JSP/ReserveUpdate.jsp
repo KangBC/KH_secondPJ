@@ -30,12 +30,12 @@ String timeori = dto.getRdate().substring(8, 12);
 <col width="100"><col width="920">
 <tr>
 <th>이름</th>
-<td><input type="text" class="input_data" name="title" value='<%=dto.getTitle() %>' readonly></td>
+<td><input type="text" class="input_data" name="title" value='<%=dto.getTitle() %>' style="border: 0;" readonly></td>
 </tr>
 
 <tr>
 <th>신청시간</th>
-<td><input type="text" class="input_data" value="<%=dto.getWdate()%>" readonly></td>
+<td><input type="text" class="input_data" value="<%=dto.getWdate().substring(0,16)%>" style="border: 0;" readonly></td>
 </tr>
 
 <tr>
