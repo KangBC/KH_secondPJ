@@ -52,7 +52,7 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 					<tr>
 						<td>일자</td>
 						<td><input type="date" class="input_data" name="date"
-							value='<%=today %>' id="date" style="width: 170px; border: 0;"></td>
+							value='<%=today %>' id="date" style="width: 170px;"></td>
 					</tr>
 
 					<tr>
