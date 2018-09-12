@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
 
 import java.util.*;
 import Dao.ReserveDao;
@@ -21,10 +20,12 @@ import Dto.ReserveDto;
 public class ReserveController extends HttpServlet{
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("doprocess please");
 		doProcess(req, resp);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("doprocess please");
 		doProcess(req, resp);
 	}
 	
@@ -32,18 +33,20 @@ public class ReserveController extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
 		
+		System.out.println("doprocess please");
+		
 		String command = req.getParameter("command");
 		ReserveDao dao = ReserveDao.getInstance();
 		
 		PrintWriter out = resp.getWriter();
-	
 
 		HttpSession session = req.getSession();
 		
 		MemberDto logindto = (MemberDto)session.getAttribute("kh_member");
-		
+
 		
 		if(command.equals("list")) {
+			
 			
 			String month = this.formatTwo(req.getParameter("month"));
 			String year = req.getParameter("year");
@@ -168,7 +171,7 @@ public class ReserveController extends HttpServlet{
 			
 		}else if(command.equals("mylist")) {
 			
-			
+			System.out.println("please work god light");
 			
 			List<ReserveDto> list = dao.mylist(logindto.getId());
 			
@@ -217,14 +220,13 @@ public class ReserveController extends HttpServlet{
 				boolean result1 =dao.checkpossible(datenew);
 				
 				if(result1) {
-					ReserveDto tmp = new ReserveDto(logindto.getId(), titlenew.trim(), contentnew.trim(), datenew.trim());
 					
-					boolean result2 = dao.updateschedule(seq, new ReserveDto("msuh", titlenew, contentnew, datenew));
+					boolean result2 = dao.updateschedule(seq, new ReserveDto(logindto.getId(), titlenew.trim(), contentnew.trim(), datenew.trim()));
 					
 					if(result2) {
 						out.println("<script>alert(\"성공적으로 예약이 변경되었습니다\"); location = '/KH_SecondPJ/JSP/Calendar.jsp';</script>") ;
 					}else {
-						out.println("<script>alert(\"예약 변경중에 문제가 생겼습니다.\"); location = '/KH_SecondPJ/JSP/Calendar.jsp</script>';") ;
+						out.println("<script>alert(\"예약 변경중에 문제가 생겼습니다.\"); location = '/KH_SecondPJ/JSP/Calendar.jsp</script>") ;
 					}
 					
 				}else {

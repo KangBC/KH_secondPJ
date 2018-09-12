@@ -145,21 +145,3 @@ function mylist(){
 <jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>
-
-
-<!-- [
-		    {
-		      title  : 'event1',
-		      start  : '2018-08-10'
-		    },
-		    {
-		      title  : 'event2',
-		      start  : '2018-08-10',
-		      end    : '2018-08-14'
-		    },
-		    {
-		      title  : 'event3',
-		      start  : '2018-09-09T12:30:00',
-		      allDay : false // will make the time show
-		    }
-		  ] -->
