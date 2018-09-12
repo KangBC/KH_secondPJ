@@ -47,7 +47,7 @@ if(loginmember != null){
 
 <tr>
 <th>신청시간</th>
-<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate()%>' readonly></td>
+<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate().substring(0, 16 )%>시' readonly></td>
 </tr>
 
 <tr style="border-bottom: 0;">
