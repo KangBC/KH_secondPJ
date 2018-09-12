@@ -32,7 +32,7 @@
 	<div class="outer-container">
 
 	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
-		<h2 style="font-size: 1.5em; font-weight: 680;">QAwrite</h2>
+		<h2 style="font-size: 1.5em; font-weight: 680;">Q&A write</h2>
 	</div>
 
 		<br>

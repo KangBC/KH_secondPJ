@@ -36,7 +36,10 @@ PdsDto dto =dao.getPDS(pdsid);
 		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
 		<div class="img-cover"></div>
 	</div>
-
+	
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;"> Pdsdetail </h2>
+	</div>
 
 
 <div class="outer-container">

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>QAupdatel</title>
+<title>QAupdate</title>
 
 <link href="<%=request.getContextPath()%>/CSS/Table.css" rel="stylesheet">
 </head>

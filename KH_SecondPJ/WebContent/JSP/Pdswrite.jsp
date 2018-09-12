@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=request.getContextPath()%>/CSS/Table.css" rel="stylesheet">
-<title>Insert title here</title>
+<title>Pdswrite</title>
 </head>
 <body>
 <%
@@ -24,18 +24,26 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 		<div class="img-cover"></div>
 	</div>
 
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;"> Pdswrite </h2>
+	</div>
 
-<div class="outer-container" align="center">
+	<div class="outer-container" align="center">
+
 <form action="Pdsupload.jsp" method="post" enctype="multipart/form-data" >
+
 <input type="hidden" name="command" value="write">
+
 <div class="inner-container">
+
 <table border="0" style="border-collapse: collapse">	
+
 <col width="100"><col width="920">
 
 <tr>
 	<td>아이디</td>
 	<td>
-		<input type="text" class="input_data" name="id" value="<%=dto.getId() %>" readonly="readonly">
+		<input type="text" class="input_data" name="id" value="<%=dto.getId() %>" readonly="readonly" style="padding-left: 2px; border: 0;">
 	</td>
 </tr>
 

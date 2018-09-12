@@ -61,6 +61,10 @@ p{
 	color: black ;
 }
 
+a{
+	color:black;
+}
+
 /* botton 3D 효과ㅣ */
 .button-row {
   display: -webkit-inline-box;
