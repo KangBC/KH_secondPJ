@@ -33,16 +33,16 @@ width: 100%;
 } 
 </style>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/KH_SecondPJ/CSS/w3.css">
 <link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Table.css"/>
 <title>Insert title here</title>
 </head>
 <body>
-<div style="width:1020px; margin: 50px auto 10px; text-align: center;">
+<div style="width:1020px; margin: 50px auto 10px; text-align: center; position:relative">
 
 
-<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="top:50%; left: 16%">&#10094;</button>
-<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="top:50%; right: 16%">&#10095;</button>
+<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="outline:none; font-size: 20px; color: #555555; padding: 271px 20px;">&#10094;</button>
+<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="outline:none; font-size: 20px; color: #555555; padding: 271px 20px;">&#10095;</button>
 
 
 <%

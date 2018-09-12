@@ -7,7 +7,7 @@
 <!-- 동영상 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="../CSS/w3.css">
 <title>Insert title here</title>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -15,6 +15,7 @@
 .slides{
 width: 100%;
 }
+<<<<<<< HEAD
 
       .youtubeWrap {
       	width: 1020px;
@@ -28,6 +29,11 @@ width: 100%;
 		height: 500px;
       }
 
+=======
+/* .w3-button:hover{
+background-color :ccc70!important;
+} */
+>>>>>>> origin/Minseok2
 
 </style>
 </head>
@@ -53,8 +59,8 @@ width: 100%;
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide03.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide04.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide05.jpg">
-<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="font-size: 20px; color: #555555" >&#10094;</button>
-<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="font-size: 20px; color: #555555" >&#10095;</button>
+<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="outline:none; font-size: 20px; color: #555555; padding: 325px 20px;" >&#10094;</button>
+<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="outline:none; font-size: 20px; color: #555555; padding: 325px 20px;" >&#10095;</button>
 </div>
 
 <div style="margin: 30px 0 50px 0;">
