@@ -10,8 +10,12 @@
   
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
 <link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Nav.css"/>
+<link href="<%=request.getContextPath()%>/CSS/mainbutton.css" rel="stylesheet">
+
+<!-- 검색창 밑 backgraund_img.css -->
+<link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
+
 <style type="text/css">
 
 </style>

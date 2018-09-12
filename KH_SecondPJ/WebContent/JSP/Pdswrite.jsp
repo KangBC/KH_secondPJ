@@ -18,6 +18,13 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 %>
 <jsp:include page="../JSP/Header.jsp"></jsp:include>
 
+<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
+
 <div class="outer-container" align="center">
 <form action="Pdsupload.jsp" method="post" enctype="multipart/form-data" >
 <input type="hidden" name="command" value="write">
@@ -55,8 +62,8 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 
 </table>
 </div>
-		<input type="submit" value="올리기">
-		<button type="button" onclick="location= '<%=request.getContextPath() %>/PdsController?command=list'">돌아가기</button>
+		<input  class="mainbut" type="submit" value="올리기">
+		<button  class="mainbut" type="button" onclick="location= '<%=request.getContextPath() %>/PdsController?command=list'">돌아가기</button>
 </form>
 </div>
 

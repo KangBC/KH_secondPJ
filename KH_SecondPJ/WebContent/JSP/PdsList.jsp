@@ -268,24 +268,6 @@
 
 	<!-- Page페이징 글자 표기 view -->
 	<div style="text-align: center;">
-<%-- 		
-		<%
-			String link = "";
-
-			if (searchint == 0) {
-				link = request.getContextPath() + "/QAController?command=list&searchfor=0&pageNum=";
-			} else if (searchint == 1) {
-				link = request.getContextPath() + "/QAController?command=list&searchfor=1&findword=" + searchstr
-						+ "&pageNum=";
-			} else if (searchint == 2) {
-				link = request.getContextPath() + "/QAController?command=list&searchfor=2&findword=" + searchstr
-						+ "&pageNum=";
-			} else if (searchint == 3) {
-				link = request.getContextPath() + "/QAController?command=list&searchfor=3&findword=" + searchstr
-						+ "&pageNum=";
-			}
-		%> 
-		--%>
 		
 			<%
 			String link = "";
@@ -301,22 +283,6 @@
 			class="btn" onclick="location='<%=link%>1'">
 		<c:if test="<%=dotbefore%>">..</c:if>
 
-	<%-- 	<%
-			for (int i = 0; i < 9; i++) {
-				if (arr[i] != 0) {
-					if (arr[i] == curr) {
-		%>
-		<font color="red"><%=arr[i]%></font>
-		<%
-			} else {
-		%>
-		<a href="<%=link%><%=arr[i]%>"> <%=arr[i]%></a>
-		<%
-			}
-				}
-			}
-		%> --%>
-		
 		<%
 			for(int i = 0; i < 5; i++){
 				if(arr[i] != 0){
@@ -345,15 +311,8 @@
 
 	<!-- 검색 -->
 	<script type="text/javascript">
-	/* 	function searchQA() {
-			var sel = document.getElementById("searchbox");
-			var searchfor = sel.options[sel.selectedIndex].value;
-			var msg = document.getElementById("search").value;
-			location.href = "./QAController?command=list&searchfor="+searchfor + "&findword=" + msg ;
-		
-		} */
-		
-	/* 	<!-- 검색 --> */
+
+	<!-- 검색 --> 
 		function srch(){
 			var search = document.getElementById("search");
 			var option = document.getElementById("option");

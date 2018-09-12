@@ -7,10 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;  charset=EUC-KR">
 
-<link href="<%=request.getContextPath()%>/CSS/Table.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/CSS/Table.css" rel="stylesheet">
 
 <title>QAwrite</title>
+
 </head>
 
 <body>
@@ -23,9 +23,18 @@
 
 	<jsp:include page="Header.jsp"></jsp:include>
 
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
 	<div class="outer-container">
 
-		<h2>QAwrite</h2>
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;">QAwrite</h2>
+	</div>
+
 		<br>
 		<form
 			action="<%=request.getContextPath()%>/QAController?command=regist_add"
@@ -62,9 +71,10 @@
 			</div>
 			<div align="center">
 				<tr>
-					<td colspan="2"><input type="submit" value="등록"
-						class="pull-right" /> <input type="button" value="글 목록 "
-						class="pull-right"
+					
+					<td colspan="2"><input type="submit" value="등록" class="mainbut" /> 
+						
+						<input type="button" value="글 목록 " class="mainbut"
 						onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
 					</td>
 				</tr>

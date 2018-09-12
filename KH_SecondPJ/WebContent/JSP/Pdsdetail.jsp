@@ -31,6 +31,14 @@ dao.pdsReadCount(pdsid);
 PdsDto dto =dao.getPDS(pdsid); 
 %>
 <jsp:include page="../JSP/Header.jsp"></jsp:include>
+<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
+
+
 <div class="outer-container">
 <form action="../PdsController?command=detailPds" method="post">
 <div class="inner-container">
@@ -74,12 +82,10 @@ PdsDto dto =dao.getPDS(pdsid);
 <form action="<%=request.getContextPath()%>/PdsController" method="post">
 <input type="hidden" name="command" value="delete">
 <input type="hidden" name="seq" value="<%=dto.getSeq()%>">
-<input id="delete" type="submit" value="삭제">
-<button id="update" type="button" onclick="location.href = '<%=request.getContextPath()%>/JSP/Pdsupdate.jsp?seq=<%=dto.getSeq()%>'" >수정하기</button>
+<input   class="mainbut" id="delete" type="submit" value="삭제">
+<button  class="mainbut" id="update" type="button" onclick="location.href = '<%=request.getContextPath()%>/JSP/Pdsupdate.jsp?seq=<%=dto.getSeq()%>'" >수정하기</button>
 </form>
 
-<!-- <input type="submit" id="update" value="수정하기"
-onclick="javascript:document.location.href='Pdsupdate.jsp?'"> -->
 
 </div>
 

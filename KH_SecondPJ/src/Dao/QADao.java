@@ -632,15 +632,15 @@ public class QADao {
 	public boolean repdelete(int seq, int ref) {
 		
 		//원글 댓글수
-				String sql1 = "UPDATE BBS SET STEP=STEP-1 WHERE SEQ=?";
+				//String sql1 = "UPDATE BBS SET STEP=STEP-1 WHERE SEQ=?";
 				
 				//스텝 원상복귀
-				String sql = " UPDATE REP " + " SET STEP=STEP-1 " + " WHERE REF=?"
-						+ "  		AND STEP> (SELECT STEP FROM REP WHERE SEQ=?) ";
+				/*String sql = " UPDATE REP " + " SET STEP=STEP-1 " + " WHERE REF=?"
+						+ "  		AND STEP> (SELECT STEP FROM REP WHERE SEQ=?) ";*/
 
 
 				// 집어넣는 작업 (INSERT)
-				String sql2 = " DELETE FROM REP WHERE SEQ=? ";
+				String sql2 = " UPDATE REP SET DEL=1 WHERE SEQ=? ";
 				
 				
 				Connection conn = null;
@@ -653,7 +653,7 @@ public class QADao {
 					//seq; id; ref;step;depth;parent;content; wdate;del;
 					conn = DBConnection.makeConnection();
 					
-					psmt = conn.prepareStatement(sql1);
+					/*psmt = conn.prepareStatement(sql2);
 					psmt.setInt(1, ref);
 					psmt.executeQuery();
 					psmt.clearParameters(); // 쿼리문 두개 이상 썼을때 클리어
@@ -663,7 +663,7 @@ public class QADao {
 					psmt.setInt(2, seq);
 					psmt.executeQuery();
 					psmt.clearParameters(); // 쿼리문 두개 이상 썼을때 클리어
-					
+*/					
 					psmt = conn.prepareStatement(sql2);
 					psmt.setInt(1, seq);
 					count = psmt.executeUpdate();

@@ -27,6 +27,18 @@
 %>
 	
 <jsp:include page="../JSP/Header.jsp"></jsp:include>
+
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+	
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;">Q&A Update</h2>
+	</div>
+
+
 <div class="outer-container">
 	<form action="../QAController" method="post">
 		<input type="hidden" name="seq" value="<%=seq%>"> <input type="hidden" name="command" value="QAupdate">
@@ -59,6 +71,7 @@
 					<td><input type="text" placeholder="제목을 입력하세요. " name="title"
 						class="input_data" value="<%=dto.getTitle()%>"></td>
 				</tr>
+			
 				<tr style="border-bottom: 0;">
 					<td style="vertical-align: top; padding-top: 8px;">내용</td>
 						<td style="padding-top: 8px;"><textarea class="input_data"
@@ -70,8 +83,8 @@
 
 			</table>
 		</div>
-		<input type="submit" value="수정하기">
-		<input type="button" value="글 목록 "
+		<input class="mainbut" type="submit" value="수정하기">
+		<input class="mainbut" type="button" value="글 목록 "
 		class="pull-right" onclick="javascript:location.href='<%=request.getContextPath() %>/QAController?command=list&searchfor=0'" />
 	</form>
 </div>

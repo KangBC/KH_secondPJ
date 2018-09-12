@@ -20,6 +20,13 @@ PdsDao dao = PdsDao.getInstance();
 PdsDto dto =dao.getPDS(pdsid);
 %>
 <jsp:include page="../JSP/Header.jsp"></jsp:include>
+
+<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
 <div align="center" style="margin: 80px auto 0;">
 <h2>QA 수정</h2>
 </div>
@@ -57,7 +64,7 @@ PdsDto dto =dao.getPDS(pdsid);
 
 </table>
 </div>
-	<input type="submit" value="수정하기">
+	<input  class="mainbut" type="submit" value="수정하기">
 </form>
 </div>
 <jsp:include page="../JSP/Footer.jsp"></jsp:include>

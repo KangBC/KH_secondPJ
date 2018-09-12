@@ -25,6 +25,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+
+<!--  수정 삭제 글목록 버튼 -->
+<link href="<%=request.getContextPath()%>/CSS/mainbutton.css"
+	rel="stylesheet">
+
+
 <link href="<%=request.getContextPath()%>/CSS/Table.css"
 	rel="stylesheet">
 
@@ -61,9 +67,18 @@
 
 	<jsp:include page="Header.jsp"></jsp:include>
 
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
 	<div class="outer-container">
 
-		<h2>QADetail</h2>
+		<div
+			style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+			<h2 style="font-size: 1.5em; font-weight: 680;">Q&A게시판</h2>
+		</div>
 
 		<br>
 
@@ -110,19 +125,19 @@
 			</table>
 		</div>
 
-		<button onclick="answerTable(this)" value="0">답글달기</button>
+		<button class="mainbut" onclick="answerTable(this)" value="0">답글달기</button>
 
-		<button onclick="Upsubmit()">수정</button>
+		<button class="mainbut" onclick="Upsubmit()">수정</button>
 
-		<button onclick="delsubmit()">삭제</button>
+		<button class="mainbut" onclick="delsubmit()">삭제</button>
 
-		<input type="button" value="글 목록 " class=""
+		<input type="button" value="글 목록 " class="mainbut"
 			onclick="javascript:location.href='<%=request.getContextPath()%>/QAController?command=list&searchfor=0'" />
 
 		<br> <br>
 
 		<div>
-		<!--  작업중 -->
+			<!--  작업중 -->
 			<table class="table table-bordered" style="width: 1020px"
 				align="center" id="replysection">
 				<col width="150px">
@@ -132,29 +147,56 @@
 					if (replysize != 0) {
 						for (int i = 0; i < replysize; i++) {
 							ReplyDto reply = replylist.get(i);
+							if (reply.getDel() == 0) {
 				%>
-<tr><td colspan="3">
-				<div style="text-align: left; border: 1px solid #aaa; padding: 20px; margin: 20px">
-					<!-- 아이디 -->
-					<span
-						style="display: inline-block; font-weight: 700; margin-right: 5px;"><%=reply.getId()%></span>
-					<!-- 날짜 -->
-					<span style="display: inline-block; font-size: 12px; color: #555"><%=reply.getWdate()%></span>
-					<hr
-						style="border: none; border-bottom: 1px solid #aaa; width: 100%;">
-					<p style="margin-top: 10px; word-wrap: break-word;"><%=arrow(reply.getDepth())%><%=reply.getContent()%></p>
+				<tr>
+					<td colspan="3">
+						<div
+							style="text-align: left; border: 1px solid #aaa; padding: 20px; margin: 20px">
+							<!-- 아이디 -->
+							<span
+								style="display: inline-block; font-weight: 700; margin-right: 5px;"><%=reply.getId()%></span>
+							<!-- 날짜 -->
+							<span style="display: inline-block; font-size: 12px; color: #555"><%=reply.getWdate()%></span>
+							<hr
+								style="border: none; border-bottom: 1px solid #aaa; width: 100%;">
+							<p style="margin-top: 10px; word-wrap: break-word;"><%=arrow(reply.getDepth())%><%=reply.getContent()%></p>
 
-					<div style="text-align: right;">
-						<button onclick="changeReply(this)"
-							value="<%=reply.getSeq()%> <%=reply.getId()%>">수정</button>
-						<button onclick="delReply(this)"
-							value="<%=reply.getSeq()%> <%=reply.getId()%>">삭제</button>
-						<button onclick="answerTable(this)" value="<%=reply.getSeq()%>">답글</button>
-					</div>
-				</div>
-</td></tr>
+							<div style="text-align: right;">
+								<button class="mainbut" onclick="changeReply(this)"
+									value="<%=reply.getSeq()%> <%=reply.getId()%>">수정</button>
+								<button class="mainbut" onclick="delReply(this)"
+									value="<%=reply.getSeq()%> <%=reply.getId()%>">삭제</button>
+								<button class="mainbut" onclick="answerTable(this)"
+									value="<%=reply.getSeq()%>">답글</button>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<%
+					} else {
+				%>
+				<tr>
+					<td colspan="3">
+						<div
+							style="text-align: left; border: 1px solid #aaa; padding: 20px; margin: 20px">
+							<!-- 아이디 -->
+							<span
+								style="display: inline-block; font-weight: 700; margin-right: 5px;">-</span>
+							<!-- 날짜 -->
+							<span style="display: inline-block; font-size: 12px; color: #555"><%=reply.getWdate()%></span>
+							<hr
+								style="border: none; border-bottom: 1px solid #aaa; width: 100%;">
+							<p style="margin-top: 10px; word-wrap: break-word;"><%=arrow(reply.getDepth())%>이
+								글은 삭제된 글입니다.
+							</p>
+
+						</div>
+					</td>
+				</tr>
 				<%
 					}
+						}
 					}
 				%>
 
@@ -251,6 +293,7 @@ function answerTable(element){
 					var td3 = document.createElement('td');
 					var btn = document.createElement('button');
 					
+					btn.setAttribute('class', "mainbut");
 					btn.setAttribute('onclick', "makeReply(this)");
 					btn.setAttribute('value', element.value);
 					btn.appendChild(document.createTextNode('reply'))
@@ -288,7 +331,7 @@ function answerTable(element){
 					
 					var td3 = document.createElement('td');
 					var btn = document.createElement('button');
-					
+					btn.setAttribute('class', "mainbut");
 					btn.setAttribute('onclick', "makeReply(this)");
 					btn.setAttribute('value', element.value);
 					btn.appendChild(document.createTextNode('reply'))
@@ -312,7 +355,7 @@ function answerTable(element){
 function delReply(element){
 	if (idcheck) {
 		var arr = element.value.split(" ");
-		//temp: 부모글 arr:자식글
+		//temp: 부모글 arr:자식글???
 		if('<%=temp%>' == arr[1]){
 			var result = confirm("정말 삭제하시겠습니까?");
 			if(result){
