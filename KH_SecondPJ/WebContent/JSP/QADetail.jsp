@@ -34,7 +34,7 @@
 <link href="<%=request.getContextPath()%>/CSS/Table.css"
 	rel="stylesheet">
 
-<title>QAdetail</title>
+<title>QADetail</title>
 
 </head>
 
@@ -77,7 +77,7 @@
 
 		<div
 			style="width: 1020px; margin: 50px auto 30px; text-align: center;">
-			<h2 style="font-size: 1.5em; font-weight: 680;">Q&A게시판</h2>
+			<h2 style="font-size: 1.5em; font-weight: 680;"> Q&A Detail </h2>
 		</div>
 
 		<br>

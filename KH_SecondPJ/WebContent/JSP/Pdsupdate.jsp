@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>KH_Wedding QA 수정</title>
+<title>Pdsupdate</title>
 <link href="<%=request.getContextPath()%>/CSS/Table.css" rel="stylesheet">
 </head>
 <body>
@@ -26,11 +26,10 @@ PdsDto dto =dao.getPDS(pdsid);
 		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
 		<div class="img-cover"></div>
 	</div>
-
-<div align="center" style="margin: 80px auto 0;">
-<h2>QA 수정</h2>
-</div>
-<hr style="width: 100px; border-color: black; margin: 0 auto;">
+	
+	<div style="width: 1020px; margin: 50px auto 30px; text-align: center;">
+		<h2 style="font-size: 1.5em; font-weight: 680;"> Pdsupdate </h2>
+	</div>
 
 <div class="outer-container" style="margin-bottom: 80px;">
 <form action="<%=request.getContextPath() %>/PdsController" method="post">
