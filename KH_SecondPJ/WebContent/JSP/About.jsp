@@ -15,7 +15,6 @@
 .slides{
 width: 100%;
 }
-<<<<<<< HEAD
 
       .youtubeWrap {
       	width: 1020px;
@@ -28,12 +27,6 @@ width: 100%;
         width: 100%;
 		height: 500px;
       }
-
-=======
-/* .w3-button:hover{
-background-color :ccc70!important;
-} */
->>>>>>> origin/Minseok2
 
 </style>
 </head>

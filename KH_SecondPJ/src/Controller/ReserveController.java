@@ -175,10 +175,15 @@ public class ReserveController extends HttpServlet{
 			
 			List<ReserveDto> list = dao.mylist(logindto.getId());
 			
-			req.setAttribute("mylist", list);
 			
-			this.dispatch("/JSP/MyReserve.jsp", req, resp);
+			if(list.size()== 0) {
+				out.println("<script>alert(\"예약된 상담이 존재하지 않습니다.\"); location = '/KH_SecondPJ/JSP/Calendar.jsp';</script>") ;
+			}else {
 			
+				req.setAttribute("mylist", list);
+				
+				this.dispatch("/JSP/MyReserve.jsp", req, resp);
+			}
 			
 			
 			/*if(result) {
