@@ -18,20 +18,22 @@
 	-webkit-border-bottom-left-radius:15px;
 	-moz-border-radius-bottomleft:15px;
 	border-bottom-left-radius:15px;
-	text-indent:0px;
+	text-indent:-5px;
 	border:1px solid #dcdcdc;
 	display:inline-block;
 	color:#777777;
 	font-family:Verdana;
-	font-size:17px;
+	font-size:15px;
 	font-weight:bold;
 	font-style:italic;
 	height:40px;
-	line-height:40px;
+	line-height:20px;
 	width:100px;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:0px 0px 0px #ffffff;
+	border: 1;
+	outline: 0;
 }
 .mainbut:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );

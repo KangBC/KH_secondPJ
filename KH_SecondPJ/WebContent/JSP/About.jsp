@@ -4,8 +4,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<!-- 동영상 -->
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="../CSS/w3.css">
 <title>Insert title here</title>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -14,19 +16,24 @@
 width: 100%;
 }
 
+      .youtubeWrap {
+      	width: 1020px;
+      	height: 500px;
+  		margin: auto;
+        padding-bottom: 550px;
+      }
+      .youtubeWrap iframe {
+      position: relative;
+        width: 100%;
+		height: 500px;
+      }
 
 </style>
 </head>
 <body style="font-family: Noto Sans KR, sans-serif; font-size: 15px;">
+
 <jsp:include page="Header.jsp"></jsp:include>
 
-<!-- 상단 그림 -->
-<%-- <div style="width: 100%; min-width:1020px; height:35%;">
-<img style="width: 100%; min-width:1020px; max-height: 40%;" src="<%=request.getContextPath() %>/img/wedding_top016rr.jpg">
-</div> --%>
-<!--
- /////////////////////////////////////////////////////////////////////////////
- -->
 <div style="width:1020px; margin: 50px auto 10px; text-align: center;">
 <h2>About</h2>
 <hr style="width: 80px; border-color: black; margin: 0 auto;">
@@ -45,8 +52,8 @@ width: 100%;
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide03.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide04.jpg">
 <img class="slides" src="<%=request.getContextPath() %>/img/wedding_slide05.jpg">
-<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="font-size: 20px; color: #555555" >&#10094;</button>
-<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="font-size: 20px; color: #555555" >&#10095;</button>
+<button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="outline:none; font-size: 20px; color: #555555; padding: 325px 20px;" >&#10094;</button>
+<button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="outline:none; font-size: 20px; color: #555555; padding: 325px 20px;" >&#10095;</button>
 </div>
 
 <div style="margin: 30px 0 50px 0;">
@@ -78,8 +85,11 @@ width: 100%;
            </tbody>
 </table>
 </div>
-
 </div>
+
+ <div class="youtubeWrap">
+      <iframe  src="https://www.youtube.com/embed/D4Z2nEdzkdc" frameborder="0" allowfullscreen></iframe>
+    </div>
 
 
 <script type="text/javascript">

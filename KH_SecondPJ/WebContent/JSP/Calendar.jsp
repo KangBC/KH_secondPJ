@@ -109,9 +109,9 @@ $(function() {
 <div id='calendar'></div>
 
 
-<button id="btn" class="btn btn-primary" type="button" onclick="location = '<%=request.getContextPath() %>/JSP/About.jsp'" >돌아가기</button>
-<button id="btn" class="btn btn-primary" onclick="reserve()" type="button" >상담예약</button>
-<button id="btn" class="btn btn-primary" onclick="mylist()" type="button" >내 예약 보기</button>
+<button id="btn" class="mainbut" onclick="location = '<%=request.getContextPath() %>/JSP/About.jsp'" >돌아가기</button>
+<button id="btn" class="mainbut" onclick="reserve()" type="button" >상담예약</button>
+<button id="btn" class="mainbut" onclick="mylist()" type="button" >내 예약 보기</button>
 
 
 <br>
