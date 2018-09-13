@@ -8,7 +8,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../CSS/w3.css">
-<title>Insert title here</title>
+<title>About</title>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
@@ -88,7 +88,7 @@ width: 100%;
 </div>
 
  <div class="youtubeWrap">
-      <iframe  src="https://www.youtube.com/embed/D4Z2nEdzkdc" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/OUB6zKc-Tos" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
 

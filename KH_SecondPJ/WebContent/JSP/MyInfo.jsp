@@ -72,7 +72,7 @@
 		</td>
 	</tr>
 </table>
-<input class="btn" type="submit" value="수정"> 
+<input class="mainbut"  type="submit" value="수정"> 
 <!-- <button class="btn" id="btn">수정</button> -->
 </form>
 </div>

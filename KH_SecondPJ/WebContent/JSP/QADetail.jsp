@@ -111,7 +111,7 @@
 				<tr>
 					<td>제목</td>
 					<td><input type="text" class="input_data" name="title"
-						readonly value="<%=dto.getTitle()%>" style="padding-left: 2px;"></td>
+						readonly value="<%=dto.getTitle()%>" style="padding-left: 2px; border: 0;"></td>
 				</tr>
 
 
@@ -120,7 +120,7 @@
 					<td style="vertical-align: top; padding-top: 8px;">내용</td>
 					<td style="padding-top: 8px;"><textarea class="input_data"
 							id="content" name="content" readonly rows="4" cols="50"
-							style="width: 90%; height: 500px;"> <%=dto.getContent()%> </textarea></td>
+							style="width: 90%; height: 500px; ; outline: none"> <%=dto.getContent()%> </textarea></td>
 				</tr>
 			</table>
 		</div>
@@ -203,7 +203,6 @@
 			</table>
 		</div>
 	</div>
-	<hr>
 
 
 	<script type="text/javascript">

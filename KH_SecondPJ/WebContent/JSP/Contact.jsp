@@ -6,7 +6,7 @@
 <meta name="viewport" content="initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=ko"></script>
-<title>Insert title here</title>
+<title>Contact Us</title>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
@@ -93,6 +93,7 @@ function initialize() {
 </table>
 <hr style=" margin-top:30px; width: 1020px; border-color: #333;">
 </div>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG7qfQ13hOU3VL7GoGMxMtfHaGPHnkM3Q&callback=initialize" async defer></script> -->
 <jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>

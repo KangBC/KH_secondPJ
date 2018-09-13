@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/form.css"> --%>
 <link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Table.css"/>
-<title>Insert title here</title>
+<title>Reserve</title>
 </head>
 <body>
 <%
@@ -73,7 +73,7 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 
 				</table>
 			</div>
-			<hr>
+			
 			<input type="submit"  class="mainbut" value="예약하기">
 			<button type="button" class="mainbut"
 				onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'">일정보기</button>

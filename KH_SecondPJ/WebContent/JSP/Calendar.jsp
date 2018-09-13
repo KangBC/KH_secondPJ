@@ -90,7 +90,7 @@ $(function() {
 </style>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Calendar</title>
 </head>
 <body>
 
