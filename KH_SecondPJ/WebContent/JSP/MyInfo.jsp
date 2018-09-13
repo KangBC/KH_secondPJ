@@ -26,7 +26,7 @@
 		
 	}
 %>
-<div id=myInfoDiv style="margin-top: 10%">
+<div id=myInfoDiv style="margin-top: 6%">
 <form action="/KH_SecondPJ/MemberController" onsubmit="return validityCk()"> 
 <!-- <form action="" id="loginForm"> -->
 	<input type="hidden" name="command" value="updateInfo" >
@@ -72,7 +72,7 @@
 		</td>
 	</tr>
 </table>
-<input class="mainbut"  type="submit" value="수정"> 
+<input class="btn" type="submit" value="수정"> 
 <!-- <button class="btn" id="btn">수정</button> -->
 </form>
 </div>

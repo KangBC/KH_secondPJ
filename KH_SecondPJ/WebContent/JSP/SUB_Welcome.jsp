@@ -7,7 +7,6 @@
 
 <!-- 버튼  -->
 <link href="<%=request.getContextPath() %>/CSS/SUMBut_welcome.css" rel="stylesheet">
-
 <!-- 배경 & 글씨 액션  주석처리 --> 
 <link href="<%=request.getContextPath() %>/CSS/SUMimg_welcome.css" rel="stylesheet">
 
