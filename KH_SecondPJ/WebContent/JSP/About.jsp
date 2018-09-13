@@ -7,7 +7,7 @@
 <!-- 동영상 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../CSS/w3.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/w3.css ">
 <title>About</title>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
