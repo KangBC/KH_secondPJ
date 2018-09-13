@@ -15,7 +15,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<jsp:include page="Header.jsp"></jsp:include>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,19 +34,8 @@
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	crossorigin="anonymous"></script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous"></script>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous"></script>
 
 <!-- 검색창 밑 backgraund_img.css -->
 <link href="<%=request.getContextPath()%>/CSS/QAList.css" rel="stylesheet">
@@ -59,6 +48,7 @@
 
 
 <body>
+<jsp:include page="Header.jsp"></jsp:include>
 	<!-- mamber Session -->
 	<% List<PdsDto> pdslist = (List<PdsDto>)request.getAttribute("pdslist");
 	
@@ -289,13 +279,13 @@
 					if(curr == arr[i]){
 						%>
 						<button class="btns mainbut_page" style="borderStyle: inset; color: pink" disabled="disabled"><%=arr[i]%></button>
-						<%-- <font size="3" color="red"><%=arr[i]%></font> --%>
+
 						<%
 					}else{
 
 					%>
 					<button class="btns mainbut_page" onclick="location='<%=link%><%=arr[i]%>'"><%=arr[i]%></button>
-					<a class="pages" href="<%=link%><%=arr[i]%>" ><%=arr[i]%></a>
+
 					<%
 					}
 				}

@@ -6,10 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Member.css"/>
+<link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Regilion.css"/>
 <title>회원가입</title>
 </head>
 <body>
-<div id=registDiv style="margin-top: 10%">
+
+<!-- 로그인  -->
+<div id=registDiv style="margin-top: 100px; background:  RGBA(255,255,255,0.2); box-shadow:none;"  >
+
 <form action="/KH_SecondPJ/MemberController" id="regist" method="post" onsubmit="return validityCk()">
 	<input type="hidden" name="command" value="regist_submit" >
 	<input class=registTB type="text" id="id" name="id" value="" placeholder="*ID (6~12자의 영어, 숫자)" autocomplete="off" onblur="idCheck()" onfocus="$('#id').css('background-color','#f2f2f2');">

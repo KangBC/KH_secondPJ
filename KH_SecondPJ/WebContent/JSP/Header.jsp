@@ -29,8 +29,6 @@
 	MemberDto member = null;
 	if(memberSession!=null){
 		member = (MemberDto)memberSession.getAttribute("kh_member");
-	}else{
-		
 	}
 %> 
 

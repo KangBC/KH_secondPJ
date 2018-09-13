@@ -22,11 +22,8 @@
 	
 	if(member != null){
 		member = dao.getMember(member.getId());
-	}else{
-		
-	}
-%>
-<div id=myInfoDiv style="margin-top: 6%">
+		%>
+		<div id=myInfoDiv style="margin-top: 6%">
 <form action="/KH_SecondPJ/MemberController" onsubmit="return validityCk()"> 
 <!-- <form action="" id="loginForm"> -->
 	<input type="hidden" name="command" value="updateInfo" >
@@ -120,5 +117,12 @@ function validityCk() {
 	} 
 }
 </script>
+		<%
+	}else{
+		%>
+		<script> alert("로그아웃되어서 내 정보를 볼수 없습니다."); location  = "/KH_SecondPJ/JSP/About.jsp";</script>
+		<%
+	}
+%>
 </body>
 </html>
