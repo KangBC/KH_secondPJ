@@ -20,8 +20,6 @@ if(loginmember != null){
 
 <jsp:include page="Header.jsp"></jsp:include>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,12 +33,19 @@ width: 100%;
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/KH_SecondPJ/CSS/w3.css">
 <link rel="stylesheet" type="text/css" href="/KH_SecondPJ/CSS/Table.css"/>
-<title>Insert title here</title>
+<title>MyReserve</title>
 </head>
 <body>
+
+
+	<!--  최상단 이미지 부분 -->
+	<div class="img">
+		<!-- img_위에 망 덮어씌움  이유 : 이미지가 색이 강력크 .. ㅋㅌ 방지용  -->
+		<div class="img-cover"></div>
+	</div>
+
+
 <div style="width:1020px; margin: 50px auto 10px; text-align: center; position:relative">
-
-
 <button class="w3-button w3-display-left" onclick="plusDivs(-1)" style="outline:none; font-size: 20px; color: #555555; padding: 271px 20px;">&#10094;</button>
 <button class="w3-button w3-display-right" onclick="plusDivs(+1)" style="outline:none; font-size: 20px; color: #555555; padding: 271px 20px;">&#10095;</button>
 
@@ -68,17 +73,17 @@ if(size == 0){
 		<col width="100"><col width="920">
 		<tr>
 		<th>신청인</th>
-		<td><input type="text" class="input_data" value="<%=dto.getId() %>" readonly></td>
+		<td> <input type="text" class="input_data" value="<%=dto.getId() %>" readonly style="border: 0;"></td>
 		</tr>
 		
 		<tr>
 		<th>예정시간</th>
-		<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' readonly></td>
+		<td><input type="text" class="input_data" name="date" value='<%=dateori %> <%=timeori %>시' readonly style="border: 0;"></td>
 		</tr>
 		
 		<tr>
 		<th>신청시간</th>
-		<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate().substring(0, 16 )%>시'  readonly></td>
+		<td><input type="text" class="input_data" name="date" value='<%=dto.getWdate().substring(0, 16 )%>시'  readonly style="border: 0;"></td>
 		</tr>
 		
 		<tr style="border-bottom: 0;">
@@ -91,9 +96,9 @@ if(size == 0){
 		</table>
 		</div>
 		<hr>
-		<button id="update" type="button" onclick="updatesch(<%=dto.getSeq() %>)">예약변경</button>
-		<button id="delete" type="button" onclick="deletesch(<%=dto.getSeq() %>)">예약취소</button>
-		<button type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
+		<button  class="mainbut" id="update" type="button" onclick="updatesch(<%=dto.getSeq() %>)">예약변경</button>
+		<button  class="mainbut" id="delete" type="button" onclick="deletesch(<%=dto.getSeq() %>)">예약취소</button>
+		<button  class="mainbut" type="button" onclick="location='<%=request.getContextPath() %>/JSP/Calendar.jsp'" >일정보기</button>
 		</div>
 		
 		
@@ -102,7 +107,7 @@ if(size == 0){
 	for(int i = 0; i<size;i++){
 
 		%>
-		<button class="btns"  onclick="showDivs2(<%=i%>)"><%=i+1 %></button>
+		<button class="btns mainbut_page"   onclick="showDivs2(<%=i%>)"><%=i+1 %></button>
 		<%
 	}
 	
@@ -147,10 +152,12 @@ function showDivs(n) {
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none"; 
         btns[i].style.borderStyle ="outset";
+        btns[i].style.color ="#777777";
     }
     console.log(slideIndex-1);
     x[slideIndex-1].style.display = "block"; 
     btns[slideIndex-1].style.borderStyle ="inset";
+    btns[slideIndex-1].style.color ="pink";
     
 }
 
@@ -163,11 +170,15 @@ function showDivs2(index) {
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none"; 
         btns[i].style.borderStyle ="outset";
+        btns[i].style.color ="#777777";
     }
     x[index].style.display = "block"; 
     btns[index].style.borderStyle ="inset";
+    btns[index].style.color ="pink";
 }
 </script>
+
+<jsp:include page="Footer.jsp"></jsp:include>
 
 </body>
 </html>

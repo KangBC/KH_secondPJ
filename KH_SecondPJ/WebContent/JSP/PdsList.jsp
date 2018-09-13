@@ -279,7 +279,7 @@
 			%>
 		
 
-		<img id="pageimg" src="./img/Page_left-arrow_1.png" alt="이미지없음"
+		<img id="pageimg"  style="min-width: 40px" src="./img/Page_left-arrow_1.png" alt="이미지없음"
 			class="btn" onclick="location='<%=link%>1'">
 		<c:if test="<%=dotbefore%>">..</c:if>
 
@@ -288,11 +288,13 @@
 				if(arr[i] != 0){
 					if(curr == arr[i]){
 						%>
-						<font size="3" color="red"><%=arr[i]%></font>
+						<button class="btns mainbut_page" style="borderStyle: inset; color: pink" disabled="disabled"><%=arr[i]%></button>
+						<%-- <font size="3" color="red"><%=arr[i]%></font> --%>
 						<%
 					}else{
 
 					%>
+					<button class="btns mainbut_page" onclick="location='<%=link%><%=arr[i]%>'"><%=arr[i]%></button>
 					<a class="pages" href="<%=link%><%=arr[i]%>" ><%=arr[i]%></a>
 					<%
 					}
@@ -301,7 +303,7 @@
 			%>
 
 		<c:if test="<%=dotafter%>">..</c:if>
-		<img id="pageimg" src="./img/Page_Right-arrow_1.png" alt="이미지없음"
+		<img id="pageimg"  style="min-width: 40px" src="./img/Page_Right-arrow_1.png" alt="이미지없음"
 			class="btn" onclick="location='<%=link%><%=pagenums%>'">
 
 
@@ -327,13 +329,9 @@
 			var idcheck = <%=idcheck%>; // 아이디값 불러옴
 			
 			if (idcheck){
-				var result = confirm("자료올리기.");
-				
-				if(result){
+
 					location = "<%=request.getContextPath() %>/JSP/Pdswrite.jsp";
-				}else{
-					return
-				}
+
 			}else{
 				alert('로그인을 해주세요.');
 			    return;

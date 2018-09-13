@@ -51,7 +51,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>QAList</title>
+<title>QA List</title>
 
 </head>
 
@@ -276,7 +276,7 @@
 			}
 		%>
 
-		<img id="pageimg" src="./img/Page_left-arrow_1.png" alt="이미지없음"
+		<img id="pageimg" style="min-width: 40px" src="./img/Page_left-arrow_1.png" alt="이미지없음"
 			class="btn" onclick="location='<%=link%>1'">
 		<c:if test="<%=dotbefore%>">..</c:if>
 
@@ -285,11 +285,13 @@
 				if (pagenumbers[i] != 0) {
 					if (pagenumbers[i] == curr) {
 		%>
-		<font color="red"><%=pagenumbers[i]%></font>
+		<button class="btns mainbut_page" style="borderStyle: inset; color: pink" disabled="disabled"><%=pagenumbers[i]%></button>
+		<%-- <font color="red"><%=pagenumbers[i]%></font> --%>
 		<%
 			} else {
 		%>
-		<a href="<%=link%><%=pagenumbers[i]%>"> <%=pagenumbers[i]%></a>
+		<button class="btns mainbut_page" onclick="location='<%=link%><%=pagenumbers[i]%>'"><%=pagenumbers[i]%></button>
+		<%-- <a href="<%=link%><%=pagenumbers[i]%>"> <%=pagenumbers[i]%></a> --%>
 		<%
 			}
 				}
@@ -297,7 +299,7 @@
 		%>
 
 		<c:if test="<%=dotafter%>">..</c:if>
-		<img id="pageimg" src="./img/Page_Right-arrow_1.png" alt="이미지없음"
+		<img id="pageimg" style="min-width: 40px" src="./img/Page_Right-arrow_1.png" alt="이미지없음"
 			class="btn" onclick="location='<%=link%><%=pagenums%>'">
 
 
@@ -320,13 +322,9 @@
 			var idcheck = <%=idcheck%>; // 아이디값 불러옴
 			
 			if (idcheck){
-				var result = confirm("글쓰기를 작성합니다.");
-				
-				if(result){
+
 					location = "<%=request.getContextPath()%>/JSP/QAwrite.jsp";
-				}else{
-					return
-				}
+
 			}else{
 				alert('로그인을 해주세요.');
 			    return;

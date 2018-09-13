@@ -66,7 +66,7 @@ PdsDto dto =dao.getPDS(pdsid);
 
 <tr>
 	<td>다운로드</td>
-	<td><input type="button" name="btndown" value="파일" style="float: left; margin-left: 10px;" 
+	<td><input type="button" name="btndown" value="<%=dto.getFilename() %>" style="float: left; margin-left: 10px;" 
 	onclick="location='<%=request.getContextPath() %>/PdsController?command=download&filename=<%=dto.getFilename()%>&seq=<%=dto.getSeq()%>'"></td>
 </tr>
 
@@ -74,7 +74,7 @@ PdsDto dto =dao.getPDS(pdsid);
 
 <tr style="border-bottom: 0;">
 	<td style="vertical-align: top; padding-top: 8px;">내용</td>
-	<td><textarea class="input_data" name="content" style="width: 90%; height: 500px" readonly="readonly"><%=dto.getContent() %></textarea></td>
+	<td><textarea class="input_data" name="content" style="width: 90%; height: 500px; outline: none" readonly="readonly"><%=dto.getContent() %></textarea></td>
 </tr>
 
 
