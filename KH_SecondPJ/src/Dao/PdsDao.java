@@ -66,7 +66,7 @@ public class PdsDao {
 	
 	public List<PdsDto> getPdsList(int startnum, int endnum){
 		
-		String sql ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM pds ORDER by seq desc) A ) "
+		String sql ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM pds ORDER by regdate desc) A ) "
                 + " WHERE RNUM >= ? AND RNUM <= ?";
 		
 		

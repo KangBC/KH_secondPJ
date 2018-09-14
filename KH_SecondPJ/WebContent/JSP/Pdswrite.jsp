@@ -64,7 +64,7 @@ MemberDto dto = (MemberDto)session.getAttribute("kh_member");
 <tr style="border-bottom: 0;">
 	<td style="vertical-align: top; padding-top: 8px;">내용</td>
 	<td style="padding-top: 8px;">
-		<textarea class="input_data" name="content" style="width:90%; height: 500px; " placeholder="내용을 입력하세요."></textarea>
+		<textarea class="input_data" name="content" style="width:90%; height: 500px; " placeholder="내용을 입력하세요." required></textarea>
 	</td>
 </tr>
 

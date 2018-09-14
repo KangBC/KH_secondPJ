@@ -358,7 +358,7 @@ function delReply(element){
 		if('<%=temp%>' == arr[1]){
 			var result = confirm("정말 삭제하시겠습니까?");
 			if(result){
-				location = "../QAController?command=repdelete&seq="+arr[0]+"&ref=<%=dto.getRef()%>";
+				location = "../QAController?command=repdelete&seq="+arr[0]+"&ref=<%=dto.getSeq()%>";
 			}else{
 				return
 			}
@@ -385,7 +385,7 @@ function changeReply(element){
 				if(str == null){
 					return
 				}else{
-					location = "../QAController?command=repupdate&seq="+arr[0]+"&content="+str+"&ref=<%=dto.getRef()%>";
+					location = "../QAController?command=repupdate&seq="+arr[0]+"&content="+str+"&ref=<%=dto.getSeq()%>";
 				}
 			}else{
 				return
