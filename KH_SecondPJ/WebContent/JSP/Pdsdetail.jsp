@@ -105,7 +105,7 @@ if(<%=!idcheck %> || '<%=idstr %>' !== '<%=dto.getId()%>'){
 }
 
 function filedown(){
-	if(<%=!idcheck %> || '<%=idstr %>' !== '<%=dto.getId()%>'){
+	if(<%=!idcheck %>){
 		alert("로그인하셔야 다운로드 가능합니다.");
 	}else{
 		location='<%=request.getContextPath() %>/PdsController?command=download&filename=<%=dto.getFilename()%>&seq=<%=dto.getSeq()%>'

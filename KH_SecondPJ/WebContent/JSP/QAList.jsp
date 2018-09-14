@@ -217,13 +217,19 @@
 						//삭제
 						if (QAbbs.getDel() == 0) {
 							Articlenumber++;
+							String content="";
+						if(QAbbs.getContent().length()>=20){
+						content =(QAbbs.getContent()).substring(0,20) + "....."; 
+						}else{
+						content = QAbbs.getContent();
+						}
 			%>
 
 			<tr>
 				<td><%=QAbbs.getRownum()%></td>
 				<td><a style="text-decoration: none;" href="./JSP/QADetail.jsp?seq=<%=QAbbs.getSeq()%>"> <%=QAbbs.getTitle()%> </a> 
 				       re:<%=QAbbs.getStep() %></td>
-				<td><%=QAbbs.getContent()%></td>
+				<td><%=content%></td>
 				<td><%=QAbbs.getId()%></td>
 				<td><%=QAbbs.getWdate()%></td>
 				<td><%=QAbbs.getReadcount()%></td>

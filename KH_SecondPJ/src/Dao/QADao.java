@@ -68,16 +68,16 @@ public class QADao {
 			
 			String sql = "";
 			if(option == 0) {
-				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 ORDER by REF DESC,STEP ASC ) A ) "
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 ORDER by WDATE DESC) A ) "
 		                + " WHERE RNUM >= ? AND RNUM <= ?";
 			}else if(option == 1) {
-				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND ID LIKE ? ORDER by REF DESC,STEP ASC ) A ) "
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND ID LIKE ? ORDER by WDATE DESC ) A ) "
 		                + " WHERE RNUM >= ? AND RNUM <= ? ";
 			}else if(option == 2) {
-				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND TITLE LIKE ? ORDER by REF DESC,STEP ASC ) A ) "
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND TITLE LIKE ? ORDER by WDATE DESC ) A ) "
 		                + " WHERE RNUM >= ? AND RNUM <= ? ";
 			}else if(option == 3) {
-				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND CONTENT LIKE ? ORDER by REF DESC,STEP ASC ) A ) "
+				sql  ="SELECT * FROM (SELECT A.* , ROWNUM RNUM FROM (SELECT * FROM BBS WHERE DEL=0 AND CONTENT LIKE ? ORDER by WDATE DESC ) A ) "
 		                + " WHERE RNUM >= ? AND RNUM <= ?";
 			}
 		      
