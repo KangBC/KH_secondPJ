@@ -17,7 +17,7 @@
 
 <body>
 
-	<h1 id="hom">2조</h1>
+	<h1 id="hom">3조</h1>
 
 	<p>
 		<span id="anim"></span>
@@ -35,7 +35,7 @@ var $ = function(id) {
 	};
 	var inc = 0;
 	var out = 0;
-	var str = 'KH(정보교육원)2조 Project 시작합니다.';
+	var str = 'KH(정보교육원)3조 Project 시작합니다.';
 	var chars = 'ABCDEFG@$%&';
 	var t;
 
@@ -51,7 +51,7 @@ var $ = function(id) {
 	  $('shuffle').innerHTML =
 	    chars[Math.floor(Math.random() * chars.length)];
 	};
-	t = setInterval(anim, 20);
+	t = setInterval(anim, 15);
 	$('anim').innerHTML = '';
 
 	
