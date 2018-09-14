@@ -59,7 +59,7 @@ if(request.getAttribute("login_false") !=null){
 	<input class=loginTB type="text" name="id" placeholder="ID" >
 	<input class=loginTB type="password" name="pw" placeholder="PASSWORD">
 	<input class=btn type="submit" value="Login">
-    <a style="margin-top: 50px;text-align: center; text-align: center; text-decoration: none;"   href="/KH_SecondPJ/JSP/Regi.jsp">회원가입</a>
+    <a style="margin-top: 50px;text-align: center; text-align: center; text-decoration: none; color: black;"   href="/KH_SecondPJ/JSP/Regi.jsp">회원가입</a>
     </form>
 }
    
