@@ -66,8 +66,8 @@ PdsDto dto =dao.getPDS(pdsid);
 
 <tr>
 	<td>다운로드</td>
-	<td><input type="button" name="btndown" value="<%=dto.getFilename() %>" style="float: left; margin-left: 10px;" 
-	onclick="location='<%=request.getContextPath() %>/PdsController?command=download&filename=<%=dto.getFilename()%>&seq=<%=dto.getSeq()%>'"></td>
+	<td><input type="button" id="btndown" name="btndown" value="<%=dto.getFilename() %>" style="float: left; margin-left: 10px;" 
+	onclick="filedown()"></td>
 </tr>
 
 
@@ -96,11 +96,20 @@ PdsDto dto =dao.getPDS(pdsid);
 <script>
 var del = document.getElementById("delete");
 var up = document.getElementById("update");
+var down = document.getElementById("btndown");
 
 
 if(<%=!idcheck %> || '<%=idstr %>' !== '<%=dto.getId()%>'){
 	del.setAttribute("disabled", "disabled");
 	up.setAttribute("disabled", "disabled");
+}
+
+function filedown(){
+	if(<%=!idcheck %> || '<%=idstr %>' !== '<%=dto.getId()%>'){
+		alert("로그인하셔야 다운로드 가능합니다.");
+	}else{
+		location='<%=request.getContextPath() %>/PdsController?command=download&filename=<%=dto.getFilename()%>&seq=<%=dto.getSeq()%>'
+	}
 }
 </script>
 
